@@ -1,0 +1,158 @@
+/* 头部 */
+.header-main {
+    width: 100%;
+    height: auto;
+    background: #181B2A ;
+    min-width: 1200px;
+}
+
+.header-main .top {
+    width: 100%;
+    border-bottom: 1px solid #262A42;
+}
+.header-main .top .top-main {
+    display: flex;
+    justify-content: flex-end;
+    width: 1200px;
+    margin: 0 auto;
+    font-size: 12px;
+    color: #C7CCE6;
+}
+.header-main .top span, .header-main .top a {
+    float: left;
+    line-height: 35px;
+}
+.header-main .top span {
+    margin-left: 5px;
+}
+.header-main .top a {
+    color: #fff;
+}
+.header-main .top a:hover {
+    color: #8d434b;
+}
+.header-main .top i {
+    float: left;
+    margin: 11px 20px 11px 15px;
+    display: inline-block;
+    width: 1px;
+    height: 12px;
+    background: #262A42
+}
+
+.header-main .bottom {
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+    width: 1200px;
+    background: #181B2A;
+    margin: 0 auto;
+}
+.header-main .bottom .nav-main {
+    display: flex;
+}
+/* .header-main .bottom .nav-main li {
+    float: left;
+    margin-left: 60px;
+    margin-top: 38px;
+    display: block;
+    height: 32px;
+    line-height: 32px;
+    font-size: 24px;
+    color: #fff;
+} */
+.header-main .bottom .nav-main span {margin-left: 36px; margin-top: 35px; display: block; float: left; height: 32px; line-height: 32px; font-size: 20px; color: #4E5B85;font-family: PingFangSC-Regular;}
+.header-main .bottom .logo-img {
+    margin-top: 20px;
+    width: 171px;
+    height: 41px;
+    background: url('../images/bttmalllogo.png') no-repeat;
+}
+
+.header-main .nav-end {display: flex;}
+.header-main .bottom .shopCart-logo a {
+    display: block;
+    margin-top: 21px;
+    width: 180px; height: 38px;
+    line-height: 38px;
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+    background: #fff;
+}
+.header-main .bottom .shopCart-logo a span{
+    position: relative;
+    display: inline-block;
+    padding-left: 28px;
+    background: url('../images/Shape.png') 0 center no-repeat;
+}
+.header-main .bottom .shopCart-logo a span em {
+    position: absolute;
+    top: 2px;
+    right: -20px;
+    background: #ae4e54;
+    display: block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 100%;
+    font-size: 12px;
+    color: #fff;
+}
+.header-main .bottom .shopCart-logo a:hover span{
+    background: url(../images/Shape2.png) 0 center no-repeat;
+    color: #b05157;
+}
+.mining-btn {color: #fff; margin-top: 20px; margin-right: 20px; line-height: 38px; font-size: 20px; font-family: PingFangSC-Regular; transition: all 0.3s ease-in; cursor: pointer;}
+.mining-btn:hover {color: #8d434b;}
+.mining-btn span {display: inline-block; width: 33px; height: 17px; margin-left: 5px; background: url('../images/niming-hot.png') no-repeat; animation: jump 1200ms linear infinite alternate both;}
+@keyframes jump {
+
+    from,
+    10% {
+        transform: translateY(0) scale3d(1, 1, 1);
+    }
+
+    30% {
+        transform: translateY(10%) scale3d(1.05, .8, 1);
+    }
+
+    50% {
+        transform: translateY(-50%) scale3d(1, 1.1, 1);
+    }
+
+    65% {
+        transform: translateY(0) scale3d(1, 1, 1);
+    }
+
+    75% {
+        transform: translateY(8%) scale3d(1.08, .84, 1);
+    }
+
+    85% {
+        transform: translateY(6%) scale3d(1.05, .88, 1);
+    }
+
+    90%,
+    to {
+        transform: none;
+    }
+}
+
+/* 尾部 */
+.footerDiv{ width: 100%; height: auto; background: #181B2A;}
+.footer{ padding: 75px 0; height: auto; overflow: hidden;}
+.footer .fooL{ width: 156px; height: auto;}
+.footer .fooL>div {width: 100%; height: 62px; background: url('../images/logo.png') no-repeat; background-size: cover;}
+.footer .fooL p{ margin-top: 2px; text-align: center; font-size: 12px; line-height: 18px; color: #A5A6A9;}
+.footer .fooR{height: auto;}
+.footer .fooR ul{ float: left;}
+.footer .fooR ul li{ width: 180px; float: left; margin-right: 30px;}
+.footer .fooR ul li h2{ height: 32px; line-height: 32px; font-size: 14px; color: #fff;}
+.footer .fooR ul li a{ display: block; height: 30px; line-height: 30px; font-size: 12px; color: #87888e;}
+.footer .fooR ul li a:hover,
+.siftBox a:hover,
+.siftList li a:hover,
+.hotRecom ul li a:hover,
+.optimization ul li h2 a:hover{ color: #AE4E54;}
