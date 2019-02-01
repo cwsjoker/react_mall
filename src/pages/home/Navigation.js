@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import { setSoreId } from '../../store/actionCreators';
 
 import $home_api from '../../fetch/api/home.js'
 

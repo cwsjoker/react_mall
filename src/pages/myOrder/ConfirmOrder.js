@@ -70,34 +70,36 @@ const ConfirmOrder = class ConfirmOrder extends Component {
         const req1 = await $home_api.queryBaseAddress({parentId: 0, type: 1});
         const req2 = await $home_api.queryBaseAddress({parentId: 0, type: 2});
         const req3 = await $home_api.queryBaseAddress({parentId: 0, type: 3});
-        let list = [];
-        req1.data.data.forEach(v => {
-            let obj = {}
-            obj.value = v.id;
-            obj.label = v.name;
-            obj.children = [];
-            req2.data.data.forEach(k => {
-                if (k.parentId === v.id) {
-                    let obj1 = {}
-                    obj1.value= k.id;
-                    obj1.label= k.name;
-                    obj1.children= [];
-                    req3.data.data.forEach(j => {
-                        if (j.parentId === k.id) {
-                            obj1.children.push({
-                                value: j.id,
-                                label: j.name
-                            })
-                        }
-                    })
-                    obj.children.push(obj1)
-                }
+        if (req1 && req2 && req3) {
+            let list = [];
+            req1.data.data.forEach(v => {
+                let obj = {}
+                obj.value = v.id;
+                obj.label = v.name;
+                obj.children = [];
+                req2.data.data.forEach(k => {
+                    if (k.parentId === v.id) {
+                        let obj1 = {}
+                        obj1.value= k.id;
+                        obj1.label= k.name;
+                        obj1.children= [];
+                        req3.data.data.forEach(j => {
+                            if (j.parentId === k.id) {
+                                obj1.children.push({
+                                    value: j.id,
+                                    label: j.name
+                                })
+                            }
+                        })
+                        obj.children.push(obj1)
+                    }
+                })
+                list.push(obj);
             })
-            list.push(obj);
-        })
-        this.setState({
-            options: list
-        });
+            this.setState({
+                options: list
+            });
+        }
     }
     // showAddrModal = () => {
     //     this.setState({
@@ -111,7 +113,7 @@ const ConfirmOrder = class ConfirmOrder extends Component {
     // }
     onChange = (value, options) => {
         // console.log(value);
-        console.log(options);
+        // console.log(options);
         this.setState({
             choose_option: options
         })
@@ -120,7 +122,7 @@ const ConfirmOrder = class ConfirmOrder extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                // console.log('Received values of form: ', values);
                 const { addressName, personName, personPhone} = values;
                 const { choose_option } = this.state;
                 const addr_text = choose_option.reduce((total,item) => {
@@ -217,7 +219,7 @@ const ConfirmOrder = class ConfirmOrder extends Component {
 
         const order_req =  await $home_api.createNewOrder(post_data);
         if (order_req) {
-            console.log(order_req);
+            // console.log(order_req);
             if (order_req) {
                 // 下单成功
                 // 1901291026208074

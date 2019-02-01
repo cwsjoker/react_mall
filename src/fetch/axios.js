@@ -36,6 +36,8 @@ import Cookie from 'js-cookie';
 
 console.log(process.env.NODE_ENV);
 
+console.log(process.env);
+
 axios.defaults.baseURL = 'http://47.52.66.81:8080';
 
 

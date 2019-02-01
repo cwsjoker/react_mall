@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Cookie from 'js-cookie'
 import { getQueryString } from '../utils/operLocation.js'
-import $user_api from '../fetch/api/user'
 import { setLoginState } from '../store/actionCreators'
-
+import Cookie from 'js-cookie'
+import $user_api from '../fetch/api/user'
 import Recommend from './home/Recommend.js'
 import Navigation from './home/Navigation.js'
-// import StoreIndex from './home/StoreIndex.js'
 
 const Home = class Home extends Component {
     constructor() {
@@ -31,8 +29,6 @@ const Home = class Home extends Component {
         });
     }
     render() {
-        // let main = null;
-        // const main = this.props.navStore.storeId === 0 ? <Recommend /> : <StoreIndex />
         return (
             <div className="home-main">
                 <div className="home-main-nav">

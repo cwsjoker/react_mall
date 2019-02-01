@@ -25,6 +25,12 @@ const Layout = class Layout extends Component {
                     Cookie.set('token', Cookie.get('token'), { expires: 1 });
                 }
             });
+        } else {
+            // console.log(this.props);
+            // const { location } = this.props.history;
+            // if (location.pathname === '/confirmOrder') {
+            //     this.props.history.push('/');
+            // }
         }
 
         // 购物车
