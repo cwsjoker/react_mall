@@ -21,7 +21,7 @@ body {
     padding: 28px 0 0;
     background: #fff;
 }
-.home-main-nav h2{ height: 26px; padding: 0 30px; line-height: 26px; font-size: 18px; color: #333;}
+.home-main-nav h2, .store-main-nav h2{ height: 26px; padding: 0 30px; line-height: 26px; font-size: 18px; color: #333;}
 .currencyType{ padding: 24px 0 32px; width: 100%; height: auto;}
 .currencyType li{ width: 100%; height: auto; position: relative;}
 .currencyType li i{ display: none; position: absolute; width: 4px; height: 100%; background: #9B9B9B;}

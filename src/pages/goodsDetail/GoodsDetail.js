@@ -190,7 +190,7 @@ class GoodsDetail extends Component {
             } else {
                 // 加入购物车
                 let list = JSON.parse(localStorage.getItem('shopCartList')) || [];
-                console.log(list);
+                // console.log(list);
                 // 1.商品id不同  2.id相同类型不同  3.id相同类型相同数量叠加
                 let is_goods = false;
                 list.forEach(v => {
@@ -207,7 +207,7 @@ class GoodsDetail extends Component {
                 message.success('商品已成功加入购物车');
             }
         } else {
-            console.log('用户未登录')
+            message.error('用户未登录');
         }
     }
     // 呼叫客服
@@ -247,7 +247,7 @@ class GoodsDetail extends Component {
                 <div className="goodsDetail-main">
                     <div className="goods-info">
                         <div className="goodsImg">
-				            <img src={'http://ltalk-website.oss-cn-hangzhou.aliyuncs.com/' + this.state.goodsInfo_price.smallImageUrl} />
+				            <img src={window.BACK_URL + this.state.goodsInfo_price.smallImageUrl} />
 			            </div>
                         <div className="goodsMain">
                             <h2>{this.state.goodsInfo_goods.name}</h2>

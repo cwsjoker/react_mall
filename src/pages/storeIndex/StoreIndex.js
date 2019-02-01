@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { setSoreId } from '../../store/actionCreators';
 import { getQueryString } from '../../utils/operLocation.js'
 
 import Navigation from '../home/Navigation.js'
@@ -23,7 +22,7 @@ const StoreIndex = class StoreIndex extends Component {
     }
 
     componentDidMount() {
-        console.log(getQueryString(this.props.location.search));
+        // console.log(getQueryString(this.props.location.search));
         if (getQueryString(this.props.location.search).id) {
             this.setState({
                 storeIndex: getQueryString(this.props.location.search).id
@@ -96,7 +95,7 @@ const StoreIndex = class StoreIndex extends Component {
                 <div className="store-main-con">
                     <div className="store-title">
                         <div className="store-title-top cleafix">
-                            <div className="store-title-top-img"><img src={'http://ltalk-website.oss-cn-hangzhou.aliyuncs.com/' + this.state.storeInfo.logoUrl}/></div>
+                            <div className="store-title-top-img"><img src={window.BACK_URL + this.state.storeInfo.logoUrl}/></div>
                             <div className="store-title-top-info">
                                 <a>{this.state.storeInfo.name}</a>
                                 <h3><span>官方自营</span></h3>

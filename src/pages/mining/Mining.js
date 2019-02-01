@@ -92,7 +92,7 @@ const Mining = class Mining extends Component {
                                                             return (
                                                                 <div key={i} className="product-item cleafix">
                                                                     <div style={{float: 'left'}}>
-                                                                        <img src={'http://ltalk-website.oss-cn-hangzhou.aliyuncs.com/' + v.goodImgUrl} alt="" />
+                                                                        <img src={window.BACK_URL + v.goodImgUrl} alt="" />
                                                                     </div>
                                                                     <div style={{float: 'left'}}>
                                                                         <p>{v.produceName + '    ' + v.goodsName}</p>

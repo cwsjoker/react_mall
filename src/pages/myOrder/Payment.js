@@ -124,7 +124,7 @@ const Payment = class Payment extends Component {
         if (show_info) {
             orderInfo_dom = (
                 <div className="checkOrderData">
-                    <div className="checkOrderDataImg fl"><a><img src={'http://ltalk-website.oss-cn-hangzhou.aliyuncs.com/' + orderInfo.img} /></a></div>
+                    <div className="checkOrderDataImg fl"><a><img src={window.BACK_URL + orderInfo.img} /></a></div>
                     <div className="checkOrderDataTxt fl">
                         <p>收货地址：{orderInfo.addr}</p>
                         <p>收货人：{orderInfo.name}</p>

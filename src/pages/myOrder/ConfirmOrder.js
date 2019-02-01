@@ -293,7 +293,7 @@ const ConfirmOrder = class ConfirmOrder extends Component {
                                     this.state.order_list.map((item, index) => {
                                         return (
                                             <div key={index} className="deliverInfor cleafix">
-                                                <div className="deliveImg fl"><a href="javascript:;"><img src={'http://ltalk-website.oss-cn-hangzhou.aliyuncs.com/' + item.goodsImgUrl} /></a></div>
+                                                <div className="deliveImg fl"><a href="javascript:;"><img src={window.BACK_URL + item.goodsImgUrl} /></a></div>
                                                 <div className="deliveText fr">
                                                     <p>
                                                         <a href="javascript:;">{item.goodsIntroduce}</a>

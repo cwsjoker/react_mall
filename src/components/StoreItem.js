@@ -11,7 +11,7 @@ const StoreItem = class StoreItem extends Component {
             <li className="hot-list-item" onClick={this.goto.bind(this, id)}>
                 <div className="hot-list-item-con">
                     <a href="javascript:;">
-                        <img  src={'http://ltalk-website.oss-cn-hangzhou.aliyuncs.com/' + imageUrl}/>
+                        <img  src={window.BACK_URL + imageUrl}/>
                         <h2>{name}</h2>
                         <p>{introduce}</p>
                         <h3>{price + ' ' + symbol}</h3>

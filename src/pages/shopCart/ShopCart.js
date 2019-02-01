@@ -297,7 +297,7 @@ class ShopCart extends Component {
                                                         </div>
                                                         <div>
                                                             <a className="storeCart" href="#">
-                                                                <img src={'http://ltalk-website.oss-cn-hangzhou.aliyuncs.com/' + v.goodsImgUrl} />
+                                                                <img src={window.BACK_URL + v.goodsImgUrl} />
                                                                 <p>{v.goodsIntroduce}</p>
                                                             </a>
                                                         </div>

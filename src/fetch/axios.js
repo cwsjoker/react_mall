@@ -33,7 +33,11 @@ import Cookie from 'js-cookie';
 
 // xhr请求带上seetion
 // axios.defaults.withCredentials = true
+
+console.log(process.env.NODE_ENV);
+
 axios.defaults.baseURL = 'http://47.52.66.81:8080';
+
 
 // const instance = axios.create();
 axios.interceptors.request.use(function (config) {
@@ -61,3 +65,4 @@ export default axios;
 
 global.URLCONFIGJSON = {emulateJson: true, headers: {"Content-Type": "application/json",'X-Request-Uri':'/'}};
 global.URLCONFIGFORMDATA = {emulateJson: true, headers: {"Content-Type": "multipart/form-data",'X-Request-Uri':'/'}};
+global.BACK_URL = 'http://ltalk-website.oss-cn-hangzhou.aliyuncs.com/';

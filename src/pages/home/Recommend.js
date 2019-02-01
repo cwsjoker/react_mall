@@ -45,7 +45,7 @@ class Recommend extends Component {
                                 return (
                                     <li key={item.id} style={(index + 1) % 3 === 0 ? {marginRight: '0px'} : {marginTop: '10px'}} onClick={this.goto.bind(this, item.goodsId)}>
                                         <a href="javascript:;">
-                                            <img src={'http://ltalk-website.oss-cn-hangzhou.aliyuncs.com/' + item.imageUrl} />
+                                            <img src={window.BACK_URL + item.imageUrl} />
                                             <h2>{item.goodsName}  {index}</h2>
                                             <p>{item.inventoryIntroduce}</p>
                                             <h3>{item.price} {item.symbol}</h3>
@@ -70,7 +70,7 @@ class Recommend extends Component {
                                         <div className="hotDiv">
                                             {/* <span v-if="hot.ifShow" class="hotIco">自营</span> */}
                                             <a href="javascript:;">
-                                                <img src={'http://ltalk-website.oss-cn-hangzhou.aliyuncs.com/' + item.imageUrl} />
+                                                <img src={window.BACK_URL + item.imageUrl} />
                                                 <h2>{item.goodsName}</h2>
                                                 <p>{item.inventoryIntroduce}</p>
                                                 <h3>{item.price} {item.symbol}</h3>

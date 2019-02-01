@@ -133,7 +133,7 @@ class MyOrder extends Component {
                                                         return (
                                                             <div key={i} className="orderMain">
                                                                 <div className="orderInfor">
-                                                                    <div className="orderImg"><a href="javascript:;"><img src={"http://ltalk-website.oss-cn-hangzhou.aliyuncs.com/" + goodsItem.goodsImgUrl} /></a></div>
+                                                                    <div className="orderImg"><a href="javascript:;"><img src={window.BACK_URL + goodsItem.goodsImgUrl} /></a></div>
                                                                     <div className="orderTxt">
                                                                         <p>
                                                                             <a>{goodsItem.introduce}</a>
