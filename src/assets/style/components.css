@@ -24,16 +24,17 @@
 }
 .header-main .top span {
     margin-left: 5px;
+    color: #575C7C;
 }
 .header-main .top a {
-    color: #fff;
+    color: #C7CCE6;
 }
 .header-main .top a:hover {
     color: #8d434b;
 }
 .header-main .top i {
     float: left;
-    margin: 11px 20px 11px 15px;
+    margin: 11px 10px 11px 10px;
     display: inline-block;
     width: 1px;
     height: 12px;

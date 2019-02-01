@@ -16,7 +16,7 @@ const Header = class Header extends Component {
             btn = (
                 <div>
                     <span>您好{this.props.loginStore.name}</span>
-                    <a href="#" onClick={this.logout}>退出</a>
+                    <a href="#" onClick={this.logout} style={{marginLeft: '10px'}}>退出</a>
                     <i></i>
                     <a href="./myOrder" >我的订单</a>
                 </div>
@@ -29,7 +29,7 @@ const Header = class Header extends Component {
         } else {
             btn = (
                 <div>
-                    <a href="http://47.52.202.171/login">请登录</a>
+                    <a href="http://47.52.202.171/login" style={{marginRight: '5px'}}>请登录</a>
                     <a href="http://47.52.202.171/register">免费注册</a>
                 </div>
             )

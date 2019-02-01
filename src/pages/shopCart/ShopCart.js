@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux'
 
+import { message } from 'antd';
+
 import { setShopCartNum } from '../../store/actionCreators.js';
+
+import logo_img from '../../assets/images/icon1.png';
 
 class ShopCart extends Component {
     constructor() {
@@ -220,7 +224,7 @@ class ShopCart extends Component {
     // 结算
     settlement(storeName) {
         if (!this.props.loginStore.login) {
-            console.log('账号未登录');
+            message.error('账号未登录');
             return;
         }
 
@@ -229,14 +233,14 @@ class ShopCart extends Component {
             return v.storeName === storeName;
         })
         if (!list.goods_account) {
-            console.log('请至少选择一个商品');
+            message.error('请至少选择一个商品');
             return;
         }
 
         const choose_list = list.list.filter(v => {
             return v.is_choose === true;
         })
-        console.log(choose_list);
+        // console.log(choose_list);
         localStorage.orderList = JSON.stringify(choose_list);
         this.props.history.push('/confirmOrder')
 		// location.href="./settlement.html?type=2";
@@ -279,7 +283,7 @@ class ShopCart extends Component {
                                                 <label className={ item.is_choose ? 'on' : '' }><input type="checkbox" onClick={this.checkAll.bind(this, item)} /></label>
                                             </div>
                                             <div>
-                                                <p><img src="../../assets/images/icon1.png" /><a>{item.storeName}</a><span>自营</span></p>
+                                                <p><img src={logo_img} /><a>{item.storeName}</a><span>自营</span></p>
                                             </div>
                                         </div>
                                         {

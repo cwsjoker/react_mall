@@ -315,10 +315,12 @@ body {
 
 .shipping-addr {border-bottom: 1px solid #EFEFEF;}
 .shipping-addr .addr-list {padding: 16px 30px 0;}
-.shipping-addr .addr-item {display: flex; margin: 10px 0; height: 28px; line-height: 28px; cursor: pointer;}
+.shipping-addr .addr-item {display: flex; justify-content: space-between; margin: 10px 0; height: 28px; line-height: 28px; cursor: pointer;}
 .shipping-addr .addr-item.on {background: #F4F5FA;}
 .shipping-addr .addr-item .addr-item-info span {margin-right: 20px;}
 .shipping-addr .addr-item .addr-item-info .addr-default {background: #A5A6A9; padding: 0 6px; height: 20px; font-size: 12px; color: #fff;}
+.shipping-addr .addr-item .addr-item-btn span { margin-left: 10px; transition: all 0.3s ease-in;}
+.shipping-addr .addr-item .addr-item-btn span:hover {color: #3084C2;}
 
 
 .pay-type {border-bottom: 1px solid #EFEFEF;}

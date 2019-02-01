@@ -90,4 +90,9 @@ export default class home {
     static shopOrderMiningFlow(data) {
         return Fetch.get('/mall/backend/shopMiningOrder/shopOrderMiningFlow', data)
     }
+
+    // 获取省级三级联动的地址
+    static queryBaseAddress(data) {
+        return Fetch.post('/mall/backend/customer/address/queryBaseAddress', data);
+    }
 }

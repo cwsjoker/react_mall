@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import { Modal, Form, Input, Button, Cascader, message } from 'antd';
+// const { Option } = Select;
 
 import $user_api from '../../fetch/api/user';
 import $home_api from '../../fetch/api/home';
@@ -13,10 +15,15 @@ const ConfirmOrder = class ConfirmOrder extends Component {
             goods_total_price: 0,
             symbol: '',
             available: 0,
-            addr_list: []
+            addr_list: [],
+            show_addr_modal: false,
+            modal_title: '新增收货地址',
+            options: [], // 省级三级联动
+            choose_option: [], //选择地址
         }
     }
     async componentDidMount() {
+        this.getAddress();
         const list = JSON.parse(localStorage.getItem('orderList')) || [];
         if (list.length !== 0) {
             list.forEach(item => {
@@ -43,21 +50,119 @@ const ConfirmOrder = class ConfirmOrder extends Component {
                 }
             })
         }
-
-        // 获取收货地址
+        this.getCurrentAddr();
+    }
+    // 获取当前用户的收货地址
+    async getCurrentAddr() {
         const res_addr = await $user_api.queryCustomerAllAddress();
         if (res_addr) {
-            // console.log(res_addr);
             const { data } = res_addr.data;
             data.forEach(v => {
                 v.is_choose = v.isCurrent ? true : false;
             })
-            console.log(data);
             this.setState({
                 addr_list: data
             })
         }
-        
+    }
+    // 获取省级三级联动的数据列表
+    async getAddress() {
+        const req1 = await $home_api.queryBaseAddress({parentId: 0, type: 1});
+        const req2 = await $home_api.queryBaseAddress({parentId: 0, type: 2});
+        const req3 = await $home_api.queryBaseAddress({parentId: 0, type: 3});
+        let list = [];
+        req1.data.data.forEach(v => {
+            let obj = {}
+            obj.value = v.id;
+            obj.label = v.name;
+            obj.children = [];
+            req2.data.data.forEach(k => {
+                if (k.parentId === v.id) {
+                    let obj1 = {}
+                    obj1.value= k.id;
+                    obj1.label= k.name;
+                    obj1.children= [];
+                    req3.data.data.forEach(j => {
+                        if (j.parentId === k.id) {
+                            obj1.children.push({
+                                value: j.id,
+                                label: j.name
+                            })
+                        }
+                    })
+                    obj.children.push(obj1)
+                }
+            })
+            list.push(obj);
+        })
+        this.setState({
+            options: list
+        });
+    }
+    // showAddrModal = () => {
+    //     this.setState({
+    //         show_addr_modal: true
+    //     })
+    // }
+    // handleCancel = () => {
+    //     this.setState({
+    //         show_addr_modal: false
+    //     })
+    // }
+    onChange = (value, options) => {
+        // console.log(value);
+        console.log(options);
+        this.setState({
+            choose_option: options
+        })
+    }
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                console.log('Received values of form: ', values);
+                const { addressName, personName, personPhone} = values;
+                const { choose_option } = this.state;
+                const addr_text = choose_option.reduce((total,item) => {
+                    return total + item.label;
+                }, '')
+                const id = choose_option[choose_option.length - 1]['value'];
+                const creat_addr_req = $user_api.createNewCustomerAddress({
+                    "addressBaseId": id, //住址ID(区级) 
+                    "addressDisplay": addr_text, //省市
+                    "addressName": addressName, //详细住址
+                    "personName": personName, //收货人名
+                    "personPhone": personPhone //收货人手机号
+                })
+                if (creat_addr_req) {
+                    this.setState({
+                        show_addr_modal: false
+                    })
+                    this.getCurrentAddr();
+                    message.success('新增收货人地址成功');
+                }
+            }
+        });
+    }
+    // 设置默认地址
+    async setDefaultAddr(id, e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const req = await $user_api.modifyCustomerAddressDefault({addressId: id});
+        if (req) {
+            message.success('设置默认地址成功');
+            this.getCurrentAddr();
+        }
+    }
+    // 删除地址
+    async deleteAddr(id, e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const req = await $user_api.removeCustomerAddress({addressId: id});
+        if (req) {
+            message.success('删除成功');
+            this.getCurrentAddr();
+        }
     }
     // 选择发货地址
     change_addr(item, e) {
@@ -123,7 +228,19 @@ const ConfirmOrder = class ConfirmOrder extends Component {
         }
     }
     render() {
-        const { goods_count, goods_total_price, symbol, available, addr_list } = this.state
+        const { goods_count, goods_total_price, symbol, available, addr_list, modal_title, show_addr_modal, options } = this.state;
+        const { getFieldDecorator } = this.props.form;
+        // console.log(getFieldDecorator);
+        const formItemLayout = {
+            labelCol: {
+                xs: { span: 24 },
+                sm: { span: 4 },
+            },
+            wrapperCol: {
+                xs: { span: 24 },
+                sm: { span: 20 },
+            },
+        };
         return (
             <div className="confirmOrder-page">
                 <div className="confirmOrder-page-warp">
@@ -136,7 +253,7 @@ const ConfirmOrder = class ConfirmOrder extends Component {
                         <div className="shipping-addr">
                             <div className="shipping-addr-title">
                                 <span>收货人信息</span>
-                                <span className="add-addr">新增收货地址</span>
+                                <span className="add-addr" onClick={() => this.setState({show_addr_modal: true})}>新增收货地址</span>
                             </div>
                             <div className="addr-list">
                                 {
@@ -147,7 +264,14 @@ const ConfirmOrder = class ConfirmOrder extends Component {
                                                     <span>{item.personName}</span><span>{item.addressDisplay + item.addressName}</span><span>{item.personPhone}</span>
                                                     {item.isCurrent ? <span className="addr-default">默认地址</span> : null}
                                                 </div>
-                                                <div className="addr-item-btn"></div>
+                                                {
+                                                    !item.isCurrent ? (
+                                                        <div className="addr-item-btn">
+                                                            <span onClick={this.setDefaultAddr.bind(this, item.id)}>设为默认地址</span>
+                                                            <span onClick={this.deleteAddr.bind(this, item.id)}>删除</span>
+                                                        </div>
+                                                    ) : null
+                                                }
                                             </div>
                                         )
                                     })
@@ -203,9 +327,70 @@ const ConfirmOrder = class ConfirmOrder extends Component {
                     {/* 提交订单 */}
                     <div className="submit-order-btn"><a href="javascript:;" onClick={this.submitOrder.bind(this)}>提交订单</a></div>
                 </div>
+                {/* 收货地址表单弹窗 */}
+                <Modal
+                    title={modal_title}
+                    visible={show_addr_modal}
+                    onCancel={() => this.setState({show_addr_modal: false})}
+                    footer={null}
+                    >
+                    <Form onSubmit={this.handleSubmit}>
+                        <Form.Item
+                            {...formItemLayout}
+                                label="所在地区"
+                            >
+                            {getFieldDecorator('addrId', {
+                                rules: [{
+                                    required: true, message: '请选择地区',
+                                }],
+                            })(
+                                <Cascader options={options}  placeholder="请选择所在地区" onChange={this.onChange} />
+                            )}
+                        </Form.Item>
+                        <Form.Item
+                            {...formItemLayout}
+                            label="收货人"
+                        >
+                            {getFieldDecorator('personName', {
+                                rules: [{
+                                    required: true, message: '请填写收货人',
+                                }],
+                            })(
+                                <Input />
+                            )}
+                        </Form.Item>
+                        <Form.Item
+                            {...formItemLayout}
+                            label="详细地址"
+                        >
+                            {getFieldDecorator('addressName', {
+                                rules: [{
+                                    required: true, message: '请填写详细地址',
+                                }],
+                            })(
+                                <Input />
+                            )}
+                        </Form.Item>
+                        <Form.Item
+                            {...formItemLayout}
+                            label="手机号码"
+                        >
+                            {getFieldDecorator('personPhone', {
+                                rules: [{
+                                    required: true, message: '请填写手机号码',
+                                }],
+                            })(
+                                <Input />
+                            )}
+                        </Form.Item>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit">保存信息</Button>
+                        </Form.Item>
+                    </Form>
+                </Modal>
             </div>
         )
     }
 }
 
-export default withRouter(ConfirmOrder);
+export default Form.create()(withRouter(ConfirmOrder));
