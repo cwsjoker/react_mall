@@ -47,7 +47,7 @@ const Header = class Header extends Component {
                         <a href="./">
                             <div className="logo-img"></div>
                         </a>
-                        <span>商城</span>
+                        <span>{this.props.homeStore.name}</span>
                     </div>
                     <div className="nav-end">
                         {btn_mining}
@@ -65,7 +65,7 @@ const Header = class Header extends Component {
 
 
 function mapStateToProps(state) {
-    return { loginStore: state.login, shopCartStore: state.shopCart }
+    return { loginStore: state.login, shopCartStore: state.shopCart, homeStore: state.home }
 }
 
 export default connect(mapStateToProps)(Header);

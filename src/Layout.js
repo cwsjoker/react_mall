@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { setLoginState, setShopCartNum } from './store/actionCreators'
+import { setLoginState, setShopCartNum, setPageName } from './store/actionCreators'
 
 // 头部
 import Header from './components/Header.js';
@@ -15,7 +15,7 @@ import $user_api from './fetch/api/user'
 
 const Layout = class Layout extends Component {
     componentDidMount() {
-        let { dispatch } = this.props;
+        let { dispatch, location } = this.props;
         // 每次刷新页面验证token
         if (Cookie.get('token')) {
             $user_api.queryUserByToken().then(res => {
@@ -31,6 +31,22 @@ const Layout = class Layout extends Component {
             // if (location.pathname === '/confirmOrder') {
             //     this.props.history.push('/');
             // }
+        }
+
+        // 设置title
+        switch(location.pathname) {
+            case '/shopcart':
+                document.title = '购物车';
+                dispatch(setPageName('购物车'));
+                break;
+            case '/myOrder':
+                document.title = '我的订单';
+                dispatch(setPageName('我的订单'));
+                break;
+            default:
+                document.title = '商城';
+                dispatch(setPageName('商城'));
+                break;       
         }
 
         // 购物车
