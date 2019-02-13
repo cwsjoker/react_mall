@@ -1,28 +1,22 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router'
+import React from 'react';
 
-const StoreItem = class StoreItem extends Component {
-    goto(id) {
-        this.props.history.push('/goodsDetail?goodsId='+id)
-    }
-    render() {
-        const { id, imageUrl, name, introduce, price, symbol } = this.props.data;
-        return (
-            <li className="hot-list-item" onClick={this.goto.bind(this, id)}>
+export default function StoreItem(props) {
+    const { id, imageUrl, name, introduce, price, symbol } = props.data;
+    return (
+        <li className="hot-list-item">
+            <a href={'/goodsDetail?goodsId=' + id}>
                 <div className="hot-list-item-con">
-                    <a href="javascript:;">
+                    <div>
                         <img  src={window.BACK_URL + imageUrl}/>
                         <h2>{name}</h2>
                         <p>{introduce}</p>
                         <h3>{price + ' ' + symbol}</h3>
-                    </a>
+                    </div>
                     <div className="hot-list-item-btn">
-                        <a href="javascript:;">立即购买</a>
+                        <div href="javascript:;">立即购买</div>
                     </div>
                 </div>
-            </li>
-        )
-    }
-}
-
-export default withRouter(StoreItem);
+            </a>
+        </li>
+    )
+};

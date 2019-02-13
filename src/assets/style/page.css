@@ -73,12 +73,12 @@ body {
 .recommend-main .recommend-hot ul li .hotDiv .hotIco{ position: absolute; left: 0; top: 16px; display: block; width: 34px; height: 18px; background: #589065; font-size: 12px; color: #fff; text-align: center; line-height: 18px;}
 .recommend-main .recommend-hot ul li a{ color: #494949; display: block;}
 .recommend-main .recommend-hot ul li img{ display: block; width: 110px; height: 110px; margin: 0 auto;}
-.recommend-main .recommend-hot ul li h2{ margin-top: 20px; height: 18px; width: 160px; padding: 0 25px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; line-height: 18px; font-size: 12px;}
-.recommend-main .recommend-hot ul li p{ width: 160px; padding: 0 25px; height: 36px; overflow: hidden; line-height: 18px; font-size: 12px; color: #a3a3a3;}
-.recommend-main .recommend-hot ul li h3{ width: 160px; padding: 0 25px; height: 22px; line-height: 22px; font-size: 18px; color: #ae4e54;}
+.recommend-main .recommend-hot ul li h2{ margin: 20px auto 0; height: 18px; width: 160px; padding: 0 25px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; line-height: 18px; font-size: 12px;}
+.recommend-main .recommend-hot ul li p{ margin: 0 auto; width: 160px; padding: 0 25px; height: 36px; overflow: hidden; line-height: 18px; font-size: 12px; color: #a3a3a3;}
+.recommend-main .recommend-hot ul li h3{ margin: 0 auto; width: 160px; padding: 0 25px; height: 22px; line-height: 22px; font-size: 18px; color: #ae4e54;}
 .recommend-main .recommend-hot ul li .btnDiv{ width: 146px; height: auto; overflow: hidden; margin: 0 auto; padding: 20px 0 0;}
-.recommend-main .recommend-hot ul li .btnDiv a{width: 66px; height: 22px; background: #EFEFEF; margin: 0 auto; border: 1px solid #EFEFEF; font-size: 12px; color: #333; text-align: center; line-height: 22px;}
-.recommend-main .recommend-hot ul li .btnDiv a:hover{ border: 1px solid #AE4E54; background: #AE4E54; color: #fff !important;}
+.recommend-main .recommend-hot ul li .btnDiv div{width: 66px; height: 22px; background: #EFEFEF; margin: 0 auto; border: 1px solid #EFEFEF; font-size: 12px; color: #333; text-align: center; line-height: 22px;}
+.recommend-main .recommend-hot ul li .btnDiv div:hover{ border: 1px solid #AE4E54; background: #AE4E54; color: #fff !important;}
 
 
 /* 店铺页面 */
@@ -551,11 +551,11 @@ body {
 .hot-list-item .hot-list-item-con { text-align: center; position: relative; padding: 30px 0; border: 1px solid #fff; -moz-transition: all 0.3s ease-in; -webkit-transition: all 0.3s ease-in; -o-transition: all 0.3s ease-in; transition: all 0.3s ease-in;}
 .hot-list-item .hot-list-item-con:hover{border: 1px solid #f0f0f0;box-shadow: 0 0 8px #f0f0f0; }
 /* .hot-list-item .hot-list-item-con .hotIco{ position: absolute; left: 0; top: 16px; display: block; width: 34px; height: 18px; background: #589065; font-size: 12px; color: #fff; text-align: center; line-height: 18px;} */
-.hot-list-item a{ color: #494949; display: block;}
+.hot-list-item div{ color: #494949; display: block;}
 .hot-list-item img{ display: block; width: 110px; height: 110px; margin: 0 auto;}
-.hot-list-item h2{ margin-top: 20px; height: 18px; width: 160px; padding: 0 25px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; line-height: 18px; font-size: 12px;}
-.hot-list-item p{ width: 160px; padding: 0 25px; height: 36px; overflow: hidden; line-height: 18px; font-size: 12px; color: #a3a3a3;}
-.hot-list-item h3{ width: 160px; padding: 0 25px; height: 22px; line-height: 22px; font-size: 18px; color: #ae4e54;}
+.hot-list-item h2{ margin: 20px auto 0; height: 18px; width: 160px; padding: 0 25px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; line-height: 18px; font-size: 12px;}
+.hot-list-item p{ margin: 0 auto; width: 160px; padding: 0 25px; height: 36px; overflow: hidden; line-height: 18px; font-size: 12px; color: #a3a3a3;}
+.hot-list-item h3{ margin: 0 auto; width: 160px; padding: 0 25px; height: 22px; line-height: 22px; font-size: 18px; color: #ae4e54;}
 .hot-list-item .hot-list-item-btn{ width: 146px; height: auto; overflow: hidden; margin: 0 auto; padding: 20px 0 0;}
-.hot-list-item .hot-list-item-btn a{width: 66px; height: 22px; background: #EFEFEF; margin: 0 auto; border: 1px solid #EFEFEF; font-size: 12px; color: #333; text-align: center; line-height: 22px;}
-.hot-list-item .hot-list-item-btn a:hover{ border: 1px solid #AE4E54; background: #AE4E54; color: #fff !important;}
+.hot-list-item .hot-list-item-btn div{width: 66px; height: 22px; background: #EFEFEF; margin: 0 auto; border: 1px solid #EFEFEF; font-size: 12px; color: #333; text-align: center; line-height: 22px;}
+.hot-list-item .hot-list-item-btn div:hover{ border: 1px solid #AE4E54; background: #AE4E54; color: #fff !important;}

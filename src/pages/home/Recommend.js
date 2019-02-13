@@ -69,14 +69,14 @@ class Recommend extends Component {
                                     <li key={item.id} onClick={this.goto.bind(this, item.goodsId)}>
                                         <div className="hotDiv">
                                             {/* <span v-if="hot.ifShow" class="hotIco">自营</span> */}
-                                            <a href="javascript:;">
+                                            <div href="javascript:;">
                                                 <img src={window.BACK_URL + item.imageUrl} />
                                                 <h2>{item.goodsName}</h2>
                                                 <p>{item.inventoryIntroduce}</p>
                                                 <h3>{item.price} {item.symbol}</h3>
-                                            </a>
+                                            </div>
                                             <div className="btnDiv">
-                                                <a href="javascript:;">立即购买</a>
+                                                <div href="javascript:;">立即购买</div>
                                             </div>
                                         </div>
                                     </li>
