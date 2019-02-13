@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
-import { message } from 'antd';
-
+import OrderItem from '../../components/OrderItem.js';
 import $home_api from '../../fetch/api/home';
 
 class MyOrder extends Component {
@@ -16,9 +14,18 @@ class MyOrder extends Component {
         }
     }
     async componentDidMount() {
-        // 查询全部订单和待付款和待发货的数量
         this.getOrderList()
-        const statusCount_req = await $home_api.queryOrderCountStatus();
+    }
+    // 查询全部订单和待付款和待发货的数量, 查询订单列表
+    getOrderList = async () => {
+        const { search_key, order_status } = this.state;
+        const query_obj = {
+            "pageNo": 1,
+            "pageSize": 50,
+            "search": search_key,
+            "status": order_status
+        }
+        const [statusCount_req, order_req] = await Promise.all([$home_api.queryOrderCountStatus(), $home_api.queryAllOrderByUserId(query_obj)]);
         if (statusCount_req) {
             const { pendingDelivery, pendingPaymentCount } = statusCount_req.data.data;
             this.setState({
@@ -26,17 +33,7 @@ class MyOrder extends Component {
                 pendingPaymentCount: pendingPaymentCount
             })
         }
-    }
-    // 获取各个状态的订单
-    async getOrderList() {
-        const order_req = await $home_api.queryAllOrderByUserId({
-            "pageNo": 1,
-            "pageSize": 50,
-            "search": this.state.search_key,
-            "status": this.state.order_status
-        });
         if (order_req) {
-            // console.log(order_req);
             const { list } = order_req.data.data;
             this.setState({
                 order_list: list
@@ -44,14 +41,14 @@ class MyOrder extends Component {
         }
     }
     // 搜索订单关键字
-    changeSearchKey(e) {
+    changeSearchKey = (e) => {
         e.preventDefault();
         this.setState({
             search_key: e.target.value
         })
     }
     // 选择不同的订单
-    changeOrderType(type) {
+    changeOrderType = (type) => {
         if (this.state.order_status === type) return;
         this.setState({
             search_key: '',
@@ -59,27 +56,6 @@ class MyOrder extends Component {
         }, () => {
             this.getOrderList();
         })
-    }
-    // 订单付款
-    gotoPayment(id) {
-        this.props.history.push('/payment?orderId=' + id);
-    }
-    gotoOrderDetail(id) {
-        this.props.history.push('/orderDetail?orderId=' + id);
-    }
-    // 取消订单
-    async cancelOrder(id) {
-        const obj_req = await $home_api.cancelOrderById({orderNumber: id});
-        if (obj_req) {
-            this.getOrderList();
-        }
-    }
-    // 删除订单
-    async deleteOrder(id) {
-        const obj_req = await $home_api.removeOrderById({orderNumber: id});
-        if (obj_req) {
-            this.getOrderList();
-        }
     }
     render() {
         const { order_list, order_status, pendingPaymentCount, pendingDelivery, search_key } = this.state;
@@ -91,23 +67,24 @@ class MyOrder extends Component {
                         <h2>我的订单</h2>
                     </div>
                     <div className="myOrder-page-con">
+                        {/* -1 全部订单， 0 待付款， 1 待发货， 9 已成交， 10已取消 */}
                         <div className="orderTab">
-                            <a href="javascript:;"  className={order_status === -1 ? 'on' : ''} onClick={this.changeOrderType.bind(this, -1)}>全部订单</a>
-                            <a href="javascript:;" className={order_status === 0 ? 'on' : ''} onClick={this.changeOrderType.bind(this, 0)}>待付款
+                            <a href="javascript:;"  className={order_status === -1 ? 'on' : ''} onClick={() => this.changeOrderType(-1)}>全部订单</a>
+                            <a href="javascript:;" className={order_status === 0 ? 'on' : ''} onClick={() => this.changeOrderType(0)}>待付款
                                 {
                                     pendingPaymentCount !== 0 ? <em className="angleDom">{pendingPaymentCount}</em> : null
                                 }
                             </a>
-                            <a  href="javascript:;" className={order_status === 1 ? 'on' : ''} onClick={this.changeOrderType.bind(this, 1)}>待发货
+                            <a  href="javascript:;" className={order_status === 1 ? 'on' : ''} onClick={() => this.changeOrderType(1)}>待发货
                                 {
                                     pendingDelivery !== 0 ? <em className="angleDom">{pendingDelivery}</em> : null
                                 }
                             </a>
-                            <a href="javascript:;" className={order_status === 9 ? 'on' : ''} onClick={this.changeOrderType.bind(this, 9)}>已成交</a>
-                            <a href="javascript:;" className={order_status === 10 ? 'on' : ''} onClick={this.changeOrderType.bind(this, 10)}>已取消</a>
+                            <a href="javascript:;" className={order_status === 9 ? 'on' : ''} onClick={() => this.changeOrderType(9)}>已成交</a>
+                            <a href="javascript:;" className={order_status === 10 ? 'on' : ''} onClick={() => this.changeOrderType(10)}>已取消</a>
                             <div className="search">
-                                <input className="seaTxt" type="text" placeholder="订单号" value={search_key} onChange={this.changeSearchKey.bind(this)}/>
-                                <input className="seaBut" type="button" onClick={this.getOrderList.bind(this)} />
+                                <input className="seaTxt" type="text" placeholder="订单号" value={search_key} onChange={this.changeSearchKey}/>
+                                <input className="seaBut" type="button" onClick={this.getOrderList} />
                             </div>
                         </div>
                         <div className="orderList">
@@ -120,77 +97,11 @@ class MyOrder extends Component {
                                 <span className="ico6">操作</span>
                             </div>
                             <div className="orderListOne">
+                                {/* 订单列表 */}
                                 {
                                     order_list.map((item, index) => {
                                         return (
-                                            <li key={index}>
-                                                <div className="orderId">
-                                                    <span>{item.orderTime}</span>
-                                                    <em>订单编号：{item.orderNumber}</em>
-                                                </div>
-                                                {
-                                                    item.orderItemList.map((goodsItem, i) => {
-                                                        return (
-                                                            <div key={i} className="orderMain">
-                                                                <div className="orderInfor">
-                                                                    <div className="orderImg"><a href="javascript:;"><img src={window.BACK_URL + goodsItem.goodsImgUrl} /></a></div>
-                                                                    <div className="orderTxt">
-                                                                        <p>
-                                                                            <a>{goodsItem.introduce}</a>
-                                                                            <span>{goodsItem.price + ' ' + goodsItem.symbol + 'x' + goodsItem.count}</span>
-                                                                        </p>
-                                                                        <h6>备注：{goodsItem.note}</h6>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="orderConsi"><span>{item.receiverName}</span></div>
-                                                                {/* 第一条item显示付款信息 */}
-                                                                {
-                                                                    i === 0 ? (
-                                                                        <div>
-                                                                            <div className="orderMoney">
-                                                                                <h6>总额 {item.price + ' ' + goodsItem.symbol}</h6>
-                                                                                <p>应付<br />{item.price + ' ' + goodsItem.symbol}</p>
-                                                                                <h5>货币支付</h5>
-                                                                            </div>
-                                                                            {/* 订单状态 */}
-                                                                            <div className="orderState">
-                                                                                {
-                                                                                    item.orderStatus === 0 ? <span>待付款</span> : null
-                                                                                }
-                                                                                {
-                                                                                    item.orderStatus === 1 ? <span>待发货</span> : null
-                                                                                }
-                                                                                {
-                                                                                    item.orderStatus === 9 ? <span>已成交</span> : null
-                                                                                }
-                                                                                {
-                                                                                    item.orderStatus === 10 ? <span>已取消</span> : null
-                                                                                }
-                                                                                <a href="javascript:;" onClick={this.gotoOrderDetail.bind(this, item.orderNumber)}>订单详情</a>
-                                                                            </div>
-                                                                            {/* 根据订单状态显示操作按钮 */}
-                                                                            <div className="orderHandle">
-                                                                                {
-                                                                                    item.orderStatus === 0 ? <a href="javascript:;" onClick={this.gotoPayment.bind(this, item.orderNumber)}>付款</a> : null
-                                                                                }
-                                                                                {
-                                                                                    item.orderStatus === 1 ? <span className="cancelOrder" onClick={() => message.success('提醒成功')}>提醒发货</span> : null 
-                                                                                }
-                                                                                {
-                                                                                    item.orderStatus === 0 ? <span className="cancelOrder" onClick={this.cancelOrder.bind(this, item.orderNumber)}>取消订单</span> : null
-                                                                                }
-                                                                                {
-                                                                                    item.orderStatus === 0 || item.orderStatus === 10 ? <span className="deleteOrder" onClick={this.deleteOrder.bind(this, item.orderNumber)}>删除</span> : null
-                                                                                }
-                                                                            </div>
-                                                                        </div>
-                                                                    ) : null
-                                                                }
-                                                            </div>
-                                                        )
-                                                    })
-                                                }
-                                            </li>
+                                            <OrderItem key={index} {...item} getOrderList={this.getOrderList} />
                                         )
                                     })
                                 }
@@ -203,4 +114,4 @@ class MyOrder extends Component {
     }
 }
 
-export default withRouter(MyOrder);
+export default MyOrder;
