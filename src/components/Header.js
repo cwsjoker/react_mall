@@ -39,6 +39,7 @@ const Header = class Header extends Component {
             <div className="header-main">
                 <div className="top">
                     <div className="top-main">
+                        <a href="https://bttmall.com/" className="top-left">{`<< 交易所`}</a>
                         {btn}
                     </div>
                 </div>

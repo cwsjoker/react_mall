@@ -12,11 +12,20 @@
 }
 .header-main .top .top-main {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     width: 1200px;
     margin: 0 auto;
     font-size: 12px;
     color: #C7CCE6;
+}
+.header-main .top .top-main .top-left {
+    color: #4E5B85;
+    line-height: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+}
+.header-main .top .top-main .top-left:hover {
+    color: #8d434b;
 }
 .header-main .top span, .header-main .top a {
     float: left;
