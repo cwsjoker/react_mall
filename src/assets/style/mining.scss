@@ -1,0 +1,270 @@
+.mining-page {
+    // 尾部
+    .footerDiv {
+        min-width: 1200px;
+        background: #341915
+    }
+    // 头部
+    .header-mining {
+        min-width: 1200px;
+        width: 100%;
+        height: 80px;
+        background: #341915;
+        .header-mining-main {
+            display: flex;
+            width: 1200px;
+            height: 80px;
+            margin: 0 auto;
+            >a div {
+                width: 131px;
+                height: 80px;
+                background: url(../images/mining-logo.png) no-repeat 0 20px;
+                cursor: pointer;
+            }
+            >div {
+                margin-left: 60px;
+                color: #fff;
+                line-height: 90px;
+                font-size: 24px;
+            }
+        }
+    }
+    // 内容
+    .mining-main {
+        min-width: 1200px;
+        width: 100%;
+        min-height: 800px;
+        background: url(../images/background-image-mining.jpg) no-repeat #9E4C1E;
+        background-size: cover;
+        >div {
+            position: relative;
+            overflow: hidden;
+            width: 1200px;
+            margin: 0  auto;
+            padding-top: 700px;
+            padding-bottom: 100px;
+            .mining-active-time {
+                position: absolute;
+                top: 261px;
+                right: -140px;
+                width: 637px;
+                height: 439px;
+                background: url('../images/mining-active-time.png') no-repeat;
+            }
+            // 列表
+            .table-one {
+                width: 1200px;
+                padding-bottom: 10px;
+                background: #834416;
+                border: 1px solid #512C26;
+                border-radius: 10px;
+                margin-bottom: 20px;
+                box-sizing: border-box;
+                .table-one-con {
+                    width: 1180px;
+                    margin-left: 10px;
+                    margin-top: 10px;
+                    border-radius: 10px;
+                    .table-title {
+                        width: 100%;
+                        height: 40px;
+                        line-height: 40px;
+                        background: #512C26;
+                        color: #fff;
+                        border-bottom:1px solid rgba(54, 28, 24, 1);
+                        box-shadow:0px 3px 8px 0px rgba(19,9,8,0.1);
+                        border-radius:10px 10px 0px 0px;
+                        >div {
+                            float: left;
+                            width: 182px;
+                            text-align: center;
+                            &:nth-child(1) {
+                                width: 443px;
+                                text-align: left;
+                                span {
+                                    margin-left: 20px;
+                                }
+                            }
+                        }
+                    }
+                    // 订单列表
+                    .table-body {
+                        display: flex;
+                        background: #341915;
+                        color: #fff;
+                        .product-list {
+                            width: 443px;
+                            .product-item {
+                                padding: 20px 30px;
+                                box-sizing: border-box;
+                                >div:nth-child(1) {
+                                    float: left;
+                                    img {
+                                        width: 60px;
+                                        height: 60px;
+                                        border: 1px solid #90572E;
+                                        border-radius:5px;
+                                    }
+                                }
+                                >div:nth-child(2) {
+                                    float: left;
+                                    margin-left: 36px;
+                                    p {
+                                        margin-top: 10px;
+                                    }
+                                }
+                            }
+                        }
+                        .product-number {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: 182px;
+                            >div {
+                                >p:nth-child(1) {
+                                    font-size: 14px;
+                                    font-weight: 700;
+                                    text-align: center;
+                                }
+                                >p:nth-child(2) {
+                                    color: #8F3E10;
+                                    text-align: center;
+                                }
+                            }
+
+                        }
+                        >div:nth-child(2), >div:nth-child(4) {
+                            background: #512C26;
+                        }
+                    }
+                    // 流水列表
+                    .table-list {
+                        border-top: 1px solid #834416;
+                        .list-title {
+                            display: flex;
+                            background: #361C18;
+                            height: 40px;
+                            color: #fff;
+                            >div {
+                                text-align: center;
+                                line-height: 40px;
+                                &:nth-child(1) {
+                                    width: 443px;
+                                }
+                                &:nth-child(2) {
+                                    width: 500px;
+                                }
+                                &:nth-child(3) {
+                                    width: 257px;
+                                }
+                            }
+                        }
+                        .list-body {
+                            .list-body-item {
+                                display: flex;
+                                width: 100%;
+                                height: 40px;
+                                background: #512C26;
+                                color: #fff;
+                                border-bottom: 1px solid #3D1F1A;
+                                &:last-child {
+                                    border-bottom: none;
+                                }
+                                >div {
+                                    text-align: center;
+                                    line-height: 40px;
+                                    &:nth-child(1) {
+                                        width: 443px;
+                                    }
+                                    &:nth-child(2) {
+                                        width: 500px;
+                                    }
+                                    &:nth-child(3) {
+                                        width: 257px;
+                                    }
+                                }
+                            }
+                            .list-body-nodata {
+                                text-align: center;
+                                color: #fff;
+                                line-height: 80px;
+                                background: #512C26;
+                            }
+                        }
+                    }
+                }
+                // 按钮
+                .table-btn {
+                    width: 1180px;
+                    margin-left: 10px;
+                    >div {
+                        width: 100%;
+                        height: 20px;
+                        cursor: pointer;
+                    }
+                    .btn-down {
+                        background: url('../images/down.png') no-repeat 590px 5px;
+                    }
+                    .btn-up {
+                        background: url('../images/up.png') no-repeat 590px 5px;
+                    }
+                }
+            }
+            // 暂无订单
+            .table-two {
+                width: 1200px;
+                padding-bottom: 10px;
+                background: #834416;
+                border: 1px solid #512C26;
+                border-radius: 10px;
+                >div {
+                    width: 1180px;
+                    margin-left: 10px;
+                    margin-top: 10px;
+                    border: 1px solid #361C18;
+                    border-radius: 10px;
+                    >div:nth-child(1) {
+                        width: 100%;
+                        height: 40px;
+                        line-height: 40px;
+                        background: #512C26;
+                        color: #fff;
+                        border-bottom:1px solid rgba(54, 28, 24, 1);
+                        box-shadow:0px 3px 8px 0px rgba(19,9,8,0.1);
+                        border-radius:10px 10px 0px 0px;
+                    }
+                    >div:nth-child(2) {
+                        display: flex;
+                        width: 100%;
+                        height: 768px;
+                        justify-content: center;
+                        align-items: center;
+                        background: #341915;
+                        >div {
+                            display: flex;
+                            justify-content: flex-end;
+                            >div:nth-child(1) {
+                                width: 78px;
+                                height: 58px;
+                                background: url('../images/shopping.png') no-repeat;
+                            }
+                            >div:nth-child(2) {
+                                color: #fff;
+                                margin-left: 20px;
+                                p {
+                                    line-height: 28px;
+                                    a {
+                                        color: #387DE0;
+                                        &:hover {
+                                            text-decoration: underline;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-
 import Footer from '../../components/Footer.js';
-import '../../assets/style/mining.css';
-
+import '../../assets/style/mining.scss';
 import $home_api from '../../fetch/api/home';
 
 const Mining = class Mining extends Component {
@@ -59,12 +57,12 @@ const Mining = class Mining extends Component {
                 {/* 头部 */}
                 <div className="header-mining">
                     <div className="header-mining-main">
-                        <a href="./"><div className="mining-logo"></div></a>
-                        <div className="mining-title">矿区</div>
+                        <a href="./"><div></div></a>
+                        <div>矿区</div>
                     </div>
                 </div>
                 <div className="mining-main">
-                    <div className="mining-main-box">
+                    <div>
                         {/* 活动时间 */}
                         <div className="mining-active-time"></div>
                         {/* 表格 */}
@@ -91,10 +89,10 @@ const Mining = class Mining extends Component {
                                                         item.orderItemDTOList.map((v, i) => {
                                                             return (
                                                                 <div key={i} className="product-item cleafix">
-                                                                    <div style={{float: 'left'}}>
+                                                                    <div>
                                                                         <img src={window.BACK_URL + v.goodImgUrl} alt="" />
                                                                     </div>
-                                                                    <div style={{float: 'left'}}>
+                                                                    <div>
                                                                         <p>{v.produceName + '    ' + v.goodsName}</p>
                                                                         <p>x  {v.goodCount}</p>
                                                                     </div>
@@ -105,26 +103,26 @@ const Mining = class Mining extends Component {
                                                 </div>
                                                 <div className="product-number">
                                                     <div>
-                                                        <p className="product-number-p1">{item.totalProduced || 0}</p>
-                                                        <p className="product-number-p2">{item.symbol}</p>
+                                                        <p>{item.totalProduced || 0}</p>
+                                                        <p>{item.symbol}</p>
                                                     </div>
                                                 </div>
                                                 <div className="product-number">
                                                     <div>
-                                                        <p className="product-number-p1">{item.alreadyProduced || 0}</p>
-                                                        <p className="product-number-p2">{item.symbol}</p>
+                                                        <p>{item.alreadyProduced || 0}</p>
+                                                        <p>{item.symbol}</p>
                                                     </div>
                                                 </div>
                                                 <div className="product-number">
                                                     <div>
-                                                        <p className="product-number-p1">{item.yesterdayProduced || 0}</p>
-                                                        <p className="product-number-p2">{item.symbol}</p>
+                                                        <p>{item.yesterdayProduced || 0}</p>
+                                                        <p>{item.symbol}</p>
                                                     </div>
                                                 </div>
                                                 <div className="product-number">
                                                     <div>
-                                                        <p className="product-number-p1">{item.todayProduced || 0}</p>
-                                                        <p className="product-number-p2">{item.symbol}</p>
+                                                        <p>{item.todayProduced || 0}</p>
+                                                        <p>{item.symbol}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -175,10 +173,10 @@ const Mining = class Mining extends Component {
                         {
                             list.length === 0 ? (
                                 <div className="table-two">
-                                    <div className="table-two-con">
-                                        <div className="table-title"></div>
-                                        <div className="table-body">
-                                            <div className="table-body-con">
+                                    <div>
+                                        <div></div>
+                                        <div>
+                                            <div>
                                                 <div></div>
                                                 <div>
                                                     <p>抱歉！暂无订单</p>
