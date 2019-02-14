@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux'
-
-import { message } from 'antd';
-
+import { message, Modal } from 'antd';
 import { setShopCartNum } from '../../store/actionCreators.js';
-
 import logo_img from '../../assets/images/icon1.png';
+
+const { confirm } = Modal;
 
 class ShopCart extends Component {
     constructor() {
@@ -39,8 +38,6 @@ class ShopCart extends Component {
                     store_list[find_index]['list'].push(v);
                 }
             })
-            // shopCart.shop_list = store_list;
-            console.log(store_list);
             this.setState({
                 shop_list: store_list
             })
@@ -88,73 +85,91 @@ class ShopCart extends Component {
     }
     //删除商品
     deleteBtn(obj){
-        let list = this.state.shop_list;
-        list.forEach((v, index) => {
-            if (v.storeName === obj.storeName) {
-                let num = 0;
-                v.list.forEach((k, n) => {
-                    if (k.goodsId === obj.goodsId) {
-                        num = n;
+        const _this = this;
+        confirm({
+            title: '确定删除该商品吗？',
+            onOk() {
+                let list = _this.state.shop_list;
+                list.forEach((v, index) => {
+                    if (v.storeName === obj.storeName) {
+                        let num = 0;
+                        v.list.forEach((k, n) => {
+                            if (k.goodsId === obj.goodsId) {
+                                num = n;
+                            }
+                        })
+                        v.list.splice(num, 1);
+                    }
+                    // 选中所有的商品删除
+                    if (v.list.length === 0) {
+                        list.splice(index, 1);
                     }
                 })
-                v.list.splice(num, 1);
+                _this.setState({
+                    shop_list: list
+                }, () => {
+                    _this.reset_price();
+                    _this.reset_local_cart(obj.goodsId, obj.propertyGroupGoods);
+                })      
             }
-            // 选中所有的商品删除
-            if (v.list.length === 0) {
-                list.splice(index, 1);
-            }
-        })
-        this.setState({
-            shop_list: list
-        }, () => {
-            this.reset_price();
-            this.reset_local_cart(obj.goodsId, obj.propertyGroupGoods);
         })
     }
     //删除选中的商品
     deleteGood(storeName){
-        let list = this.state.shop_list;
-        list.forEach((v, index) => {
-            if (v.storeName === storeName) {
-                // 删除local缓存
-                v.list.forEach(k => {
-                    if (k.is_choose === true) {
-                        this.reset_local_cart(k.goodsId, k.propertyGroupGoods);
+        const _this = this;
+        confirm({
+            title: '确定删除选中的商品吗？',
+            onOk() {
+                let list = _this.state.shop_list;
+                list.forEach((v, index) => {
+                    if (v.storeName === storeName) {
+                        // 删除local缓存
+                        v.list.forEach(k => {
+                            if (k.is_choose === true) {
+                                _this.reset_local_cart(k.goodsId, k.propertyGroupGoods);
+                            }
+                        })
+                        v.list = v.list.filter(k => {
+                            return k.is_choose === false;
+                        })
+                        // 选中所有的商品删除
+                        if (v.list.length === 0) {
+                            list.splice(index, 1);
+                        }
                     }
                 })
-                v.list = v.list.filter(k => {
-                    return k.is_choose === false;
-                })
-                // 选中所有的商品删除
-                if (v.list.length === 0) {
-                    list.splice(index, 1);
-                }
+                _this.setState({
+                    shop_list: list
+                }, () => {
+                    _this.reset_price();
+                })     
             }
-        })
-        this.setState({
-            shop_list: list
-        }, () => {
-            this.reset_price();
         })
     }
     //清空所有商品
     emptyGood(storeName){
-        let list = this.state.shop_list;
-        let num = 0;
-        list.forEach((v, index) => {
-            if (v.storeName === storeName) {
-                num = index;
-                // 清除local缓存
-                v.list.forEach(k => {
-                    this.reset_local_cart(k.goodsId, k.propertyGroupGoods);
+        const _this = this;
+        confirm({
+            title: '确定清空该订单的所有商品吗？',
+            onOk() {
+                let list = _this.state.shop_list;
+                let num = 0;
+                list.forEach((v, index) => {
+                    if (v.storeName === storeName) {
+                        num = index;
+                        // 清除local缓存
+                        v.list.forEach(k => {
+                            _this.reset_local_cart(k.goodsId, k.propertyGroupGoods);
+                        })
+                    }
                 })
+                list.splice(num, 1);
+                _this.setState({
+                    shop_list: list
+                }, () => {
+                    _this.reset_price();
+                })    
             }
-        })
-        list.splice(num, 1);
-        this.setState({
-            shop_list: list
-        }, () => {
-            this.reset_price();
         })
     }
     // 商品删除处理本地存储
@@ -240,10 +255,8 @@ class ShopCart extends Component {
         const choose_list = list.list.filter(v => {
             return v.is_choose === true;
         })
-        // console.log(choose_list);
         localStorage.orderList = JSON.stringify(choose_list);
         this.props.history.push('/confirmOrder')
-		// location.href="./settlement.html?type=2";
     }
     render() {
         // 未登录
@@ -280,7 +293,7 @@ class ShopCart extends Component {
                                     <div className="shop-order-main" key={item.producerId}>
                                         <div className="shop-order-title">
                                             <div>
-                                                <label className={ item.is_choose ? 'on' : '' }><input type="checkbox" onClick={this.checkAll.bind(this, item)} /></label>
+                                                <label className={ item.is_choose ? 'on' : '' }><input type="checkbox" onClick={() => this.checkAll(item)} /></label>
                                             </div>
                                             <div>
                                                 <p><img src={logo_img} /><a>{item.storeName}</a><span>自营</span></p>
@@ -292,7 +305,7 @@ class ShopCart extends Component {
                                                     <div className="shop-order-con" key={i}>
                                                         <div>
                                                             <label className={ v.is_choose ? 'on' : '' }>
-                                                                <input className="checkItem" type="checkbox" onClick={this.checkItem.bind(this, v)} />
+                                                                <input className="checkItem" type="checkbox" onClick={() => this.checkItem(v)} />
                                                             </label>
                                                         </div>
                                                         <div>
@@ -310,9 +323,9 @@ class ShopCart extends Component {
                                                         <div>
                                                             <div className="numberGood">
                                                                 <div className="trdiv">
-                                                                    <button className="button2" onClick={this.changeBuyNumber.bind(this, v, 'reduce')}>-</button>
+                                                                    <button className="button2" onClick={() => this.changeBuyNumber(v, 'reduce')}>-</button>
                                                                     <input type="text" className="qty_item" readOnly="readonly" value={v.goodsNum}/>
-                                                                    <button className="button1" onClick={this.changeBuyNumber.bind(this, v, 'add')}>+</button>
+                                                                    <button className="button1" onClick={() => this.changeBuyNumber(v, 'add')}>+</button>
                                                                 </div>
                                                                 <em>有货</em>
                                                             </div>
@@ -321,22 +334,22 @@ class ShopCart extends Component {
                                                             <span className="total">{v.goodsPrice*v.goodsNum + ' ' + v.symbol}</span>
                                                         </div>
                                                         <div>
-                                                            <a href="javascript:;" className="deleteBtn" onClick={this.deleteBtn.bind(this, v)}>删除</a>
+                                                            <a href="javascript:;" className="deleteBtn" onClick={() =>this.deleteBtn(v)}>删除</a>
                                                         </div>
                                                     </div>
                                                 )
                                             })
                                         }
                                         <div className="shop-order-footer">
-                                            <div><label className={ item.is_choose ? 'on' : '' }><input type="checkbox" onClick={this.checkAll.bind(this, item)} />全选</label></div>
+                                            <div><label className={ item.is_choose ? 'on' : '' }><input type="checkbox" onClick={() => this.checkAll(item)} />全选</label></div>
                                             <div style={{flex: 1}}>
                                                 <div className="setetlement">
-                                                    <span className="deleteGood" onClick={this.deleteGood.bind(this, item.storeName)}>删除选中的商品</span>
-                                                    <span className="emptyGood" onClick={this.emptyGood.bind(this, item.storeName)}>清空商品</span>
+                                                    <span className="deleteGood" onClick={() => this.deleteGood(item.storeName)}>删除选中的商品</span>
+                                                    <span className="emptyGood" onClick={() => this.emptyGood(item.storeName)}>清空商品</span>
                                                     <div className="settR fr">
                                                         <span className="goodsNum">已选择<b id="totalnum">{item.goods_account}</b>件商品</span>
                                                         <span className="totalPriceBtn"><b>总价：</b><em>{item.goods_price + ' ' + item.symbol}</em></span>
-                                                        <a href="javascript:;" onClick={this.settlement.bind(this, item.storeName)}>去结算</a>
+                                                        <a href="javascript:;" onClick={() => this.settlement(item.storeName)}>去结算</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -363,10 +376,8 @@ class ShopCart extends Component {
                 <div className="shopCart-page-warp">
                     {/* 未登录 */}
                     {noLogin_dom}
-                    {/* 购物车有数据 */}
-                    {/* 购物车没有数据 */}
+                    {/* 购物车 */}
                     {shopCart_dom}
-                    
                 </div>
             </div>
         )

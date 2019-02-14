@@ -287,7 +287,7 @@ body {
 .shop-order-footer>div:nth-child(1) {display: flex;justify-content: center;align-items: center;}
 .setetlement{ width: 100%; height: auto; overflow: hidden;}
 .setetlement .deleteGood{cursor: pointer; display: block; float: left; margin-left: 30px; line-height: 50px; font-size: 12px; color: #999;}
-.setetlement .emptyGood{cursor: pointer; display: block; float: left; margin-left: 30px; line-height: 50px; font-size: 12px; color: #333;}
+.setetlement .emptyGood{cursor: pointer; display: block; float: left; margin-left: 30px; line-height: 50px; font-size: 12px; color: #999;}
 .settR .goodsNum{ margin-right: 36px; display: block; float: left; line-height: 50px; font-size: 12px; color: #999;}
 .settR .goodsNum b{ color: #151515; display: inline-block; padding: 0 5px; font-weight: normal;}
 .settR .totalPriceBtn{ margin-right: 46px; display: block; float: left; font-size: 12px; color: #333;}
