@@ -95,4 +95,8 @@ export default class home {
     static queryBaseAddress(data) {
         return Fetch.post('/mall/backend/customer/address/queryBaseAddress', data);
     }
+
+    static queryTokenInfo(data) {
+        return Fetch.get('/mall/backend/homepage/producer/queryTokenInfo', data);
+    }
 }
