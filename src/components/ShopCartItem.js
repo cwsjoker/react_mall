@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
-
 import logo_img from '../assets/images/icon1.png';
 
 export default class ShopCartItem extends Component {
     render()  {
-        const { data } = this.props;
-        const {is_choose, storeName, list, goods_account, goods_price, symbol } = data;
+        const {
+            is_choose,
+            storeName,
+            list,
+            goods_account,
+            goods_price,
+            symbol,
+            checkAll, //全选
+            checkItem, // 单选
+            changeBuyNumber, // 修改数量
+            deleteBtn, // 删除某个
+            deleteGood, // 删除选中
+            emptyGood,  // 清空所有
+            settlement // 结算
+        } = this.props;
         return (
             <div className="shop-order-main">
                 <div className="shop-order-title">
                     <div>
-                        <label className={ is_choose ? 'on' : '' }><input type="checkbox" onClick={this.props.checkAll} /></label>
+                        <label className={ is_choose ? 'on' : '' }><input type="checkbox" onClick={checkAll} /></label>
                     </div>
                     <div>
                         <p><img src={logo_img} /><a>{storeName}</a><span>自营</span></p>
@@ -22,7 +34,7 @@ export default class ShopCartItem extends Component {
                             <div className="shop-order-con" key={i}>
                                 <div>
                                     <label className={ v.is_choose ? 'on' : '' }>
-                                        <input className="checkItem" type="checkbox" onClick={this.checkItem.bind(this, v)} />
+                                        <input className="checkItem" type="checkbox" onClick={checkItem(v)} />
                                     </label>
                                 </div>
                                 <div>
@@ -40,9 +52,9 @@ export default class ShopCartItem extends Component {
                                 <div>
                                     <div className="numberGood">
                                         <div className="trdiv">
-                                            <button className="button2" onClick={this.changeBuyNumber.bind(this, v, 'reduce')}>-</button>
+                                            <button className="button2" onClick={changeBuyNumber(v, 'reduce')}>-</button>
                                             <input type="text" className="qty_item" readOnly="readonly" value={v.goodsNum}/>
-                                            <button className="button1" onClick={this.changeBuyNumber.bind(this, v, 'add')}>+</button>
+                                            <button className="button1" onClick={changeBuyNumber(v, 'add')}>+</button>
                                         </div>
                                         <em>有货</em>
                                     </div>
@@ -51,22 +63,22 @@ export default class ShopCartItem extends Component {
                                     <span className="total">{v.goodsPrice*v.goodsNum + ' ' + v.symbol}</span>
                                 </div>
                                 <div>
-                                    <a href="javascript:;" className="deleteBtn" onClick={this.deleteBtn.bind(this, v)}>删除</a>
+                                    <a href="javascript:;" className="deleteBtn" onClick={deleteBtn(v)}>删除</a>
                                 </div>
                             </div>
                         )
                     })
                 }
                 <div className="shop-order-footer">
-                    <div><label className={ is_choose ? 'on' : '' }><input type="checkbox" onClick={this.checkAll.bind(this, data)} />全选</label></div>
+                    <div><label className={ is_choose ? 'on' : '' }><input type="checkbox" onClick={checkAll} />全选</label></div>
                     <div style={{flex: 1}}>
                         <div className="setetlement">
-                            <span className="deleteGood" onClick={this.deleteGood.bind(this, storeName)}>删除选中的商品</span>
-                            <span className="emptyGood" onClick={this.emptyGood.bind(this, storeName)}>清空商品</span>
+                            <span className="deleteGood" onClick={deleteGood}>删除选中的商品</span>
+                            <span className="emptyGood" onClick={emptyGood}>清空商品</span>
                             <div className="settR fr">
                                 <span className="goodsNum">已选择<b id="totalnum">{goods_account}</b>件商品</span>
                                 <span className="totalPriceBtn"><b>总价：</b><em>{goods_price + ' ' + symbol}</em></span>
-                                <a href="javascript:;" onClick={this.settlement.bind(this, storeName)}>去结算</a>
+                                <a href="javascript:;" onClick={settlement}>去结算</a>
                             </div>
                         </div>
                     </div>

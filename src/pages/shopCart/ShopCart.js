@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux'
 import { message, Modal } from 'antd';
 import { setShopCartNum } from '../../store/actionCreators.js';
-import logo_img from '../../assets/images/icon1.png';
+import ShopCartItem from '../../components/ShopCartItem.js'
 
 const { confirm } = Modal;
 
@@ -116,6 +116,14 @@ class ShopCart extends Component {
     }
     //删除选中的商品
     deleteGood(storeName){
+        // 检测是否至少选择了一种商品
+        const list = this.state.shop_list.find(v => {
+            return v.storeName === storeName;
+        })
+        if (!list.goods_account) {
+            message.error('请至少选择一个商品删除');
+            return;
+        }
         const _this = this;
         confirm({
             title: '确定删除选中的商品吗？',
@@ -259,125 +267,64 @@ class ShopCart extends Component {
         this.props.history.push('/confirmOrder')
     }
     render() {
-        // 未登录
-        let noLogin_dom = null;
-        if (!this.props.loginStore.login) {
-            noLogin_dom = (
-                <div className="shopCart-page-nologin">
-                    <p>您还没有登录！登录后购物车的商品将保存到您的账号中</p>
-                    <a href="https://bttmall.com/login">立即登录</a>
-                </div>
-            )
-        }
-        let shopCart_dom = null;
-        if (this.state.shop_list.length !== 0) {
-            shopCart_dom = (
-                <div className="shopCart-main">
-                    <div className="title">
-                        <i></i>
-                        <h2>全部商品</h2>
-                    </div>
-                    <div className="tableCart">
-                        <ul>
-                            <li style={{width: '65px'}}>&nbsp;</li>
-                            <li style={{width: '625px', textAlign: 'left'}}>商品</li>
-                            <li style={{width: '100px'}}>单价</li>
-                            <li style={{width: '150px'}}>数量</li>
-                            <li style={{width: '120px'}}>小计</li>
-                            <li style={{width: '100px'}}>操作</li>
-                            <li style={{width: '40px'}}>&nbsp;</li>
-                        </ul>
-                        {
-                            this.state.shop_list.map(item => {
-                                return (
-                                    <div className="shop-order-main" key={item.producerId}>
-                                        <div className="shop-order-title">
-                                            <div>
-                                                <label className={ item.is_choose ? 'on' : '' }><input type="checkbox" onClick={() => this.checkAll(item)} /></label>
-                                            </div>
-                                            <div>
-                                                <p><img src={logo_img} /><a>{item.storeName}</a><span>自营</span></p>
-                                            </div>
-                                        </div>
-                                        {
-                                            item.list.map((v, i) => {
-                                                return (
-                                                    <div className="shop-order-con" key={i}>
-                                                        <div>
-                                                            <label className={ v.is_choose ? 'on' : '' }>
-                                                                <input className="checkItem" type="checkbox" onClick={() => this.checkItem(v)} />
-                                                            </label>
-                                                        </div>
-                                                        <div>
-                                                            <a className="storeCart" href="#">
-                                                                <img src={window.BACK_URL + v.goodsImgUrl} />
-                                                                <p>{v.goodsIntroduce}</p>
-                                                            </a>
-                                                        </div>
-                                                        <div>
-                                                            <div className="priceGood">
-                                                                <span>{v.goodsPrice + ' ' +v.symbol}</span>
-                                                                <em>热销</em>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <div className="numberGood">
-                                                                <div className="trdiv">
-                                                                    <button className="button2" onClick={() => this.changeBuyNumber(v, 'reduce')}>-</button>
-                                                                    <input type="text" className="qty_item" readOnly="readonly" value={v.goodsNum}/>
-                                                                    <button className="button1" onClick={() => this.changeBuyNumber(v, 'add')}>+</button>
-                                                                </div>
-                                                                <em>有货</em>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <span className="total">{v.goodsPrice*v.goodsNum + ' ' + v.symbol}</span>
-                                                        </div>
-                                                        <div>
-                                                            <a href="javascript:;" className="deleteBtn" onClick={() =>this.deleteBtn(v)}>删除</a>
-                                                        </div>
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                        <div className="shop-order-footer">
-                                            <div><label className={ item.is_choose ? 'on' : '' }><input type="checkbox" onClick={() => this.checkAll(item)} />全选</label></div>
-                                            <div style={{flex: 1}}>
-                                                <div className="setetlement">
-                                                    <span className="deleteGood" onClick={() => this.deleteGood(item.storeName)}>删除选中的商品</span>
-                                                    <span className="emptyGood" onClick={() => this.emptyGood(item.storeName)}>清空商品</span>
-                                                    <div className="settR fr">
-                                                        <span className="goodsNum">已选择<b id="totalnum">{item.goods_account}</b>件商品</span>
-                                                        <span className="totalPriceBtn"><b>总价：</b><em>{item.goods_price + ' ' + item.symbol}</em></span>
-                                                        <a href="javascript:;" onClick={() => this.settlement(item.storeName)}>去结算</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-                </div>
-            )
-        } else {
-            shopCart_dom = (
-                <div className="cartNoData">
-                    <p>购物车内暂时没有商品</p>
-                    <h2>
-                        <a href="/">继续购物<em>&gt;</em></a>
-                    </h2>
-                </div>
-            )
-        }
         return (
             <div className="shopCart-page">
                 <div className="shopCart-page-warp">
                     {/* 未登录 */}
-                    {noLogin_dom}
+                    {
+                        !this.props.loginStore.login ? (
+                            <div className="shopCart-page-nologin">
+                                <p>您还没有登录！登录后购物车的商品将保存到您的账号中</p>
+                                <a href="https://bttmall.com/login">立即登录</a>
+                            </div>
+                        ) : null
+                    }
                     {/* 购物车 */}
-                    {shopCart_dom}
+                    {
+                        this.state.shop_list.length !== 0 ? (
+                            <div className="shopCart-main">
+                                <div className="title">
+                                    <i></i>
+                                    <h2>全部商品</h2>
+                                </div>
+                                <div className="tableCart">
+                                    <ul>
+                                        <li style={{width: '65px'}}>&nbsp;</li>
+                                        <li style={{width: '625px', textAlign: 'left'}}>商品</li>
+                                        <li style={{width: '100px'}}>单价</li>
+                                        <li style={{width: '150px'}}>数量</li>
+                                        <li style={{width: '120px'}}>小计</li>
+                                        <li style={{width: '100px'}}>操作</li>
+                                        <li style={{width: '40px'}}>&nbsp;</li>
+                                    </ul>
+                                    {
+                                        this.state.shop_list.map(item => {
+                                            return (
+                                                <ShopCartItem
+                                                    key={item.producerId}
+                                                    {...item}
+                                                    checkAll={() => this.checkAll(item)}
+                                                    checkItem={(v) => this.checkItem.bind(this, v)}
+                                                    changeBuyNumber={(v, type) => this.changeBuyNumber.bind(this, v, type)}
+                                                    deleteBtn={(v) => this.deleteBtn.bind(this, v)}
+                                                    deleteGood={() => this.deleteGood(item.storeName)}
+                                                    emptyGood={() => this.emptyGood(item.storeName)}
+                                                    settlement={() => this.settlement(item.storeName)}
+                                                />
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="cartNoData">
+                                <p>购物车内暂时没有商品</p>
+                                <h2>
+                                    <a href="/">继续购物<em>&gt;</em></a>
+                                </h2>
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         )
