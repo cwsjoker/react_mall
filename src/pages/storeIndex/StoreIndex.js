@@ -97,7 +97,7 @@ const StoreIndex = class StoreIndex extends Component {
                         <div className="store-title-top cleafix">
                             <div className="store-title-top-img"><img src={window.BACK_URL + this.state.storeInfo.logoUrl}/></div>
                             <div className="store-title-top-info">
-                                <a>{this.state.storeInfo.name}</a>
+                                <a href={'/storeHome?id=' +　this.state.storeIndex }>{this.state.storeInfo.name}</a>
                                 <h3><span>官方自营</span></h3>
                                 <p>我的余额:<span>{this.state.available}</span><em>{this.state.symbol}</em><a href={"https://bttmall.com/market?symbol=" + symbol + "_BT"}>去交易</a></p>
                             </div>

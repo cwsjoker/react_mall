@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Modal, Form, Input, Button, Cascader, message } from 'antd';
-// const { Option } = Select;
-
 import $user_api from '../../fetch/api/user';
 import $home_api from '../../fetch/api/home';
 
@@ -101,26 +99,14 @@ const ConfirmOrder = class ConfirmOrder extends Component {
             });
         }
     }
-    // showAddrModal = () => {
-    //     this.setState({
-    //         show_addr_modal: true
-    //     })
-    // }
-    // handleCancel = () => {
-    //     this.setState({
-    //         show_addr_modal: false
-    //     })
-    // }
     onChange = (value, options) => {
-        // console.log(value);
-        // console.log(options);
         this.setState({
             choose_option: options
         })
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
+        this.props.form.validateFieldsAndScroll( async (err, values) => {
             if (!err) {
                 // console.log('Received values of form: ', values);
                 const { addressName, personName, personPhone} = values;
@@ -129,7 +115,7 @@ const ConfirmOrder = class ConfirmOrder extends Component {
                     return total + item.label;
                 }, '')
                 const id = choose_option[choose_option.length - 1]['value'];
-                const creat_addr_req = $user_api.createNewCustomerAddress({
+                const creat_addr_req = await $user_api.createNewCustomerAddress({
                     "addressBaseId": id, //住址ID(区级) 
                     "addressDisplay": addr_text, //省市
                     "addressName": addressName, //详细住址
@@ -140,8 +126,8 @@ const ConfirmOrder = class ConfirmOrder extends Component {
                     this.setState({
                         show_addr_modal: false
                     })
-                    this.getCurrentAddr();
                     message.success('新增收货人地址成功');
+                    this.getCurrentAddr();
                 }
             }
         });
@@ -168,24 +154,19 @@ const ConfirmOrder = class ConfirmOrder extends Component {
     }
     // 选择发货地址
     change_addr(item, e) {
-        // console.log(item);
         e.preventDefault();
         const { id } = item;
         const list = this.state.addr_list;
         list.forEach(v => {
             v.is_choose = v.id === id ? true : false; 
         })
-        // console.log(list);
         this.setState({
             addr_list: list
         })
     }
     // 修改备注
     changeNote(index, e) {
-        // e.persist();
         e.preventDefault();
-        // console.log(index);
-        // console.log(e.target.value);
         const list = this.state.order_list;
         list[index]['note'] = e.target.value;
         this.setState({
@@ -223,6 +204,7 @@ const ConfirmOrder = class ConfirmOrder extends Component {
             if (order_req) {
                 // 下单成功
                 // 1901291026208074
+                message.success('下单成功');
                 const order_number = order_req.data.data;
                 this.props.history.push('/Payment?orderId=' + order_number);
 

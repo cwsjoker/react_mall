@@ -39,6 +39,7 @@ console.log(process.env.NODE_ENV);
 console.log(process.env);
 
 axios.defaults.baseURL = 'http://47.52.66.81:8080';
+// axios.defaults.baseURL = 'https://shop.bttmall.com/shopAPI';
 
 
 // const instance = axios.create();
