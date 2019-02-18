@@ -1,41 +1,50 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
 import { getQueryString } from '../../utils/operLocation.js';
-
+import { message, Modal } from 'antd';
 import $home_api from '../../fetch/api/home';
-
 import logo_img from '../../assets/images/icon1.png';
+
+const { confirm } = Modal;
 
 const orderDetail = class orderDetail extends Component {
     constructor() {
-        super();
+        super()
         this.state = {
-            orderId: '',
-            coinSymbol: '',
-            orderItem: [],
-            orderState: 0,
-            orderStatus: '',
-            receiverCustomerDTO: {},
-            goods_total_price: 0,
-			goods_count: 0,
+            orderId: '', //订单id
+            coinSymbol: '', //币种
+            orderItem: [], // 订单商品列表
+            orderState: 0, //订单状态
+            orderStatus: '',//订单状态
+            receiverCustomerDTO: {}, //订单详情
+            goods_total_price: 0, // 订单总额
+			goods_count: 0, // 订单数量
         }
     }
     componentDidMount() {
         const { orderId } = getQueryString(this.props.location.search);
         if (orderId) {
-            console.log(orderId);
             this.getOrderDetail(orderId);
         }
     }
-    gotoPayment(id) {
-        this.props.history.push('/payment?orderId=' + id);
-    }
     // 取消订单
-    async cancelOrder(id) {
-        const obj_req = await $home_api.cancelOrderById({orderNumber: id});
-        if (obj_req) {
-            this.getOrderDetail(this.state.orderId);
-        }
+    cancelOrder(id) {
+        const _this = this;
+        confirm({
+            title: '取消订单',
+            onOk() {
+                return new Promise((resolve, reject) => {
+                    $home_api.cancelOrderById({orderNumber: id}).then((obj_req) => {
+                        if (obj_req) {
+                            message.success('订单取消成功');
+                            _this.getOrderDetail(_this.state.orderId);
+                            resolve();
+                        } else {
+                            reject();
+                        }
+                    });
+                });
+            }
+        })
     }
     // 获取订单详情
     async getOrderDetail(id) {
@@ -73,7 +82,7 @@ const orderDetail = class orderDetail extends Component {
                             <h2>订单编号：{orderId}</h2>
                             <h3>{orderStatus}</h3>
                             {
-                                orderState === 0 ? <h4><a href="javascript:;" onClick={this.gotoPayment.bind(this, orderId)}>付款</a></h4> : null
+                                orderState === 0 ? <h4><a href={'/payment?orderId=' + orderId}>付款</a></h4> : null
                             }
                             {
                                 orderState === 0 ? <h5><a href="javascript:;" onClick={this.cancelOrder.bind(this, orderId)}>取消订单</a></h5> : null
@@ -162,9 +171,6 @@ const orderDetail = class orderDetail extends Component {
                                                     <div className="orderState">
                                                         <span className="cancelBox">{item.goodCount}</span>
                                                     </div>
-                                                    {/* <div class="orderHandle">
-                                                        <span v-if="status == '0'" class="cancelOrder">取消订单</span>
-                                                    </div> */}
                                                 </div>
                                             </li>
                                         )
@@ -183,4 +189,4 @@ const orderDetail = class orderDetail extends Component {
     }
 }
 
-export default withRouter(orderDetail);
+export default orderDetail;
