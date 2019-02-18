@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch }  from 'react-router-dom';
 
 
 import history from '../utils/history';
+import requireAuthentication from '../components/RequireAuthentication.js'
 
 import Home from '../pages/Home.js'; // 首页
 import ShopCart  from '../pages/shopCart/ShopCart.js'; // 购物车页面
@@ -25,7 +26,7 @@ export default () => {
                 <Route path="/storeIndex" component={StoreIndex} />
                 <Route path="/storeHome" component={StoreHome} />
                 <Route path="/goodsDetail" component={GoodsDetail} />
-                <Route path="/confirmOrder" component={ConfirmOrder} />
+                <Route path="/confirmOrder" component={requireAuthentication(ConfirmOrder)} />
                 <Route path="/payment" component={Payment} />
                 <Route path="/orderDetail" component={OrderDetail} />
             {/* </div> */}
