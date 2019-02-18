@@ -29,7 +29,7 @@ const Header = class Header extends Component {
         } else {
             btn = (
                 <div>
-                    <a href={window.BT_URL + 'login'} style={{marginRight: '5px'}}>请登录</a>
+                    <a href={window.BT_URL + 'login?redirectUrl=shop'} style={{marginRight: '5px'}}>请登录</a>
                     <a href={window.BT_URL + 'register'}>免费注册</a>
                 </div>
             )
