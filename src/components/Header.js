@@ -29,8 +29,8 @@ const Header = class Header extends Component {
         } else {
             btn = (
                 <div>
-                    <a href="http://47.52.202.171/login" style={{marginRight: '5px'}}>请登录</a>
-                    <a href="http://47.52.202.171/register">免费注册</a>
+                    <a href={window.BT_URL + 'login'} style={{marginRight: '5px'}}>请登录</a>
+                    <a href={window.BT_URL + 'register'}>免费注册</a>
                 </div>
             )
         }
@@ -39,7 +39,7 @@ const Header = class Header extends Component {
             <div className="header-main">
                 <div className="top">
                     <div className="top-main">
-                        <a href="https://bttmall.com/" className="top-left">{`<< 交易所`}</a>
+                        <a href={window.BT_URL} className="top-left">{`<< 交易所`}</a>
                         {btn}
                     </div>
                 </div>

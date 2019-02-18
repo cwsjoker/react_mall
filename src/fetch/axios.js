@@ -33,4 +33,16 @@ export default axios;
 
 global.URLCONFIGJSON = {emulateJson: true, headers: {"Content-Type": "application/json",'X-Request-Uri':'/'}};
 global.URLCONFIGFORMDATA = {emulateJson: true, headers: {"Content-Type": "multipart/form-data",'X-Request-Uri':'/'}};
-global.BACK_URL = 'http://ltalk-website.oss-cn-hangzhou.aliyuncs.com/';
+global.BACK_URL = 'http://ltalk-website.oss-cn-hangzhou.aliyuncs.com/';   //图片地址
+
+// 交易所地址
+if (process.env.NODE_ENV !== 'development') {
+  if (process.env.REACT_APP_API_URL === 'http://47.52.66.81:8080') {
+    global.BT_URL = 'http://47.52.202.171/';
+  }
+  if (process.env.REACT_APP_API_URL === 'https://shop.bttmall.com/shopAPI') {
+    global.BT_URL =  'https://bttmall.com/';
+  }
+} else {
+  global.BT_URL = 'http://47.52.202.171/';
+}

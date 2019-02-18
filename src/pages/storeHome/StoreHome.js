@@ -72,7 +72,7 @@ const StoreHome = class StoreHome extends Component {
                         <div>
                             <div className="flagLine"></div>
 				            <div className="flagLine"></div>
-                            <a href={"https://bttmall.com/market?symbol=" + symbol + "_BT"}>查看</a>
+                            <a href={window.BT_URL + "market?symbol=" + symbol + "_BT"}>去交易</a>
                             <ul>
                                 <li>
                                     <h2>昨日已销毁{symbol}：</h2>

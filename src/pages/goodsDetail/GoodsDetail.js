@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux'
 import { message } from 'antd';
-
 import Breadcrumbs from '../../components/Breadcrumb.js';
 import { getQueryString } from '../../utils/operLocation.js'
 import { operateScript, unescapeHTML } from '../../utils/operation.js';
@@ -54,25 +53,25 @@ class GoodsDetail extends Component {
                     this.getForByGoodsPrice(goodsId)
                 })
                 
-                // 获取商品所在商铺的详情
-                const storeInfo_res = await $home_api.getStoreInfo({'producerId': producerId});
-                if (storeInfo_res) {
+                // 商铺详情    挖矿详情
+                const [storeInfo_res, niming_res] = await Promise.all([
+                    $home_api.getStoreInfo({'producerId': producerId}),
+                    $home_api.getDayNiming({'producerId': producerId})
+                ]);
 
+                if (storeInfo_res) {
                     // 初始化面包屑数据
                     const list = [
                         {name: '商城', line: '/', is_line: true},
                         {name: storeInfo_res.data.data.name, line: '/storeIndex?id=' + producerId, is_line: true},
                         {name: name, line: '', is_line: false},
                     ]
-
                     this.setState({
                         storeInfo: storeInfo_res.data.data,
                         Breadcrumb_list: list
                     })
                 }
                 
-                // 挖矿
-                const niming_res = await $home_api.getDayNiming({'producerId': producerId})
                 if (niming_res) {
                     this.setState({
                         nimingInfo: niming_res.data.data[0]
@@ -215,6 +214,7 @@ class GoodsDetail extends Component {
         window.qimoChatClick();
     }
     render() {
+        const { nimingInfo, storeInfo, Breadcrumb_list, goodsInfo_price, goodsInfo_goods, goodsInfo_keyList, goodsInfo_goodsInventory, choose, goodsParam } = this.state;
         let niming_dom = null;
         if (this.state.niming_show) {
             niming_dom = (
@@ -223,7 +223,7 @@ class GoodsDetail extends Component {
                     <span className="bot"></span>
                     <p>1.买卖商户均为实地考察认证商户，并提供100万usdt保证金，您每次兑换会冻结资产</p>
                     <p>2.买卖商户均为实名认证商</p>
-                    <p className="may-niming-coin">今日剩余可挖：{this.state.nimingInfo.remaining}{this.state.nimingInfo.symbol}</p>
+                    <p className="may-niming-coin">今日剩余可挖：{nimingInfo.remaining}{nimingInfo.symbol}</p>
                 </div>
             )
         }
@@ -233,11 +233,11 @@ class GoodsDetail extends Component {
                 {/* 面包屑 */}
                 <div className="breadcrumb-navigation">
                     <div className="breadcrumb-navigation-main">
-                        <Breadcrumbs list={this.state.Breadcrumb_list} />
+                        <Breadcrumbs list={Breadcrumb_list} />
                         <div>
                             <div className="storeLogo">
                                 <b>自营</b>
-                                <strong>{this.state.storeInfo.name}</strong>
+                                <strong>{storeInfo.name}</strong>
                             </div>
                             <div className="customer-server" onClick={this.qimoChatClick}>在线客服</div>
                         </div>
@@ -247,37 +247,37 @@ class GoodsDetail extends Component {
                 <div className="goodsDetail-main">
                     <div className="goods-info">
                         <div className="goodsImg">
-				            <img src={window.BACK_URL + this.state.goodsInfo_price.smallImageUrl} />
+				            <img src={window.BACK_URL + goodsInfo_price.smallImageUrl} />
 			            </div>
                         <div className="goodsMain">
-                            <h2>{this.state.goodsInfo_goods.name}</h2>
+                            <h2>{goodsInfo_goods.name}</h2>
                             <ul className="cleafix">
                                 <li>
                                     <div className="price">
                                         <label>价格</label>
-                                        <span><em>{this.state.goodsInfo_price.price} {this.state.goodsInfo_price.symbol}</em> <i onClick={this.change_niming.bind(this)}></i> ≈ {this.state.change_price_usdt} USDT </span>
+                                        <span><em>{goodsInfo_price.price} {goodsInfo_price.symbol}</em> <i onClick={this.change_niming.bind(this)}></i> ≈ {this.state.change_price_usdt} USDT </span>
                                         <div className="salesDiv">
                                             <b>累计销量</b>
-                                            <b>{this.state.goodsInfo_price.sales}</b>
+                                            <b>{goodsInfo_price.sales}</b>
                                         </div>
                                     </div>
                                 </li>
                                 <li>
                                     <label>简介</label>
-                                    <p>{this.state.goodsInfo_price.introduce}</p>
+                                    <p>{goodsInfo_price.introduce}</p>
                                 </li>
                                     {
-                                        this.state.goodsInfo_keyList.map((item, index) => {
+                                        goodsInfo_keyList.map((item, index) => {
                                             return (
                                                 <li  className="inventoryDiv" key={index}>
                                                     <label>{item}</label>
                                                     <div className="versionDiv">
                                                         {
-                                                            this.state.goodsInfo_goodsInventory[item].map((v, i) => {
+                                                            goodsInfo_goodsInventory[item].map((v, i) => {
                                                                 return (
                                                                     <span 
                                                                         key={i}
-                                                                        className={ this.state.choose.includes(v.id) ? 'on' : '' }
+                                                                        className={ choose.includes(v.id) ? 'on' : '' }
                                                                         onClick={this.choose_color_model.bind(this, v)}
                                                                     >{v.name}</span>
                                                                 )
@@ -320,11 +320,8 @@ class GoodsDetail extends Component {
                             </div>
                             <div className="goodsBox">
                                 <ul>
-                                    {/* <li v-for="param in goodsParam">
-                                        <p>{{param.key}}：<span>{{param.value}}</span></p>
-                                    </li> */}
                                     {
-                                        this.state.goodsParam.map((item, index) => {
+                                        goodsParam.map((item, index) => {
                                             return (
                                                 <li key={index}>
                                                     <p>{item.key}：<span>{item.value}</span></p>
@@ -336,7 +333,7 @@ class GoodsDetail extends Component {
                             </div>
                         </div>
                         <div className="divOne goodsBom">
-                            <span dangerouslySetInnerHTML={{ __html: unescapeHTML(this.state.goodsInfo_goods.detail)}}>
+                            <span dangerouslySetInnerHTML={{ __html: unescapeHTML(goodsInfo_goods.detail)}}>
                             </span>
                         </div>        
                     </div>

@@ -156,7 +156,7 @@ const Payment = class Payment extends Component {
                                 <img src={grounp_img} />
                                 <h2>
                                     <span>当前余额：<em>{available}</em>{symbol}</span>
-                                    <strong>前去<a href="https://bttmall.com">交易</a></strong>
+                                    <strong>前去<a href={window.BT_URL}>交易</a></strong>
                                 </h2>
                             </div>
                             <div className="payOneRight fr">
@@ -182,7 +182,7 @@ const Payment = class Payment extends Component {
                                             )
                                         })
                                     }
-                                    <a href="https://bttmall.com/ex/member/user">忘记支付密码？</a>
+                                    <a href={window.BT_URL + 'ex/member/user'}>忘记支付密码？</a>
                                 </div>
                                 <div className="payBtn">
                                     <span></span>
