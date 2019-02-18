@@ -18,7 +18,7 @@ function requireAuthentication(WrapComponent) {
         }
         render() {
             if (this.state.login) {
-                return <WrapComponent />
+                return <WrapComponent {...this.props} />
             } else {
                 return <TipLogin />;
             }

@@ -22,13 +22,13 @@ export default () => {
             {/* <div className="home-main-wrap"> */}
                 <Route exact path="/" component={Home} />
                 <Route path="/shopcart" component={ShopCart} />
-                <Route path="/myOrder" component={MyOrder} />
+                <Route path="/myOrder" component={requireAuthentication(MyOrder)} />
                 <Route path="/storeIndex" component={StoreIndex} />
                 <Route path="/storeHome" component={StoreHome} />
                 <Route path="/goodsDetail" component={GoodsDetail} />
                 <Route path="/confirmOrder" component={requireAuthentication(ConfirmOrder)} />
-                <Route path="/payment" component={Payment} />
-                <Route path="/orderDetail" component={OrderDetail} />
+                <Route path="/payment" component={requireAuthentication(Payment)} />
+                <Route path="/orderDetail" component={requireAuthentication(OrderDetail)} />
             {/* </div> */}
         </Switch>
         // </Router>
