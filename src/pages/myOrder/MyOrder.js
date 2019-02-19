@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Pagination } from 'antd';
 import OrderItem from '../../components/OrderItem.js';
 import $home_api from '../../fetch/api/home';
 
@@ -11,17 +12,19 @@ class MyOrder extends Component {
             search_key: '', // 搜索关键字
             pendingDelivery: 0, // 待发货单数
             pendingPaymentCount: 0, // 待付款单数
+            current: 1, // 分页-当前页面
+            total: 0,  // 分页-总条数
         }
     }
-    async componentDidMount() {
+    componentDidMount() {
         this.getOrderList()
     }
     // 查询全部订单和待付款和待发货的数量, 查询订单列表
     getOrderList = async () => {
         const { search_key, order_status } = this.state;
         const query_obj = {
-            "pageNo": 1,
-            "pageSize": 50,
+            "pageNo": this.state.current,
+            "pageSize": 10,
             "search": search_key,
             "status": order_status
         }
@@ -34,9 +37,11 @@ class MyOrder extends Component {
             })
         }
         if (order_req) {
-            const { list } = order_req.data.data;
+            const { list, total, pageNum } = order_req.data.data;
             this.setState({
-                order_list: list
+                order_list: list,
+                total: total,
+                current: pageNum
             })
         }
     }
@@ -47,18 +52,36 @@ class MyOrder extends Component {
             search_key: e.target.value
         })
     }
+    // 发起搜索
+    queryOrderList = () => {
+        this.setState({
+            current: 1
+        }, () => {
+            this.getOrderList();
+        })
+    }
+    // 切换分页
+    changePage = (page) => {
+        console.log(page);
+        this.setState({
+            current: page
+        }, () => {
+            this.getOrderList();
+        })
+    }
     // 选择不同的订单
     changeOrderType = (type) => {
         if (this.state.order_status === type) return;
         this.setState({
             search_key: '',
-            order_status: type
+            order_status: type,
+            current: 1
         }, () => {
             this.getOrderList();
         })
     }
     render() {
-        const { order_list, order_status, pendingPaymentCount, pendingDelivery, search_key } = this.state;
+        const { order_list, order_status, pendingPaymentCount, pendingDelivery, search_key, current, total } = this.state;
         return (
             <div className="myOrder-page">
                 <div className="myOrder-page-main">
@@ -84,7 +107,7 @@ class MyOrder extends Component {
                             <a href="javascript:;" className={order_status === 10 ? 'on' : ''} onClick={() => this.changeOrderType(10)}>已取消</a>
                             <div className="search">
                                 <input className="seaTxt" type="text" placeholder="订单号" value={search_key} onChange={this.changeSearchKey}/>
-                                <input className="seaBut" type="button" onClick={this.getOrderList} />
+                                <input className="seaBut" type="button" onClick={this.queryOrderList} />
                             </div>
                         </div>
                         <div className="orderList">
@@ -106,6 +129,10 @@ class MyOrder extends Component {
                                     })
                                 }
                             </div>
+                        </div>
+                        {/* 分页 */}
+                        <div className="order-pagination">
+                            <Pagination current={current} onChange={this.changePage} total={total} showTotal={total => `共 ${total} 数据`} />
                         </div>
                     </div>
                 </div>

@@ -421,7 +421,7 @@ body {
 .orderTab a.on{ color: #AE4E54; border-color: #AE4E54;}
 .orderTab a .angleDom { right: -15px; position: absolute; top: 2px; right: -20px; background: #ae4e54; display: block; width: 16px; height: 16px; line-height: 16px; text-align: center; border-radius: 100%; font-size: 12px; color: #fff;}
 .search{ float: right; margin-top: 4px;}
-.search .seaTxt{ float: left; width: 148px; border: 1px solid #DFDFDF; border-right: none; padding: 0 10px; height: 26px; font-size: 12px; color: #999;}
+.search .seaTxt{ float: left; width: 148px; border: 1px solid #DFDFDF; border-right: none; padding: 0 10px; height: 28px; font-size: 12px; color: #999;}
 .search .seaBut{ border: 1px solid #DFDFDF; width: 60px; height: 28px; background: #F4F4F4 url(../images/ico6.png) center center no-repeat;}
 .search .seaBut:hover{ border: 1px solid #AE4E54; background: #AE4E54 url(../images/ico6_hov.png) center center no-repeat;}
 .orderList{ padding-top: 16px; width: 100%; height: auto;}
@@ -467,6 +467,7 @@ body {
 .orderMain .orderHandle span.deleteOrder{ margin-top: 12px; color: #999;}
 .orderMain .orderHandle span:hover{ color: #AE4E54;}
 .orderMain .orderHandle span.deleteOrder:hover{ color: #333;}
+.order-pagination {width: 100%; padding-top: 20px; display: flex; justify-content: flex-end;}
 
 /* 订单详情 */
 .orderDetail-page {padding: 20px 0;}
