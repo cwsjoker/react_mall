@@ -1,5 +1,6 @@
 import axios from './axios.js';
 import { addSearch } from '../utils/operLocation.js';
+import { message } from 'antd';
 
 
 export class Fetch {
@@ -33,9 +34,10 @@ export class Fetch {
             if (res.data.code === '200') {
                 return res;
             } else {
+                if (['202', '203', '201'].includes(res.data.code)) {
+                    message.error(res.data.msg);
+                }
                 console.log(res);
-                // message.error(res.data.msg);
-                // throw new Error(res.data.msg);
             }
         })
     }

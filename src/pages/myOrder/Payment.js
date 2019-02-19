@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-
+import { message } from 'antd';
 import { getQueryString } from '../../utils/operLocation.js';
-
 import $home_api from '../../fetch/api/home';
 import $user_api from '../../fetch/api/user';
 import grounp_img from '../../assets/images/Group 4.png';

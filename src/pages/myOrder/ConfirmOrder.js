@@ -175,12 +175,18 @@ const ConfirmOrder = class ConfirmOrder extends Component {
     }
     // 提交订单
     async submitOrder() {
+        const { order_list, addr_list } = this.state;
+        if (addr_list.length === 0) {
+            message.error('请选择收货地址');
+            return;
+        }
+
         let post_data = {
             addressId: '',
             goods: []
         }
 
-        post_data.goods = this.state.order_list.map(v => {
+        post_data.goods = order_list.map(v => {
             const obj = {};
             obj['count'] = v.goodsNum;
             obj['goodId'] = v.goodsId;
@@ -190,10 +196,11 @@ const ConfirmOrder = class ConfirmOrder extends Component {
         })
 
         if (post_data.goods.length === 0) {
+            message.error('没有商品无法下单');
             return;
         }
 
-        const addr_item = this.state.addr_list.find(v => {
+        const addr_item = addr_list.find(v => {
             return v.is_choose;
         })
         post_data.addressId = addr_item['id'];
