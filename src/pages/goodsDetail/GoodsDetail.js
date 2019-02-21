@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux'
-import { message } from 'antd';
+import { message, Spin } from 'antd';
 import Breadcrumbs from '../../components/Breadcrumb.js';
 import { getQueryString } from '../../utils/operLocation.js'
 import { operateScript, unescapeHTML } from '../../utils/operation.js';
@@ -26,6 +26,7 @@ class GoodsDetail extends Component {
             choose: [], //已选择配置
             buy_number: 1, //购买数量
             Breadcrumb_list: [], //面包屑数据
+            spinning: true
         }
     }
     async componentDidMount() {
@@ -48,7 +49,7 @@ class GoodsDetail extends Component {
                     return goodsInventory[item][0]['id'];
                 })
                 this.setState({
-                    choose: choose_list
+                    choose: choose_list,
                 }, () => {
                     this.getForByGoodsPrice(goodsId)
                 })
@@ -89,7 +90,8 @@ class GoodsDetail extends Component {
         const priceInfo_res = await $home_api.getByGoodsQueryPrice({'goodsId': goodsId, 'propertyGroup': propertyGroup})
         if (priceInfo_res) {
             this.setState({
-                goodsInfo_price: priceInfo_res.data.data
+                goodsInfo_price: priceInfo_res.data.data,
+                spinning: false
             })
             const { price, symbol } = priceInfo_res.data.data;
             this.trnasformUSDT(price, symbol);
@@ -140,7 +142,8 @@ class GoodsDetail extends Component {
         })
         choose_list.push(v.id);
         this.setState({
-            choose: choose_list
+            choose: choose_list,
+            spinning: true
         }, () => {
             const { goodsId } = getQueryString(this.props.location.search);
             this.getForByGoodsPrice(goodsId);
@@ -214,7 +217,7 @@ class GoodsDetail extends Component {
         window.qimoChatClick();
     }
     render() {
-        const { nimingInfo, storeInfo, Breadcrumb_list, goodsInfo_price, goodsInfo_goods, goodsInfo_keyList, goodsInfo_goodsInventory, choose, goodsParam } = this.state;
+        const { nimingInfo, storeInfo, Breadcrumb_list, goodsInfo_price, goodsInfo_goods, goodsInfo_keyList, goodsInfo_goodsInventory, choose, goodsParam, spinning } = this.state;
         let niming_dom = null;
         if (this.state.niming_show) {
             niming_dom = (
@@ -244,100 +247,103 @@ class GoodsDetail extends Component {
                     </div>
                 </div>
                 {/* 商品信息 */}
-                <div className="goodsDetail-main">
-                    <div className="goods-info">
-                        <div className="goodsImg">
-				            <img src={window.BACK_URL + goodsInfo_price.smallImageUrl} />
-			            </div>
-                        <div className="goodsMain">
-                            <h2>{goodsInfo_goods.name}</h2>
-                            <ul className="cleafix">
-                                <li>
-                                    <div className="price">
-                                        <label>价格</label>
-                                        <span><em>{goodsInfo_price.price} {goodsInfo_price.symbol}</em> <i onClick={this.change_niming.bind(this)}></i> ≈ {this.state.change_price_usdt} USDT </span>
-                                        <div className="salesDiv">
-                                            <b>累计销量</b>
-                                            <b>{goodsInfo_price.sales}</b>
+                <Spin tip="Loading..." spinning={spinning}>
+                    <div className="goodsDetail-main">
+                        <div className="goods-info">
+                            <div className="goodsImg">
+                                <img src={window.BACK_URL + goodsInfo_price.smallImageUrl} />
+                            </div>
+                            <div className="goodsMain">
+                                <h2>{goodsInfo_goods.name}</h2>
+                                <ul className="cleafix">
+                                    <li>
+                                        <div className="price">
+                                            <label>价格</label>
+                                            <span><em>{goodsInfo_price.price} {goodsInfo_price.symbol}</em> <i onClick={this.change_niming.bind(this)}></i> ≈ {this.state.change_price_usdt} USDT </span>
+                                            <div className="salesDiv">
+                                                <b>累计销量</b>
+                                                <b>{goodsInfo_price.sales}</b>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <label>简介</label>
-                                    <p>{goodsInfo_price.introduce}</p>
-                                </li>
-                                    {
-                                        goodsInfo_keyList.map((item, index) => {
-                                            return (
-                                                <li  className="inventoryDiv" key={index}>
-                                                    <label>{item}</label>
-                                                    <div className="versionDiv">
-                                                        {
-                                                            goodsInfo_goodsInventory[item].map((v, i) => {
-                                                                return (
-                                                                    <span 
-                                                                        key={i}
-                                                                        className={ choose.includes(v.id) ? 'on' : '' }
-                                                                        onClick={this.choose_color_model.bind(this, v)}
-                                                                    >{v.name}</span>
-                                                                )
-                                                            })
-                                                        }
-                                                    </div>
-                                                </li>
-                                            )
-                                        })
-                                    }
-                                <li>
-                                    <label>购买方式</label>
-                                    <div className="payWay">
-                                        <span className="on">货币支付</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <label>数量</label>
-                                    <div className="trdiv">
-                                        <button className="button2" onClick={this.changeBuyNumber.bind(this, 'reduce')}>-</button>
-                                        <input  type="text" className="qty_item" readOnly="readonly" value={this.state.buy_number} />
-                                        <button  className="button1" onClick={this.changeBuyNumber.bind(this, 'add')}>+</button>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="btnBox">
-                                        <a href="javascript:;" onClick={this.joinShopCart.bind(this, 'imbuy')}>立即购买</a>
-                                        <a className="joinCat" href="javascript:;" onClick={this.joinShopCart.bind(this, 'shopcart')}>加入购物车</a>
-                                    </div>
-                                </li>
-                            </ul>
-                            {niming_dom}
-                        </div>
-                    </div>
-                    {/* 商品详情 */}
-                    <div className="goods-detail">
-                        <div className="goodsTop">
-                            <div className="goodsTab cleafix">
-                                <span>商品介绍</span>
-                            </div>
-                            <div className="goodsBox">
-                                <ul>
-                                    {
-                                        goodsParam.map((item, index) => {
-                                            return (
-                                                <li key={index}>
-                                                    <p>{item.key}：<span>{item.value}</span></p>
-                                                </li>
-                                            )
-                                        })
-                                    }
+                                    </li>
+                                    <li>
+                                        <label>简介</label>
+                                        <p>{goodsInfo_price.introduce}</p>
+                                    </li>
+                                        {
+                                            goodsInfo_keyList.map((item, index) => {
+                                                return (
+                                                    <li  className="inventoryDiv" key={index}>
+                                                        <label>{item}</label>
+                                                        <div className="versionDiv">
+                                                            {
+                                                                goodsInfo_goodsInventory[item].map((v, i) => {
+                                                                    return (
+                                                                        <span 
+                                                                            key={i}
+                                                                            className={ choose.includes(v.id) ? 'on' : '' }
+                                                                            onClick={this.choose_color_model.bind(this, v)}
+                                                                        >{v.name}</span>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
+                                                    </li>
+                                                )
+                                            })
+                                        }
+                                    <li>
+                                        <label>购买方式</label>
+                                        <div className="payWay">
+                                            <span className="on">货币支付</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label>数量</label>
+                                        <div className="trdiv">
+                                            <button className="button2" onClick={this.changeBuyNumber.bind(this, 'reduce')}>-</button>
+                                            <input  type="text" className="qty_item" readOnly="readonly" value={this.state.buy_number} />
+                                            <button  className="button1" onClick={this.changeBuyNumber.bind(this, 'add')}>+</button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="btnBox">
+                                            <a href="javascript:;" onClick={this.joinShopCart.bind(this, 'imbuy')}>立即购买</a>
+                                            <a className="joinCat" href="javascript:;" onClick={this.joinShopCart.bind(this, 'shopcart')}>加入购物车</a>
+                                        </div>
+                                    </li>
                                 </ul>
+                                {niming_dom}
                             </div>
                         </div>
-                        <div className="divOne goodsBom">
-                            <span dangerouslySetInnerHTML={{ __html: unescapeHTML(goodsInfo_goods.detail)}}>
-                            </span>
-                        </div>        
+                        {/* 商品详情 */}
+                        <div className="goods-detail">
+                            <div className="goodsTop">
+                                <div className="goodsTab cleafix">
+                                    <span>商品介绍</span>
+                                </div>
+                                <div className="goodsBox">
+                                    <ul>
+                                        {
+                                            goodsParam.map((item, index) => {
+                                                return (
+                                                    <li key={index}>
+                                                        <p>{item.key}：<span>{item.value}</span></p>
+                                                    </li>
+                                                )
+                                            })
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="divOne goodsBom">
+                                <span dangerouslySetInnerHTML={{ __html: unescapeHTML(goodsInfo_goods.detail)}}>
+                                </span>
+                            </div>        
+                        </div>
                     </div>
-                </div>
+                
+                </Spin>
             </div>
         )
     }

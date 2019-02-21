@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Spin } from 'antd';
 import { getQueryString } from '../../utils/operLocation.js'
 import '../../assets/style/storeHome.scss';
 import StoreItem from '../../components/StoreItem'
@@ -12,7 +13,9 @@ const StoreHome = class StoreHome extends Component {
             produceList: [],
             storeInfo: {},
             symbol: '',
-            storeNimingInfo: {}
+            storeNimingInfo: {},
+            spinning: true
+
         }
     }
     componentDidMount() {
@@ -38,7 +41,8 @@ const StoreHome = class StoreHome extends Component {
         // 获取商品列表
         if (produce_rep) {
             this.setState({
-                produceList: produce_rep.data.data
+                produceList: produce_rep.data.data,
+                spinning: false
             })
         }
         // 获取店铺的信息
@@ -57,7 +61,7 @@ const StoreHome = class StoreHome extends Component {
         }
     }
     render() {
-        const { produceList, storeInfo, symbol, storeNimingInfo } = this.state;
+        const { produceList, storeInfo, symbol, storeNimingInfo, spinning } = this.state;
         return (
             <div className="storeHome-page">
                 <div className="home-top">
@@ -109,15 +113,17 @@ const StoreHome = class StoreHome extends Component {
                             <p>智能潮货 嗨购不停</p>
                         </div>
                         <div className="hot-list">
-                            <ul className="cleafix">
-                                {
-                                    produceList.map((item, index) => {
-                                        return (
-                                            <StoreItem key={index} data={{...item}} />
-                                        )       
-                                    })
-                                }
-                            </ul>
+                            <Spin tip="Loading..." spinning={spinning}>
+                                <ul className="cleafix" style={{minHeight: '600px'}}>
+                                    {
+                                        produceList.map((item, index) => {
+                                            return (
+                                                <StoreItem key={index} data={{...item}} />
+                                            )       
+                                        })
+                                    }
+                                </ul>
+                            </Spin>
                         </div>
                     </div>
                 </div>

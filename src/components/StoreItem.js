@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link }  from 'react-router-dom';
 
 export default function StoreItem(props) {
     const { id, imageUrl, name, introduce, price, symbol } = props.data;
     return (
         <li className="hot-list-item">
-            <a href={'/goodsDetail?goodsId=' + id}>
+            <Link to={'/goodsDetail?goodsId=' + id}>
                 <div className="hot-list-item-con">
                     <div>
                         <img  src={window.BACK_URL + imageUrl}/>
@@ -16,7 +17,7 @@ export default function StoreItem(props) {
                         <div href="javascript:;">立即购买</div>
                     </div>
                 </div>
-            </a>
+            </Link>
         </li>
     )
 };

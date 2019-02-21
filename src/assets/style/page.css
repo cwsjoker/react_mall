@@ -49,24 +49,25 @@ body {
     background: #fff;
     box-sizing: border-box;
 }
-.recommend-main .recommend-daily>div, .recommend-main .recommend-hot>div { padding: 26px 0 20px; width: 100%; height: auto; overflow: hidden;}
-.recommend-main .recommend-daily>div h2, .recommend-main .recommend-hot>div h2{ height: 24px; line-height: 24px; float: left; font-size: 18px; color: #333;}
-.recommend-main .recommend-daily>div span, .recommend-main .recommend-hot>div span{ display: block; float: left; margin-left: 28px; height: 24px; line-height: 30px; font-size: 12px; color: #999;}
-.recommend-main .recommend-daily>div i, .recommend-main .recommend-hot>div i{ display: block; width: 3px; height: 16px; margin-right: 7px; background: #AE4E54; float: left; margin-top: 4px;}
+.home-tip-title { padding: 26px 0 20px; width: 100%; height: auto; overflow: hidden;}
+.home-tip-title h2{ height: 24px; line-height: 24px; float: left; font-size: 18px; color: #333;}
+.home-tip-title span{ display: block; float: left; margin-left: 28px; height: 24px; line-height: 30px; font-size: 12px; color: #999;}
+.home-tip-title i{ display: block; width: 3px; height: 16px; margin-right: 7px; background: #AE4E54; float: left; margin-top: 4px;}
 
-.recommend-main .recommend-daily>ul li{ padding-bottom: 20px; margin-right: 21px; width: 266px; height: auto; float: left;}
-.recommend-main .recommend-daily>ul li a{ padding: 10px 0; border: 1px solid #fff; color: #494949; text-align: center; display: block;}
-.recommend-main .recommend-daily>ul li img{ display: block; width: 150px; margin: 0 auto; height: 150px;}
-.recommend-main .recommend-daily>ul li h2{ margin-top: 18px; height: 18px;padding: 0 30px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; line-height: 18px; font-size: 12px;}
-.recommend-main .recommend-daily>ul li p{ padding: 0 30px; height: 36px; overflow: hidden; line-height: 18px; font-size: 12px; color: #a3a3a3;}
-.recommend-main .recommend-daily>ul li h3{ padding: 5px 30px 15px; height: 22px; line-height: 22px; font-size: 18px; color: #ae4e54;}
-.recommend-main .recommend-daily>ul li a:hover{ border: 1px solid #f0f0f0;box-shadow: 0 0 8px #f0f0f0;}
+.recommend-main .recommend-daily .siftList {min-height: 590px;}
+.recommend-main .recommend-daily .siftList li{ padding-bottom: 20px; margin-right: 21px; width: 266px; height: auto; float: left;}
+.recommend-main .recommend-daily .siftList li a{ padding: 10px 0; border: 1px solid #fff; color: #494949; text-align: center; display: block;}
+.recommend-main .recommend-daily .siftList li img{ display: block; width: 150px; margin: 0 auto; height: 150px;}
+.recommend-main .recommend-daily .siftList li h2{ margin-top: 18px; height: 18px;padding: 0 30px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; line-height: 18px; font-size: 12px;}
+.recommend-main .recommend-daily .siftList li p{ padding: 0 30px; height: 36px; overflow: hidden; line-height: 18px; font-size: 12px; color: #a3a3a3;}
+.recommend-main .recommend-daily .siftList li h3{ padding: 5px 30px 15px; height: 22px; line-height: 22px; font-size: 18px; color: #ae4e54;}
+.recommend-main .recommend-daily .siftList li a:hover{ border: 1px solid #f0f0f0;box-shadow: 0 0 8px #f0f0f0;}
 
 
 .recommend-main .recommend-hot {
     margin-top: 20px;
 }
-
+.recommend-main .recommend-hot ul {min-height: 660px;}
 .recommend-main .recommend-hot ul li{ margin-bottom: 20px; width: 210px; height: auto; float: left;}
 .recommend-main .recommend-hot ul li .hotDiv{ text-align: center; position: relative; padding: 30px 0; border: 1px solid #fff; -moz-transition: all 0.3s ease-in; -webkit-transition: all 0.3s ease-in; -o-transition: all 0.3s ease-in; transition: all 0.3s ease-in;}
 .recommend-main .recommend-hot ul li .hotDiv:hover{border: 1px solid #f0f0f0;box-shadow: 0 0 8px #f0f0f0; }
