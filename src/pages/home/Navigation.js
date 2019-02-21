@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router'
-import { connect } from 'react-redux'
-
+import { Link }  from 'react-router-dom';
 import $home_api from '../../fetch/api/home.js'
 
 const Navigation = class Navigation extends Component {
@@ -12,7 +10,6 @@ const Navigation = class Navigation extends Component {
         }
     }
     componentDidMount() {
-        // console.log(this);
         $home_api.getStoreMenu().then(res => {
             if (res) {
                 this.setState({
@@ -21,22 +18,19 @@ const Navigation = class Navigation extends Component {
             }
         })
     }
-    // 跳转商店
-    gotoStoreList(item, e) {
-        e.preventDefault();
-        this.props.history.push('/storeIndex?id='+item.producerId);
-    }
     render() {
+        const { storeList } = this.state;
+        const { storeIndex } = this.props;
         return (
             <div className="navigation-main">
                 <h2>货币类型</h2>
                 <ul className="currencyType">
                 {
-                    this.state.storeList.map(item => {
+                    storeList.map(item => {
                         return (
-                            <li key={item.producerId} onClick={this.gotoStoreList.bind(this, item)} className={this.props.storeIndex == item.producerId ? 'on' : '' }>
+                            <li key={item.producerId} className={storeIndex == item.producerId ? 'on' : '' }>
                                 <i></i>
-                                <a href="javascript:;">
+                                <Link to={'/storeIndex?id=' + item.producerId}>
                                     <h3><img src={item.logo} /><span>{item.NAME}</span></h3>
                                     <div className="progressBarDiv">
                                         <div className="progress_container">
@@ -50,7 +44,7 @@ const Navigation = class Navigation extends Component {
                                         </div>
                                         <span>{item.percent * 100}%</span>
                                     </div>
-                                </a>
+                                </Link>
                             </li>
                         )
                     })
@@ -61,8 +55,4 @@ const Navigation = class Navigation extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return { navStore: state.nav }
-}
-
-export default withRouter(connect(mapStateToProps)(Navigation));
+export default Navigation;

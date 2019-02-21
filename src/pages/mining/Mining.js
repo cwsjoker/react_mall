@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link }  from 'react-router-dom';
 import Footer from '../../components/Footer.js';
 import '../../assets/style/mining.scss';
 import $home_api from '../../fetch/api/home';
@@ -57,7 +58,7 @@ const Mining = class Mining extends Component {
                 {/* 头部 */}
                 <div className="header-mining">
                     <div className="header-mining-main">
-                        <a href="./"><div></div></a>
+                        <Link to="./"><div></div></Link>
                         <div>矿区</div>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link }  from 'react-router-dom';
 import { getQueryString } from '../../utils/operLocation.js';
 import { message, Modal } from 'antd';
 import $home_api from '../../fetch/api/home';
@@ -82,7 +83,7 @@ const orderDetail = class orderDetail extends Component {
                             <h2>订单编号：{orderId}</h2>
                             <h3>{orderStatus}</h3>
                             {
-                                orderState === 0 ? <h4><a href={'/payment?orderId=' + orderId}>付款</a></h4> : null
+                                orderState === 0 ? <h4><Link to={'/payment?orderId=' + orderId}>付款</Link></h4> : null
                             }
                             {
                                 orderState === 0 ? <h5><a href="javascript:;" onClick={this.cancelOrder.bind(this, orderId)}>取消订单</a></h5> : null

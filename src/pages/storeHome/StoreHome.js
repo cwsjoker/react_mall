@@ -21,7 +21,6 @@ const StoreHome = class StoreHome extends Component {
     componentDidMount() {
         const id = getQueryString(this.props.location.search).id
         if (id) {
-            console.log(111)
             this.setState({
                 storeId: id
             }, () => {

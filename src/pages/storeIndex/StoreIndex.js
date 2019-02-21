@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link }  from 'react-router-dom';
 import { connect } from 'react-redux'
 import { Spin } from 'antd';
 import { getQueryString } from '../../utils/operLocation.js'
@@ -22,20 +23,22 @@ const StoreIndex = class StoreIndex extends Component {
     }
 
     componentDidMount() {
-        // console.log(getQueryString(this.props.location.search));
-        if (getQueryString(this.props.location.search).id) {
+        const id = getQueryString(this.props.location.search).id;
+        if (id) {
             this.setState({
-                storeIndex: getQueryString(this.props.location.search).id
+                storeIndex: id
             }, () => {
                 this.getList();
             })
         }
     }
     componentDidUpdate() {
-        // console.log(getQueryString(this.props.location.search));
-        if (getQueryString(this.props.location.search).id !== this.state.storeIndex) {
+        const id = getQueryString(this.props.location.search).id;
+        if (id !== this.state.storeIndex) {
             this.setState({
-                storeIndex: getQueryString(this.props.location.search).id
+                storeIndex: id,
+                produceList: [],
+                spinning: true
             }, () => {
                 this.getList();
             })
@@ -49,7 +52,6 @@ const StoreIndex = class StoreIndex extends Component {
             sort: "string"
         }).then(res => {
             if (res) {
-                console.log(11111)
                 this.setState({
                     produceList: res.data.data,
                     spinning: false
@@ -100,7 +102,7 @@ const StoreIndex = class StoreIndex extends Component {
                         <div className="store-title-top cleafix">
                             <div className="store-title-top-img"><img src={window.BACK_URL + this.state.storeInfo.logoUrl}/></div>
                             <div className="store-title-top-info">
-                                <a href={'/storeHome?id=' +　this.state.storeIndex }>{this.state.storeInfo.name}</a>
+                                <Link to={'/storeHome?id=' +　this.state.storeIndex }>{this.state.storeInfo.name}</Link>
                                 <h3><span>官方自营</span></h3>
                                 <p>我的余额:<span>{this.state.available}</span><em>{this.state.symbol}</em><a href={window.BT_URL + "market?symbol=" + symbol + "_BT"}>去交易</a></p>
                             </div>
@@ -108,7 +110,6 @@ const StoreIndex = class StoreIndex extends Component {
                         <div className="flagBom cleafix">
                             <div className="flagLine"></div>
                             <div className="flagLine1"></div>
-                            {/* <a href="#">查看</a> */}
                             <ul>
                                 <li>
                                     <h2>流通总量：</h2>

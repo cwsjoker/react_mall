@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { Link }  from 'react-router-dom';
 import Cookie from 'js-cookie';
 import { setLoginState } from '../store/actionCreators';
 
@@ -18,13 +19,13 @@ const Header = class Header extends Component {
                     <span>您好{this.props.loginStore.name}</span>
                     <a href="#" onClick={this.logout} style={{marginLeft: '10px'}}>退出</a>
                     <i></i>
-                    <a href="./myOrder" >我的订单</a>
+                    <Link to="./myOrder" >我的订单</Link>
                 </div>
             )
             btn_mining = (
-                <a href="./mining">
+                <Link to="./mining">
                     <div className="mining-btn fr">挖矿<span></span> </div>
-                </a>
+                </Link>
             )
         } else {
             btn = (
@@ -45,17 +46,17 @@ const Header = class Header extends Component {
                 </div>
                 <div className="bottom">
                     <div className="nav-main">
-                        <a href="./">
+                        <Link to="./">
                             <div className="logo-img"></div>
-                        </a>
+                        </Link>
                         <span>{this.props.homeStore.name}</span>
                     </div>
                     <div className="nav-end">
                         {btn_mining}
                         <div className="shopCart-logo">
-                            <a href="./shopcart">
+                            <Link to="./shopcart">
                                 <span>购物车<em>{this.props.shopCartStore.num}</em></span>
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>

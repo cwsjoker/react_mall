@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link }  from 'react-router-dom';
 import { message, Modal } from 'antd';
 import $home_api from '../fetch/api/home';
 
@@ -61,7 +62,7 @@ export default class OrderItem extends Component {
                                     <div className="orderImg"><a href="javascript:;"><img src={window.BACK_URL + goodsItem.goodsImgUrl} /></a></div>
                                     <div className="orderTxt">
                                         <p>
-                                            <a href={'/goodsDetail?goodsId=' + goodsItem.goodsId}>{goodsItem.introduce}</a>
+                                            <Link to={'/goodsDetail?goodsId=' + goodsItem.goodsId}>{goodsItem.introduce}</Link>
                                             <span>{goodsItem.price + ' ' + goodsItem.symbol + 'x' + goodsItem.count}</span>
                                         </p>
                                         <h6>备注：{goodsItem.note}</h6>
@@ -91,12 +92,12 @@ export default class OrderItem extends Component {
                                                 {
                                                     orderStatus === 10 ? <span>已取消</span> : null
                                                 }
-                                                <a href={'/orderDetail?orderId=' + orderNumber}>订单详情</a>
+                                                <Link to={'/orderDetail?orderId=' + orderNumber}>订单详情</Link>
                                             </div>
                                             {/* 根据订单状态显示操作按钮 */}
                                             <div className="orderHandle">
                                                 {
-                                                    orderStatus === 0 ? <a href={'/payment?orderId=' + orderNumber}>付款</a> : null
+                                                    orderStatus === 0 ? <Link to={'/payment?orderId=' + orderNumber}>付款</Link> : null
                                                 }
                                                 {
                                                     orderStatus === 1 ? <span className="cancelOrder" onClick={() => message.success('提醒成功')}>提醒发货</span> : null 
