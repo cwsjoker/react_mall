@@ -25,16 +25,10 @@ const Payment = class Payment extends Component {
         }
     }
     async componentDidMount() {
-
-        console.log(document.getElementsByClassName('password'));
-        
-
-
         const { orderId } = getQueryString(this.props.location.search);
         const info_req = await $home_api.queryOrderInfo({orderNumber: orderId});
         if (info_req) {
-            console.log(info_req);
-            const { coinSymbol, orderItem, receiverCustomerDTO, orderState, orderStatus } = info_req.data.data;
+            const { coinSymbol, orderItem, receiverCustomerDTO } = info_req.data.data;
             const orderInfo = {
                 addr: receiverCustomerDTO.receiverAddress,
 				name: receiverCustomerDTO.receiverName + ' ' +receiverCustomerDTO.receiverPhone,
@@ -48,9 +42,6 @@ const Payment = class Payment extends Component {
             // 获取账户余额
             const res_blance = await $user_api.getUserFinance({coinSymbol: coinSymbol});
             if (res_blance) {
-                // this.setState({
-                //     available: res_blance.data.data.available
-                // })
                 this.setState({
                     orderId: orderId,
                     orderInfo: orderInfo,
@@ -69,20 +60,12 @@ const Payment = class Payment extends Component {
     }
     change_pass(index, e) {
         e.preventDefault();
-        // console.log(e.keyCode);
-        if (e.target.value) {
-            if (!/[0-9]/.test(e.target.value)) {　　  　　　　 
-                return 　　　 　　
-            }
+        if (e.target.value && !/[0-9]/.test(e.target.value)) {
+            return;
         }
         const list = this.state.password_list;
         list[index] = e.target.value;
-        let is = false;
-        if (e.target.value) {
-            is = true;
-        } else {
-            is = false;
-        }
+        let is = e.target.value ? true : false;
         this.setState({
             password_list: list
         }, () => {
@@ -93,23 +76,23 @@ const Payment = class Payment extends Component {
     }
     keyUp(index, e) {
         e.preventDefault();
-        // console.log(e.keyCode);
-        if (e.keyCode === 8) {
-            if (index !== 0) {
+        if ((e.keyCode === 8 || e.keyCode === 37) &&　index !== 0) {
                 document.getElementsByClassName('password')[index - 1].focus();
-            }
         }
+        if (e.keyCode === 39 && index <= 4) {
+            document.getElementsByClassName('password')[index + 1].focus();
+        }
+
     }
     async payment() {
         const password = this.state.password_list.join('');
         if (password.length !== 6) {
-            console.log('密码不符合规则，不满6位数');
+            message.error('密码不符合规则，不满6位数');
             return;
         }
-        // console.log(password);
         const payment_req  = await $home_api.orderPayment({orderNumber: this.state.orderId, payPassword: password});
         if (payment_req) {
-            console.log(payment_req);
+            message.success('支付成功');
             this.props.history.push('/myOrder');
         } else {
             this.setState({
@@ -119,19 +102,6 @@ const Payment = class Payment extends Component {
     }
     render() {
         const { orderId, orderInfo, show_info, symbol, available, total, password_list } = this.state;
-        let orderInfo_dom = null;
-        if (show_info) {
-            orderInfo_dom = (
-                <div className="checkOrderData">
-                    <div className="checkOrderDataImg fl"><a><img src={window.BACK_URL + orderInfo.img} /></a></div>
-                    <div className="checkOrderDataTxt fl">
-                        <p>收货地址：{orderInfo.addr}</p>
-                        <p>收货人：{orderInfo.name}</p>
-                        <p>商品名称：{orderInfo.info}</p>
-                    </div>
-                </div>
-            )
-        }
         return (
             <div className="payment-page">
                 <div className="payment-main">
@@ -144,7 +114,19 @@ const Payment = class Payment extends Component {
                         <div className="checktopRight fr">
                             <h4 onClick={this.showOrderInfo.bind(this)}><span>订单详情<i></i></span></h4>
                         </div>
-                        {orderInfo_dom}
+                        {/* 订单商品列表 */}
+                        {
+                            show_info ? (
+                                <div className="checkOrderData">
+                                    <div className="checkOrderDataImg fl"><a><img src={window.BACK_URL + orderInfo.img} /></a></div>
+                                    <div className="checkOrderDataTxt fl">
+                                        <p>收货地址：{orderInfo.addr}</p>
+                                        <p>收货人：{orderInfo.name}</p>
+                                        <p>商品名称：{orderInfo.info}</p>
+                                    </div>
+                                </div>
+                            ) : null                       
+                        }
                     </div>
                     {/* 支付信息 */}
                     <div className="payment-info-main">
@@ -166,12 +148,6 @@ const Payment = class Payment extends Component {
                             <div className="paymentTwo">
                                 <p>请输入6位数字支付密码</p>
                                 <div className="passwordDiv cleafix">
-                                    {/* <input name="pay_pass" type="password" maxlength="1" className="password" onChange={this.change_pass.bind(this)} />
-                                    <input name="pay_pass" type="password" maxlength="1" className="password" onChange={this.change_pass.bind(this)} />
-                                    <input name="pay_pass" type="password" maxlength="1" className="password" onChange={this.change_pass.bind(this)} />
-                                    <input name="pay_pass" type="password" maxlength="1" className="password" onChange={this.change_pass.bind(this)} />
-                                    <input name="pay_pass" type="password" maxlength="1" className="password" onChange={this.change_pass.bind(this)} />
-                                    <input name="pay_pass" type="password" maxlength="1" className="password" onChange={this.change_pass.bind(this)} /> */}
                                     {
                                         password_list.map((item, index) => {
                                             return (
