@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Pagination } from 'antd';
+import { Pagination, Spin } from 'antd';
 import OrderItem from '../../components/OrderItem.js';
 import $home_api from '../../fetch/api/home';
 
@@ -14,6 +14,7 @@ class MyOrder extends Component {
             pendingPaymentCount: 0, // 待付款单数
             current: 1, // 分页-当前页面
             total: 0,  // 分页-总条数
+            spinning: false, //页面loding
         }
     }
     componentDidMount() {
@@ -21,6 +22,10 @@ class MyOrder extends Component {
     }
     // 查询全部订单和待付款和待发货的数量, 查询订单列表
     getOrderList = async () => {
+        this.setState({
+            spinning: true,
+            order_list: []
+        })
         const { search_key, order_status } = this.state;
         const query_obj = {
             "pageNo": this.state.current,
@@ -41,7 +46,8 @@ class MyOrder extends Component {
             this.setState({
                 order_list: list,
                 total: total,
-                current: pageNum
+                current: pageNum,
+                spinning: false
             })
         }
     }
@@ -81,7 +87,7 @@ class MyOrder extends Component {
         })
     }
     render() {
-        const { order_list, order_status, pendingPaymentCount, pendingDelivery, search_key, current, total } = this.state;
+        const { order_list, order_status, pendingPaymentCount, pendingDelivery, search_key, current, total, spinning } = this.state;
         return (
             <div className="myOrder-page">
                 <div className="myOrder-page-main">
@@ -89,52 +95,55 @@ class MyOrder extends Component {
                         <i></i>
                         <h2>我的订单</h2>
                     </div>
-                    <div className="myOrder-page-con">
-                        {/* -1 全部订单， 0 待付款， 1 待发货， 9 已成交， 10已取消 */}
-                        <div className="orderTab">
-                            <a href="javascript:;"  className={order_status === -1 ? 'on' : ''} onClick={() => this.changeOrderType(-1)}>全部订单</a>
-                            <a href="javascript:;" className={order_status === 0 ? 'on' : ''} onClick={() => this.changeOrderType(0)}>待付款
-                                {
-                                    pendingPaymentCount !== 0 ? <em className="angleDom">{pendingPaymentCount}</em> : null
-                                }
-                            </a>
-                            <a  href="javascript:;" className={order_status === 1 ? 'on' : ''} onClick={() => this.changeOrderType(1)}>待发货
-                                {
-                                    pendingDelivery !== 0 ? <em className="angleDom">{pendingDelivery}</em> : null
-                                }
-                            </a>
-                            <a href="javascript:;" className={order_status === 9 ? 'on' : ''} onClick={() => this.changeOrderType(9)}>已成交</a>
-                            <a href="javascript:;" className={order_status === 10 ? 'on' : ''} onClick={() => this.changeOrderType(10)}>已取消</a>
-                            <div className="search">
-                                <input className="seaTxt" type="text" placeholder="订单号" value={search_key} onChange={this.changeSearchKey}/>
-                                <input className="seaBut" type="button" onClick={this.queryOrderList} />
+                    <Spin tip="Loading..." spinning={spinning}>
+                        <div className="myOrder-page-con">
+                            {/* -1 全部订单， 0 待付款， 1 待发货， 9 已成交， 10已取消 */}
+                            <div className="orderTab">
+                                <a href="javascript:;"  className={order_status === -1 ? 'on' : ''} onClick={() => this.changeOrderType(-1)}>全部订单</a>
+                                <a href="javascript:;" className={order_status === 0 ? 'on' : ''} onClick={() => this.changeOrderType(0)}>待付款
+                                    {
+                                        pendingPaymentCount !== 0 ? <em className="angleDom">{pendingPaymentCount}</em> : null
+                                    }
+                                </a>
+                                <a  href="javascript:;" className={order_status === 1 ? 'on' : ''} onClick={() => this.changeOrderType(1)}>待发货
+                                    {
+                                        pendingDelivery !== 0 ? <em className="angleDom">{pendingDelivery}</em> : null
+                                    }
+                                </a>
+                                <a href="javascript:;" className={order_status === 9 ? 'on' : ''} onClick={() => this.changeOrderType(9)}>已成交</a>
+                                <a href="javascript:;" className={order_status === 10 ? 'on' : ''} onClick={() => this.changeOrderType(10)}>已取消</a>
+                                <div className="search">
+                                    <input className="seaTxt" type="text" placeholder="订单号" value={search_key} onChange={this.changeSearchKey}/>
+                                    <input className="seaBut" type="button" onClick={this.queryOrderList} />
+                                </div>
+                            </div>
+                            <div className="orderList">
+                                <div className="listTop">
+                                    <span className="ico1">订单</span>
+                                    <span className="ico2">订单详情</span>
+                                    <span className="ico3">收货人</span>
+                                    <span className="ico4">金额</span>
+                                    <span className="ico5">状态</span>
+                                    <span className="ico6">操作</span>
+                                </div>
+                                <div className="orderListOne">
+                                    {/* 订单列表 */}
+                                    {
+                                        order_list.map((item, index) => {
+                                            return (
+                                                <OrderItem key={index} {...item} getOrderList={this.getOrderList} />
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div>
+                            {/* 分页 */}
+                            <div className="order-pagination">
+                                <Pagination current={current} onChange={this.changePage} total={total} showTotal={total => `共 ${total} 数据`} />
                             </div>
                         </div>
-                        <div className="orderList">
-                            <div className="listTop">
-                                <span className="ico1">订单</span>
-                                <span className="ico2">订单详情</span>
-                                <span className="ico3">收货人</span>
-                                <span className="ico4">金额</span>
-                                <span className="ico5">状态</span>
-                                <span className="ico6">操作</span>
-                            </div>
-                            <div className="orderListOne">
-                                {/* 订单列表 */}
-                                {
-                                    order_list.map((item, index) => {
-                                        return (
-                                            <OrderItem key={index} {...item} getOrderList={this.getOrderList} />
-                                        )
-                                    })
-                                }
-                            </div>
-                        </div>
-                        {/* 分页 */}
-                        <div className="order-pagination">
-                            <Pagination current={current} onChange={this.changePage} total={total} showTotal={total => `共 ${total} 数据`} />
-                        </div>
-                    </div>
+
+                    </Spin>
                 </div>
             </div>
         )
