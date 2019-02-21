@@ -71,11 +71,11 @@
     font-size: 24px;
     color: #fff;
 } */
-.header-main .bottom .nav-main span {margin-left: 36px; margin-top: 35px; display: block; float: left; height: 32px; line-height: 32px; font-size: 20px; color: #4E5B85;font-family: PingFangSC-Regular;}
+.header-main .bottom .nav-main span {margin-left: 36px; margin-top: 35px; display: block; float: left; height: 32px; line-height: 32px; font-size: 20px; color: #F3F4F8;font-family: PingFangSC-Regular;}
 .header-main .bottom .logo-img {
-    margin-top: 20px;
+    margin-top: 27px;
     width: 171px;
-    height: 41px;
+    height: 33px;
     background: url('../images/bttmalllogo.png') no-repeat;
 }
 

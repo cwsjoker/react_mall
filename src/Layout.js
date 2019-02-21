@@ -9,7 +9,6 @@ import Footer from './components/Footer.js';
 // 路由
 import Routers from './router/index.js';
 
-
 import Cookie from 'js-cookie';
 import $user_api from './fetch/api/user'
 
@@ -25,12 +24,6 @@ const Layout = class Layout extends Component {
                     Cookie.set('token', Cookie.get('token'), { expires: 1 });
                 }
             });
-        } else {
-            // console.log(this.props);
-            // const { location } = this.props.history;
-            // if (location.pathname === '/confirmOrder') {
-            //     this.props.history.push('/');
-            // }
         }
 
         // 设置title
@@ -43,9 +36,21 @@ const Layout = class Layout extends Component {
                 document.title = '我的订单';
                 dispatch(setPageName('我的订单'));
                 break;
+            case '/confirmOrder':
+                document.title = '结算页';
+                dispatch(setPageName('结算页'));
+                break;
+            case '/orderDetail':
+                document.title = '订单详情';
+                dispatch(setPageName('订单详情'));
+                break;
+            case '/payment':
+                document.title = '收银台';
+                dispatch(setPageName('收银台'));
+                break;
             default:
                 document.title = '商城';
-                dispatch(setPageName('商城'));
+                dispatch(setPageName(''));
                 break;       
         }
 
