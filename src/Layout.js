@@ -14,7 +14,7 @@ import $user_api from './fetch/api/user'
 
 const Layout = class Layout extends Component {
     componentDidMount() {
-        let { dispatch, location } = this.props;
+        let { dispatch } = this.props;
         // 每次刷新页面验证token
         if (Cookie.get('token')) {
             $user_api.queryUserByToken().then(res => {
@@ -26,6 +26,20 @@ const Layout = class Layout extends Component {
             });
         }
 
+        this.setTitle();
+
+        // 购物车
+        const list = JSON.parse(localStorage.getItem('shopCartList'));
+        if (list) {
+            dispatch(setShopCartNum(list.length));
+        }
+
+    }
+    componentDidUpdate() {
+        this.setTitle();
+    }
+    setTitle() {
+        let { dispatch, location } = this.props;
         // 设置title
         switch(location.pathname) {
             case '/shopcart':
@@ -52,12 +66,6 @@ const Layout = class Layout extends Component {
                 document.title = '商城';
                 dispatch(setPageName(''));
                 break;       
-        }
-
-        // 购物车
-        const list = JSON.parse(localStorage.getItem('shopCartList'));
-        if (list) {
-            dispatch(setShopCartNum(list.length));
         }
     }
     render() {

@@ -213,7 +213,7 @@ const ConfirmOrder = class ConfirmOrder extends Component {
                 // 1901291026208074
                 message.success('下单成功');
                 const order_number = order_req.data.data;
-                this.props.history.push('/Payment?orderId=' + order_number);
+                this.props.history.push('/payment?orderId=' + order_number);
 
             }
         }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Pagination, Spin } from 'antd';
+import { Pagination, Spin, Empty } from 'antd';
 import OrderItem from '../../components/OrderItem.js';
 import $home_api from '../../fetch/api/home';
 
@@ -24,7 +24,7 @@ class MyOrder extends Component {
     getOrderList = async () => {
         this.setState({
             spinning: true,
-            order_list: []
+            order_list: [],
         })
         const { search_key, order_status } = this.state;
         const query_obj = {
@@ -129,11 +129,15 @@ class MyOrder extends Component {
                                 <div className="orderListOne">
                                     {/* 订单列表 */}
                                     {
-                                        order_list.map((item, index) => {
-                                            return (
-                                                <OrderItem key={index} {...item} getOrderList={this.getOrderList} />
-                                            )
-                                        })
+                                        !spinning ? (
+                                            order_list.length !== 0 ? (
+                                                order_list.map((item, index) => {
+                                                    return (
+                                                        <OrderItem key={index} {...item} getOrderList={this.getOrderList} />
+                                                    )
+                                                })
+                                            ) : <Empty description={'暂无数据'} />
+                                        ) : null
                                     }
                                 </div>
                             </div>
