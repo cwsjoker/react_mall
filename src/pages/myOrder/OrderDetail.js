@@ -117,10 +117,15 @@ const orderDetail = class orderDetail extends Component {
                                 <p>地址：  {receiverCustomerDTO.receiverAddress}</p>
                                 <p>手机号码： {receiverCustomerDTO.receiverPhone}</p>
                             </li>
-                            <li>
-                                <h2>配送信息</h2>
-                                <p>配送方式： 顺丰快递</p>
-                            </li>
+                            {
+                                orderState === 9 ? (
+                                    <li>
+                                        <h2>配送信息</h2>
+                                        <p>配送方式： {receiverCustomerDTO.deliveryName}</p>
+                                        <p>运单号： {receiverCustomerDTO.deliveryNo}</p>
+                                    </li>
+                                ) : null
+                            }
                             <li>
                                 <h2>付款信息</h2>
                                 <p>付款方式： 在线支付</p>
