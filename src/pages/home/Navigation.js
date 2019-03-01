@@ -42,7 +42,7 @@ const Navigation = class Navigation extends Component {
                                                 )
                                             }
                                         </div>
-                                        <span>{item.percent * 100}%</span>
+                                        <span>{(item.percent * 100).toFixed(2)}%</span>
                                     </div>
                                 </Link>
                             </li>
