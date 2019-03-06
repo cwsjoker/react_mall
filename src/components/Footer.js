@@ -12,31 +12,25 @@ export default function Footer() {
                     <ul>
                         <li>
                             <h2>服务</h2>
-                            <a href="#">交易中心</a>
-                            <a href="#">帮助中心</a>
-                            <a href="#">提交请求</a>
-                            <a href="#">申请成为推荐机构</a>
+                            <a href={window.BT_URL}>交易中心</a>
+                            <a href={window.BT_URL}>帮助中心</a>
+                            <a href={window.BT_URL}>提交请求</a>
                         </li>
                         <li>
                             <h2>条款说明</h2>
-                            <a href="#">隐私政策</a>
-                            <a href="#">用户协议</a>
-                            <a href="#">手续费</a>
+                            <a href={window.BT_URL + '/single/single_privacy'}>隐私政策</a>
+                            <a href={window.BT_URL + '/single/single_terms'}>用户协议</a>
+                            <a href={window.BT_URL + '/single/single_fees'}>手续费</a>
                         </li>
                         <li>
                             <h2>关于我们</h2>
-                            <a href="#">客户支持</a>
-                            <a href="#">联系我们</a>
-                        </li>
-                        <li>
-                            <h2>社区</h2>
-                            <a href="#">帮助中心</a>
-                            <a href="#">提交请求</a>
-                            <a href="#">申请成为推荐机构</a>
+                            <span>商务合作:admin@bttmall.com</span>
+                            <span>客户支持合作:admin@bttmall.com</span>
                         </li>
                     </ul>
                 </div>
             </div>
+            <div className="footer-tip">© 2017-2018 BttMall, All Rights Reserved. BttMall Technology Co.,Limited</div>
         </div>
     )
 }
