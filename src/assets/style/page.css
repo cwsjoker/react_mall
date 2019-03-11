@@ -464,7 +464,7 @@ body {
 .myOrder-page-main {width: 1200px; min-height: 600px; margin: 0 auto; padding-bottom: 20px;}
 .myOrder-page-con { padding: 20px 30px 36px; background: #fff;}
 .orderTab{ width: 100%; height: auto; overflow: hidden;}
-.orderTab a{ box-sizing: initial; padding-top: 10px; position: relative; display: block; float: left; margin-right: 40px; height: 22px; border-bottom: 2px solid #fff; line-height: 22px; font-size: 14px; color: #333;}
+.orderTab a{ text-decoration: none; box-sizing: initial; padding-top: 10px; position: relative; display: block; float: left; margin-right: 40px; height: 22px; border-bottom: 2px solid #fff; line-height: 22px; font-size: 14px; color: #333;}
 .orderTab a.on{ color: #AE4E54; border-color: #AE4E54;}
 .orderTab a .angleDom { right: -15px; position: absolute; top: 2px; right: -20px; background: #ae4e54; display: block; width: 16px; height: 16px; line-height: 16px; text-align: center; border-radius: 100%; font-size: 12px; color: #fff;}
 .search{ float: right; margin-top: 4px;}

@@ -35,7 +35,7 @@ const Navigation = class Navigation extends Component {
                         return (
                             <li key={item.producerId} className={storeIndex == item.producerId ? 'on' : '' }>
                                 <i></i>
-                                <Link to={'/storeIndex?id=' + item.producerId}>
+                                <Link to={'/storeIndex?id=' + item.producerId} style={{'textDecoration': 'none'}}>
                                     <h3><img src={item.logo} /><span>{item.NAME}</span></h3>
                                     <div className="progressBarDiv">
                                         {/* <div className="progress_container">
