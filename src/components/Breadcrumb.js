@@ -5,7 +5,7 @@ import { Breadcrumb } from 'antd';
 export default function Breadcrumbs(props) {
     const { list } = props;
     return (
-        <Breadcrumb>
+        <Breadcrumb style={{'fontSize': '12px', 'lineHeight': '25px'}}>
             {
                 list.map((item, index) => {
                     return (
