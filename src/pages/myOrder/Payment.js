@@ -151,7 +151,7 @@ const Payment = class Payment extends Component {
                                     {
                                         password_list.map((item, index) => {
                                             return (
-                                                <input key={index} name="pay_pass" type="password" maxLength="1" className="password" value={item}
+                                                <input autocomplete="off" key={index} name="pay_pass" type="password" maxLength="1" className="password" value={item}
                                                 onChange={this.change_pass.bind(this, index)} 
                                                 onKeyUp={this.keyUp.bind(this, index)} />
                                             )
