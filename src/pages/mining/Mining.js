@@ -14,7 +14,7 @@ const Mining = class Mining extends Component {
     async componentDidMount() {
         const obj_req = await $home_api.selectShopMiningOrderList();
         if (obj_req) {
-            console.log(obj_req);
+            // console.log(obj_req);
             const { data } = obj_req.data;
             data.forEach((v) => {
 				v.isDetail = false;

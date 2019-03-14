@@ -5,7 +5,7 @@ import Cookie from 'js-cookie';
 // axios.defaults.withCredentials = true
 
 // console.log(process)
-console.log(process.env);
+// console.log(process.env);
 
 axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://47.52.66.81:8080' : process.env.REACT_APP_API_URL;
 

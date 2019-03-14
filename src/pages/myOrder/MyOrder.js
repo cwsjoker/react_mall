@@ -68,7 +68,7 @@ class MyOrder extends Component {
     }
     // 切换分页
     changePage = (page) => {
-        console.log(page);
+        // console.log(page);
         this.setState({
             current: page
         }, () => {
