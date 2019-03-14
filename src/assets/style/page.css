@@ -159,7 +159,8 @@ body {
 
 
 
-.flagBom{ position: relative; padding: 12px 0; width: 880px; background: url("../images/ico1.png") repeat;}
+/* .flagBom{ position: relative; padding: 12px 0; width: 880px; background: url("../images/ico1.png") repeat;} */
+.flagBom{ position: relative; padding: 12px 0; width: 880px; border-bottom: 1px solid #F4F4F4;}
 .flagBom ul{ width: 100%; height: auto; float: left;}
 .flagBom ul li{ width: 156px; margin: 0 30px; float: left;}
 .flagBom ul li:nth-child(1) p {color: #999999;}
