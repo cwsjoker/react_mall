@@ -306,7 +306,7 @@ const ConfirmOrder = class ConfirmOrder extends Component {
                     </div>
                     {/* 应付总额 */}
                     <div className="total-amount">
-                        <div>应付总额：{goods_total_price + ' ' + symbol}</div>
+                        <div>应付总额：<span>{goods_total_price + ' ' + symbol}</span></div>
                         {
                             addr_list.map((item, index) => {
                                 return (

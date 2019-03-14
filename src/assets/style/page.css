@@ -114,7 +114,7 @@ body {
     margin-top: 20px;
 }
 .recommend-main .recommend-hot ul {min-height: 660px;}
-.recommend-main .recommend-hot ul li{ margin-bottom: 20px; width: 210px; height: auto; float: left;}
+.recommend-main .recommend-hot ul li{ margin-bottom: 20px; width: 210px; height: auto; float: left; cursor: pointer;}
 .recommend-main .recommend-hot ul li .hotDiv{ text-align: center; position: relative; padding: 30px 0; border: 1px solid #fff; -moz-transition: all 0.3s ease-in; -webkit-transition: all 0.3s ease-in; -o-transition: all 0.3s ease-in; transition: all 0.3s ease-in;}
 .recommend-main .recommend-hot ul li .hotDiv:hover{border: 1px solid #f0f0f0;box-shadow: 0 0 8px #f0f0f0; }
 .recommend-main .recommend-hot ul li .hotDiv .hotIco{ position: absolute; left: 0; top: 16px; display: block; width: 34px; height: 18px; background: #589065; font-size: 12px; color: #fff; text-align: center; line-height: 18px;}
@@ -124,8 +124,8 @@ body {
 .recommend-main .recommend-hot ul li p{ margin: 0 auto; width: 160px; padding: 0 25px; height: 36px; overflow: hidden; line-height: 18px; font-size: 12px; color: #a3a3a3;}
 .recommend-main .recommend-hot ul li h3{ margin: 0 auto; width: 160px; padding: 0 25px; height: 22px; line-height: 22px; font-size: 18px; color: #ae4e54;}
 .recommend-main .recommend-hot ul li .btnDiv{ width: 146px; height: auto; overflow: hidden; margin: 0 auto; padding: 20px 0 0;}
-.recommend-main .recommend-hot ul li .btnDiv div{width: 66px; height: 22px; background: #EFEFEF; margin: 0 auto; border: 1px solid #EFEFEF; font-size: 12px; color: #333; text-align: center; line-height: 22px;}
-.recommend-main .recommend-hot ul li .btnDiv div:hover{ border: 1px solid #AE4E54; background: #AE4E54; color: #fff !important;}
+.recommend-main .recommend-hot ul li .btnDiv div{width: 66px; height: 22px;  margin: 0 auto; font-size: 12px; color: #333; text-align: center; line-height: 22px;}
+/* .recommend-main .recommend-hot ul li .btnDiv div:hover{ border: 1px solid #AE4E54; background: #AE4E54; color: #fff !important;} */
 
 
 /* 店铺页面 */
@@ -162,6 +162,8 @@ body {
 .flagBom{ position: relative; padding: 12px 0; width: 880px; background: url("../images/ico1.png") repeat;}
 .flagBom ul{ width: 100%; height: auto; float: left;}
 .flagBom ul li{ width: 156px; margin: 0 30px; float: left;}
+.flagBom ul li:nth-child(1) p {color: #999999;}
+.flagBom ul li:nth-child(4) p {color: #589065;}
 .flagBom ul li h2{ height: 18px; line-height: 18px; font-size: 12px; color: #333;}
 .flagBom ul li p{ height: 18px; line-height: 18px; font-size: 12px; color: #AE4E54;}
 .flagBom .flagLine{ position: absolute; top: 16px; left: 200px; width: 1px; height: 30px; border-left: 1px dashed #9B9B9B;}
@@ -191,10 +193,10 @@ body {
     width: 1200px;
     margin: 0 auto;
 }
-.storeLogo{ cursor: pointer; float: right;border: 1px solid #589065;}
-.storeLogo b{ display: block; padding: 0 5px;  background: #589065; height: 18px; line-height: 18px; float: left; font-weight: normal; font-size: 12px; color: #fff;}
-.storeLogo strong{ display: block; float: left; font-weight: normal; padding: 0 10px; background: #fff; height: 18px; line-height: 18px; font-size: 12px; color: #333;}
-.customer-server {float: right; margin-right: 45px; margin-top: -5px; padding-left: 42px; font-size: 12px; height: 30px; line-height: 30px; background: url('../images/customer-server.png') no-repeat; cursor: pointer;}
+.storeLogo{ width: 180px; cursor: pointer; float: right;border: 1px solid #589065;}
+.storeLogo b{ width: 38px; display: block; text-align: center;  background: #589065; height: 18px; line-height: 18px; float: left; font-weight: normal; font-size: 12px; color: #fff;}
+.storeLogo strong{ width: 140px; display: block; float: left; font-weight: normal; text-align: center; background: #fff; height: 18px; line-height: 18px; font-size: 12px; color: #333;}
+.customer-server {float: right; margin-right: 18px; margin-top: -5px; padding-left: 34px; font-size: 12px; height: 30px; line-height: 30px; background: url('../images/customer-server.png') no-repeat; cursor: pointer;}
 
 .goodsDetail-page .goodsDetail-main {
     width: 1200px;
@@ -210,6 +212,7 @@ body {
 .goodsMain h2{ line-height: 22px; padding: 2px 0; font-size: 18px; color: #333;}
 .goodsMain ul{ margin-top: 14px; width: 100%; height: auto;}
 .goodsMain ul li{ font-size: 14px; padding: 9px 38px 9px 0; width: 910px; height: auto; float: left;}
+.goodsMain ul li:nth-child(1) {padding: 9px 0px 9px 0; width: 100%;}
 .goodsMain ul li .price{ position: relative; overflow: hidden; background: #F4F5FA; padding: 9px 20px;}
 .goodsMain ul li .price label{ padding-left: 0;}
 .goodsMain ul li .price span{ float: left; display: inline-block; height: 32px; line-height: 32px; font-size: 12px;}
@@ -374,7 +377,7 @@ body {
 .order-detail {border-bottom: 1px solid #EFEFEF;}
 
 .pay-type .payLeft { width: 300px; height: auto; padding: 16px 30px 0;}
-.pay-type .payLeft span{ display: block; border: 2px solid #AE4E54; width: 76px; height: 24px; line-height: 24px; text-align: center; font-size: 12px; color: #333;}
+.pay-type .payLeft span{ display: block; border: 2px solid #AE4E54; width: 76px; height: 28px; line-height: 24px; text-align: center; font-size: 12px; color: #333;}
 .pay-type .payLeft p{ margin-top: 10px; line-height: 18px; font-size: 12px; color: #999;}
 .pay-type .payLeft p a{color: #3084C2;}
 .pay-type .payLeft p a:hover,.payMain .payRight a:hover{ color: #AE4E54;}
@@ -382,7 +385,7 @@ body {
 .deliveytMain{ padding: 0 30px; height: auto;}
 .deliveytMain h2{ margin-top: 30px; overflow: hidden; width: 100%;}
 .deliveytMain h2 em{float: left; display: block; font-size: 12px; color: #999; height: 28px; line-height: 28px; margin-right: 32px;}
-.deliveytMain h2 span{ display: block; float: left; height: 24px; line-height: 24px; border: 2px solid #AE4E54; width: 120px; font-size: 12px; color: #333; text-align: center;}
+.deliveytMain h2 span{ display: block; float: left; height: 28px; line-height: 24px; border: 2px solid #AE4E54; width: 120px; font-size: 12px; color: #333; text-align: center;}
 
 .deliverInfor{ padding: 30px 0 22px; width: 100%; height: auto;}
 .deliverInfor .deliveImg{ width: 82px; height: auto;}
@@ -398,6 +401,7 @@ body {
 .order-total-price {text-align: right;}
 .total-amount { margin-top: 10px; padding: 10px 30px 20px; background: #F4F5FA;}
 .total-amount>div:nth-child(1) {text-align: right;}
+.total-amount>div:nth-child(1) span {color: #BA4651; font-size: 24px;}
 .total-amount>div:nth-child(2) {text-align: right;}
 .total-amount>div:nth-child(2) span {margin-left: 30px;}
 
@@ -606,5 +610,5 @@ body {
 .hot-list-item p{ margin: 0 auto; width: 160px; padding: 0 25px; height: 36px; overflow: hidden; line-height: 18px; font-size: 12px; color: #a3a3a3;}
 .hot-list-item h3{ margin: 0 auto; width: 160px; padding: 0 25px; height: 22px; line-height: 22px; font-size: 18px; color: #ae4e54;}
 .hot-list-item .hot-list-item-btn{ width: 146px; height: auto; overflow: hidden; margin: 0 auto; padding: 20px 0 0;}
-.hot-list-item .hot-list-item-btn div{width: 66px; height: 22px; background: #EFEFEF; margin: 0 auto; border: 1px solid #EFEFEF; font-size: 12px; color: #333; text-align: center; line-height: 22px;}
-.hot-list-item .hot-list-item-btn div:hover{ border: 1px solid #AE4E54; background: #AE4E54; color: #fff !important;}
+.hot-list-item .hot-list-item-btn div{width: 66px; height: 22px;  margin: 0 auto; font-size: 12px; color: #333; text-align: center; line-height: 22px;}
+/* .hot-list-item .hot-list-item-btn div:hover{ border: 1px solid #AE4E54; background: #AE4E54; color: #fff !important;} */
