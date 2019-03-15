@@ -37,7 +37,7 @@ export class Fetch {
                 if (['202', '203', '201'].includes(res.data.code)) {
                     message.error(res.data.msg);
                 }
-                console.log(res);
+                // console.log(res);
             }
         })
     }

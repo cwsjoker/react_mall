@@ -7,6 +7,7 @@ import Navigation from '../home/Navigation.js'
 import StoreItem from '../../components/StoreItem'
 import $home_api from '../../fetch/api/home'
 import $user_api from '../../fetch/api/user'
+import changeUsdt from '../../utils/convertUsdt';
 
 const StoreIndex = class StoreIndex extends Component {
     constructor() {
@@ -58,8 +59,9 @@ const StoreIndex = class StoreIndex extends Component {
 
         // 获取商品列表
         if (res_produce) {
+            const data = await changeUsdt(res_produce.data.data)
             this.setState({
-                produceList: res_produce.data.data,
+                produceList: data,
                 spinning: false
             })
         }

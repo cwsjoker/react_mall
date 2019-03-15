@@ -41,9 +41,14 @@ export default class home {
         return Fetch.get('/mall/backend/homepage/producer/queryMiningInfo', data);
     }
 
-    // 币种换算成usdt
+    // 特定币种换算成usdt
     static getUSDT(data) {
         return Fetch.get('/mall/backend/homepage/producer/coinConvert', data);
+    }
+
+    // 全部币种的usdt转换率
+    static getAllUSDT() {
+        return Fetch.get('/mall/backend/homepage/producer/coinConvert');
     }
 
     // 提交订单

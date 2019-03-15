@@ -107,6 +107,7 @@ body {
 .recommend-main .recommend-daily .siftList li h2{ margin-top: 18px; height: 18px;padding: 0 30px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; line-height: 18px; font-size: 12px;}
 .recommend-main .recommend-daily .siftList li p{ padding: 0 30px; height: 36px; overflow: hidden; line-height: 18px; font-size: 12px; color: #a3a3a3;}
 .recommend-main .recommend-daily .siftList li h3{ padding: 5px 30px 15px; height: 22px; line-height: 22px; font-size: 18px; color: #ae4e54;}
+.recommend-main .recommend-daily .siftList li h3 span {font-size: 12px; color:#999999;}
 .recommend-main .recommend-daily .siftList li a:hover{ border: 1px solid #f0f0f0;box-shadow: 0 0 8px #f0f0f0;}
 
 
@@ -609,7 +610,8 @@ body {
 .hot-list-item img{ display: block; width: 110px; height: 110px; margin: 0 auto;}
 .hot-list-item h2{ margin: 20px auto 0; height: 18px; width: 160px; padding: 0 25px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; line-height: 18px; font-size: 12px;}
 .hot-list-item p{ margin: 0 auto; width: 160px; padding: 0 25px; height: 36px; overflow: hidden; line-height: 18px; font-size: 12px; color: #a3a3a3;}
-.hot-list-item h3{ margin: 0 auto; width: 160px; padding: 0 25px; height: 22px; line-height: 22px; font-size: 18px; color: #ae4e54;}
+.hot-list-item h3{ margin: 0 auto; width: 160px; height: 22px; line-height: 22px; font-size: 14px; color: #ae4e54;}
+.hot-list-item h3 span {font-size: 12px; color:#999999;}
 .hot-list-item .hot-list-item-btn{ width: 146px; height: auto; overflow: hidden; margin: 0 auto; padding: 20px 0 0;}
 .hot-list-item .hot-list-item-btn div{width: 66px; height: 22px;  margin: 0 auto; font-size: 12px; color: #333; text-align: center; line-height: 22px;}
 /* .hot-list-item .hot-list-item-btn div:hover{ border: 1px solid #AE4E54; background: #AE4E54; color: #fff !important;} */

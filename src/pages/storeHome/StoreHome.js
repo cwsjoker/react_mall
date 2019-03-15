@@ -4,6 +4,7 @@ import { getQueryString } from '../../utils/operLocation.js'
 import '../../assets/style/storeHome.scss';
 import StoreItem from '../../components/StoreItem'
 import $home_api from '../../fetch/api/home'
+import changeUsdt from '../../utils/convertUsdt';
 
 const StoreHome = class StoreHome extends Component {
     constructor() {
@@ -39,8 +40,9 @@ const StoreHome = class StoreHome extends Component {
 
         // 获取商品列表
         if (produce_rep) {
+            const data = await changeUsdt(produce_rep.data.data)
             this.setState({
-                produceList: produce_rep.data.data,
+                produceList: data,
                 spinning: false
             })
         }

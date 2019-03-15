@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router'
 import { Spin } from 'antd';
 import $home_api from '../../fetch/api/home.js'
+import changeUsdt from '../../utils/convertUsdt';
 
 
 class Recommend extends Component {
@@ -15,23 +16,44 @@ class Recommend extends Component {
         }
     }
     componentDidMount() {
-        $home_api.getDailyList().then(res => {
+        // 每日精选
+        $home_api.getDailyList().then(async res => {
             if (res) {
+                const data = await changeUsdt(res.data.data);
                 this.setState({
-                    daily_list: res.data.data,
+                    daily_list: data,
                     daily_spinning: false
                 })
             }
         })
-        $home_api.getHotList().then(res => {
+        
+        // 热门推荐
+        $home_api.getHotList().then(async res => {
             if (res) {
+                const data = await changeUsdt(res.data.data);
                 this.setState({
-                    hot_list: res.data.data,
+                    hot_list: data,
                     hot_list_spinning: false
                 })
             }
         })
     }
+    // async changeUsdt(list) {
+    //     list.forEach(v => {
+    //         v.change_price_usdt = 0;
+    //     });
+    //     const res = await $home_api.getAllUSDT();
+    //     if (res) {
+    //         const usdt_change_obj = res.data.data;
+    //         const re_list = list.map(v => {
+    //             v.change_price_usdt = v.price * usdt_change_obj[v.symbol];
+    //             return v;
+    //         })
+    //         return re_list;
+    //     } else {
+    //         return list;
+    //     }
+    // }
     goto(id) {
         this.props.history.push('/goodsDetail?goodsId='+id)
     }
@@ -56,7 +78,12 @@ class Recommend extends Component {
                                                 <img src={window.BACK_URL + item.imageUrl} />
                                                 <h2>{item.goodsName}  {index}</h2>
                                                 <p>{item.inventoryIntroduce}</p>
-                                                <h3>{item.price} {item.symbol}</h3>
+                                                <h3>
+                                                    {item.price} {item.symbol}
+                                                    {
+                                                        Number(item.change_price_usdt) !== 0 ? <span>≈{item.change_price_usdt}USDT</span> : null
+                                                    }
+                                                </h3>
                                             </a>
                                         </li>
                                     )
@@ -85,7 +112,12 @@ class Recommend extends Component {
                                                     <img src={window.BACK_URL + item.imageUrl} />
                                                     <h2>{item.goodsName}</h2>
                                                     <p>{item.inventoryIntroduce}</p>
-                                                    <h3>{item.price} {item.symbol}</h3>
+                                                    <h3>
+                                                        {item.price} {item.symbol}
+                                                        {
+                                                            Number(item.change_price_usdt) !== 0 ? <span>≈{item.change_price_usdt}USDT</span> : null
+                                                        }
+                                                    </h3>
                                                 </div>
                                                 <div className="btnDiv">
                                                     <div href="javascript:;">立即购买</div>
