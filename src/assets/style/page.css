@@ -164,8 +164,8 @@ body {
 .flagBom{ position: relative; padding: 12px 0; width: 880px; border-bottom: 1px solid #F4F4F4;}
 .flagBom ul{ width: 100%; height: auto; float: left;}
 .flagBom ul li{ width: 156px; margin: 0 30px; float: left;}
-.flagBom ul li:nth-child(1) p {color: #999999;}
-.flagBom ul li:nth-child(4) p {color: #589065;}
+.flagBom ul li:nth-child(1) p {color: #589065;}
+.flagBom ul li:nth-child(4) p {color: #999999;}
 .flagBom ul li h2{ height: 18px; line-height: 18px; font-size: 12px; color: #333;}
 .flagBom ul li p{ height: 18px; line-height: 18px; font-size: 12px; color: #AE4E54;}
 .flagBom .flagLine{ position: absolute; top: 16px; left: 200px; width: 1px; height: 30px; border-left: 1px dashed #9B9B9B;}
@@ -177,7 +177,76 @@ body {
     background: #fff;
     padding: 0 20px;
     box-sizing: border-box;
+    border-top: 1px solid #F4F4F4
 }
+.store-main .store-main-con .store-top {
+    margin-top: 10px;
+    width: 100%;
+    height: 34px;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+}
+.store-top .store-top-left {
+    display: flex;
+}
+.store-top .store-top-left > div {
+    position: relative;
+    width: 60px;
+    height: 34px;
+    border-right: 1px solid #F4F4F4;
+    font-size: 12px;
+    color: #999999;
+    text-align: center;
+    line-height: 34px;
+    cursor: pointer;
+}
+.store-top .store-top-left > div.on > div:nth-child(1) {
+    color: #AE4E54;
+}
+.store-top .store-top-left > div .sort-btn {
+    position: absolute;
+    top: 8px;
+    left: 38px;
+    width: 12px;
+    height: 20px;
+}
+.store-top .store-top-left > div .sort-btn > i.on {
+    color: #AE4E54;
+}
+.store-top .store-top-left > div .sort-btn > i:nth-child(1) {
+    position: absolute;
+    top: 0;
+}
+.store-top .store-top-left > div .sort-btn > i:nth-child(2) {
+    position: absolute;
+    bottom: 0;
+}
+
+.store-top .store-top-right {
+    display: flex;
+}
+.store-top-right .search-btn {
+    width: 84px;
+    height: 34px;
+    background: #AE4E54;
+    color: #fff;
+    text-align: center;
+    line-height: 34px;
+    cursor: pointer;
+}
+.store-top-right .search-btn:hover {
+    background: #AE4E54;
+}
+.store-top-right .search-inp input {
+    height: 34px;
+    line-height: 34px;
+}
+.store-top-right .search-inp i {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
 
 /* 商品详情页面 */
 .goodsDetail-page {
@@ -610,7 +679,7 @@ body {
 .hot-list-item img{ display: block; width: 110px; height: 110px; margin: 0 auto;}
 .hot-list-item h2{ margin: 20px auto 0; height: 18px; width: 160px; padding: 0 25px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; line-height: 18px; font-size: 12px;}
 .hot-list-item p{ margin: 0 auto; width: 160px; padding: 0 25px; height: 36px; overflow: hidden; line-height: 18px; font-size: 12px; color: #a3a3a3;}
-.hot-list-item h3{ margin: 0 auto; width: 160px; height: 22px; line-height: 22px; font-size: 14px; color: #ae4e54;}
+.hot-list-item h3{ margin: 0 auto; width: 180px; height: 22px; line-height: 22px; font-size: 14px; color: #ae4e54; word-break: break-all;}
 .hot-list-item h3 span {font-size: 12px; color:#999999;}
 .hot-list-item .hot-list-item-btn{ width: 146px; height: auto; overflow: hidden; margin: 0 auto; padding: 20px 0 0;}
 .hot-list-item .hot-list-item-btn div{width: 66px; height: 22px;  margin: 0 auto; font-size: 12px; color: #333; text-align: center; line-height: 22px;}

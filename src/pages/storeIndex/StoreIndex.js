@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link }  from 'react-router-dom';
 import { connect } from 'react-redux'
-import { Spin } from 'antd';
+import { Spin, Icon } from 'antd';
 import { getQueryString } from '../../utils/operLocation.js'
 import Navigation from '../home/Navigation.js'
 import StoreItem from '../../components/StoreItem'
@@ -21,6 +21,9 @@ const StoreIndex = class StoreIndex extends Component {
             symbol: '',
             spinning: true,
             spinning_info: true,
+            search_key: '', //搜索商品关键字
+            flag: '', // 按类型查看
+            sort: 'asc' // 升降序
         }
     }
 
@@ -44,16 +47,48 @@ const StoreIndex = class StoreIndex extends Component {
                 storeNimingInfo: {},
                 available: 0,
                 spinning: true,
-                spinning_info: true
+                spinning_info: true,
+                flag: '',
+                sort: 'asc',
+                search_key: ''
+            }, () => {
+                this.getList();
+            })
+        }
+    }
+    // 搜索订单关键字
+    changeSearchKey = (e) => {
+        e.preventDefault();
+        this.setState({
+            search_key: e.target.value
+        })
+    }
+    // 选择查看type
+    changeOrderType = (value) => {
+        const { flag, sort } = this.state;
+        if (flag === value) {
+            if (value !== '') {
+                const sort_key = sort === 'asc' ? 'desc' : 'asc';
+                this.setState({
+                    sort: sort_key
+                }, () => {
+                    this.getList();
+                })
+            }
+        } else {
+            this.setState({
+                flag: value,
+                sort: 'asc'
             }, () => {
                 this.getList();
             })
         }
     }
     async getList() {
-        const { storeIndex } = this.state;
+        const { storeIndex, search_key, flag, sort } = this.state;
+        const query = flag !== '' ? {flag, sort} : {};
         let [res_produce, res_store] = await Promise.all([
-            $home_api.getProduceList({flag: "string", producerId: storeIndex, sort: "string"}),
+            $home_api.getProduceList({producerId: storeIndex, goodsName: search_key, ...query}),
             $home_api.getStoreInfo({'producerId': storeIndex})
         ])
 
@@ -99,7 +134,7 @@ const StoreIndex = class StoreIndex extends Component {
 
     }
     render() {
-        const { spinning, spinning_info, storeNimingInfo } = this.state;
+        const { spinning, spinning_info, storeNimingInfo, search_key, flag, sort } = this.state;
         const { turnover, symbol, dailyMined, remaining, yesterdayBurnt } = storeNimingInfo;
         return (
             <div className="store-main">
@@ -142,6 +177,32 @@ const StoreIndex = class StoreIndex extends Component {
                         </div>
                     </Spin>
 
+                    <div className="store-top">
+                        <div className="store-top-left">
+                            <div className={flag === '' ? 'on' : ''} onClick={() => this.changeOrderType('')}><div>综合</div></div>
+                            <div className={flag === 'sales' ? 'on' : ''} onClick={() => this.changeOrderType('sales')}>
+                                <div>销量</div>
+                                <div className="sort-btn">
+                                    <Icon className={flag === 'sales' && sort === 'asc' ? 'on' : ''} type="caret-up" />
+                                    <Icon className={flag === 'sales' && sort === 'desc' ? 'on' : ''} type="caret-down" />
+                                </div>
+                            </div>
+                            <div className={flag === 'price' ? 'on' : ''} onClick={() => this.changeOrderType('price')}>
+                                <div>价格</div>
+                                <div className="sort-btn">
+                                    <Icon className={flag === 'price' && sort === 'asc' ? 'on' : ''} type="caret-up" />
+                                    <Icon className={flag === 'price' && sort === 'desc' ? 'on' : ''} type="caret-down" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="store-top-right">
+                            <div className="search-inp">
+                                <Icon type="search" />
+                                <input type="text" placeholder="输入商品名称" value={search_key} onChange={this.changeSearchKey} />
+                            </div>
+                            <div className="search-btn" onClick={() => this.getList()}>搜索</div>
+                        </div>
+                    </div>
                     <div className="store-list">
                         <div className="title">
                             <i></i>
