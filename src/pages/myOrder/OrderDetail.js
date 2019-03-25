@@ -86,7 +86,7 @@ const orderDetail = class orderDetail extends Component {
                                 orderState === 0 ? <h4><Link to={'/payment?orderId=' + orderId}>付款</Link></h4> : null
                             }
                             {
-                                orderState === 0 ? <h5><a href="javascript:;" onClick={this.cancelOrder.bind(this, orderId)}>取消订单</a></h5> : null
+                                orderState === 0 ? <h5><span onClick={this.cancelOrder.bind(this, orderId)}>取消订单</span></h5> : null
                             }
                         </div>
                         <div className="orDeRight fl">
@@ -145,7 +145,7 @@ const orderDetail = class orderDetail extends Component {
                                                 {
                                                     index === 0 ? (
                                                         <div className="orderDeta">
-                                                            <p><img src={logo_img} />{item.produceName}</p>
+                                                            <p><img src={logo_img} alt="" />{item.produceName}</p>
                                                         </div>
                                                     ) : null
                                                 }
@@ -162,10 +162,15 @@ const orderDetail = class orderDetail extends Component {
                                                 }
                                                 <div className="orderMain">
                                                     <div className="orderInfor">
-                                                        <div className="orderImg"><a href="javascript:;"><img src={window.BACK_URL + item.goodImgUrl} /></a></div>
+                                                        <div className="orderImg">
+                                                            <div>
+                                                                <img src={window.BACK_URL + item.goodImgUrl} alt="" />
+                                                            </div>
+                                                        </div>
                                                         <div className="orderTxt">
                                                             <p>
-                                                                <a href="javascript:;">{item.goodsName}</a>
+                                                                {/* <a href="javascript:;">{item.goodsName}</a> */}
+                                                                <Link to={'/goodsDetail?goodsId=' + item.goodNumber}>{item.goodsName}</Link>
                                                             </p>
                                                             <h6>备注：{item.note}</h6>
                                                         </div>

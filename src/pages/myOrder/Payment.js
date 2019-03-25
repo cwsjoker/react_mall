@@ -118,7 +118,11 @@ const Payment = class Payment extends Component {
                         {
                             show_info ? (
                                 <div className="checkOrderData">
-                                    <div className="checkOrderDataImg fl"><a><img src={window.BACK_URL + orderInfo.img} /></a></div>
+                                    <div className="checkOrderDataImg fl">
+                                        <div>
+                                            <img src={window.BACK_URL + orderInfo.img} alt="" />
+                                        </div>
+                                    </div>
                                     <div className="checkOrderDataTxt fl">
                                         <p>收货地址：{orderInfo.addr}</p>
                                         <p>收货人：{orderInfo.name}</p>
@@ -134,7 +138,7 @@ const Payment = class Payment extends Component {
                         <h2>在线支付-安全便捷</h2>
                         <div className="paymentOne cleafix">
                             <div className="payOneLeft fl">
-                                <img src={grounp_img} />
+                                <img src={grounp_img} alt="" />
                                 <h2>
                                     <span>当前余额：<em>{available}</em>{symbol}</span>
                                     <strong>前去<a href={window.BT_URL}>交易</a></strong>
@@ -151,7 +155,7 @@ const Payment = class Payment extends Component {
                                     {
                                         password_list.map((item, index) => {
                                             return (
-                                                <input autocomplete="off" key={index} name="pay_pass" type="password" maxLength="1" className="password" value={item}
+                                                <input autoComplete="off" key={index} name="pay_pass" type="password" maxLength="1" className="password" value={item}
                                                 onChange={this.change_pass.bind(this, index)} 
                                                 onKeyUp={this.keyUp.bind(this, index)} />
                                             )

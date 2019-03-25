@@ -68,7 +68,11 @@ const StoreHome = class StoreHome extends Component {
                 <div className="home-top">
                     <div className="code-info">
                         <div>
-                            <div><a><img src={storeInfo.logo}/></a></div>
+                            <div>
+                                <div>
+                                    <img src={storeInfo.logo} alt="" />
+                                </div>
+                            </div>
                             <div>
                                 <h2>{storeInfo.name}</h2>
                                 <p><span>{storeInfo.nameCn}</span><em>正品</em></p>

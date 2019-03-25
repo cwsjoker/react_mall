@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link }  from 'react-router-dom';
 import logo_img from '../assets/images/icon1.png';
 
 export default class ShopCartItem extends Component {
@@ -10,6 +11,7 @@ export default class ShopCartItem extends Component {
             goods_account,
             goods_price,
             symbol,
+            producerId,
             checkAll, //全选
             checkItem, // 单选
             changeBuyNumber, // 修改数量
@@ -25,7 +27,7 @@ export default class ShopCartItem extends Component {
                         <label className={ is_choose ? 'on' : '' }><input type="checkbox" onClick={checkAll} /></label>
                     </div>
                     <div>
-                        <p><img src={logo_img} /><a>{storeName}</a><span>自营</span></p>
+                        <p><img src={logo_img} alt="" /><Link to={'/storeIndex?id=' + producerId}>{storeName}</Link><span>自营</span></p>
                     </div>
                 </div>
                 {
@@ -38,10 +40,10 @@ export default class ShopCartItem extends Component {
                                     </label>
                                 </div>
                                 <div>
-                                    <a className="storeCart" href="#">
-                                        <img src={window.BACK_URL + v.goodsImgUrl} />
+                                    <Link className="storeCart" to={'/goodsDetail?goodsId=' + v.goodsId}>
+                                        <img src={window.BACK_URL + v.goodsImgUrl} alt="" />
                                         <p>{v.goodsIntroduce}</p>
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div>
                                     <div className="priceGood">
@@ -63,7 +65,7 @@ export default class ShopCartItem extends Component {
                                     <span className="total">{v.goodsPrice*v.goodsNum + ' ' + v.symbol}</span>
                                 </div>
                                 <div>
-                                    <a href="javascript:;" className="deleteBtn" onClick={deleteBtn(v)}>删除</a>
+                                    <span className="deleteBtn" onClick={deleteBtn(v)}>删除</span>
                                 </div>
                             </div>
                         )
@@ -78,7 +80,7 @@ export default class ShopCartItem extends Component {
                             <div className="settR fr">
                                 <span className="goodsNum">已选择<b id="totalnum">{goods_account}</b>件商品</span>
                                 <span className="totalPriceBtn"><b>总价：</b><em>{goods_price + ' ' + symbol}</em></span>
-                                <a href="javascript:;" onClick={settlement}>去结算</a>
+                                <span className="settR-pay-btn" onClick={settlement}>去结算</span>
                             </div>
                         </div>
                     </div>

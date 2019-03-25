@@ -145,7 +145,7 @@ const StoreIndex = class StoreIndex extends Component {
                     <Spin tip="Loading..." spinning={spinning_info}>
                         <div className="store-title">
                             <div className="store-title-top cleafix">
-                                <div className="store-title-top-img"><img src={window.BACK_URL + this.state.storeInfo.logoUrl}/></div>
+                                <div className="store-title-top-img"><img src={window.BACK_URL + this.state.storeInfo.logoUrl} alt="" /></div>
                                 <div className="store-title-top-info">
                                     <Link to={'/storeHome?id=' +　this.state.storeIndex }>{this.state.storeInfo.name}</Link>
                                     <h3><span>官方自营</span></h3>

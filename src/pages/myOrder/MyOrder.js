@@ -99,19 +99,19 @@ class MyOrder extends Component {
                         <div className="myOrder-page-con">
                             {/* -1 全部订单， 0 待付款， 1 待发货， 9 已成交， 10已取消 */}
                             <div className="orderTab">
-                                <a href="javascript:;"  className={order_status === -1 ? 'on' : ''} onClick={() => this.changeOrderType(-1)}>全部订单</a>
-                                <a href="javascript:;" className={order_status === 0 ? 'on' : ''} onClick={() => this.changeOrderType(0)}>待付款
+                                <span className={order_status === -1 ? 'on' : ''} onClick={() => this.changeOrderType(-1)}>全部订单</span>
+                                <span className={order_status === 0 ? 'on' : ''} onClick={() => this.changeOrderType(0)}>待付款
                                     {
                                         pendingPaymentCount !== 0 ? <em className="angleDom">{pendingPaymentCount}</em> : null
                                     }
-                                </a>
-                                <a  href="javascript:;" className={order_status === 1 ? 'on' : ''} onClick={() => this.changeOrderType(1)}>待发货
+                                </span>
+                                <span className={order_status === 1 ? 'on' : ''} onClick={() => this.changeOrderType(1)}>待发货
                                     {
                                         pendingDelivery !== 0 ? <em className="angleDom">{pendingDelivery}</em> : null
                                     }
-                                </a>
-                                <a href="javascript:;" className={order_status === 9 ? 'on' : ''} onClick={() => this.changeOrderType(9)}>已成交</a>
-                                <a href="javascript:;" className={order_status === 10 ? 'on' : ''} onClick={() => this.changeOrderType(10)}>已取消</a>
+                                </span>
+                                <span className={order_status === 9 ? 'on' : ''} onClick={() => this.changeOrderType(9)}>已成交</span>
+                                <span className={order_status === 10 ? 'on' : ''} onClick={() => this.changeOrderType(10)}>已取消</span>
                                 <div className="search">
                                     <input className="seaTxt" type="text" placeholder="订单号" value={search_key} onChange={this.changeSearchKey}/>
                                     <input className="seaBut" type="button" onClick={this.queryOrderList} />

@@ -251,7 +251,7 @@ class GoodsDetail extends Component {
                     <div className="goodsDetail-main">
                         <div className="goods-info">
                             <div className="goodsImg">
-                                <img src={window.BACK_URL + goodsInfo_price.smallImageUrl} />
+                                <img src={window.BACK_URL + goodsInfo_price.smallImageUrl} alt="" />
                             </div>
                             <div className="goodsMain">
                                 <h2>{goodsInfo_goods.name}</h2>
@@ -308,8 +308,8 @@ class GoodsDetail extends Component {
                                     </li>
                                     <li>
                                         <div className="btnBox">
-                                            <a href="javascript:;" onClick={this.joinShopCart.bind(this, 'imbuy')}>立即购买</a>
-                                            <a className="joinCat" href="javascript:;" onClick={this.joinShopCart.bind(this, 'shopcart')}>加入购物车</a>
+                                            <span onClick={this.joinShopCart.bind(this, 'imbuy')}>立即购买</span>
+                                            <span className="joinCat" onClick={this.joinShopCart.bind(this, 'shopcart')}>加入购物车</span>
                                         </div>
                                     </li>
                                 </ul>

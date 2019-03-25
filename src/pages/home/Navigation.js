@@ -33,10 +33,10 @@ const Navigation = class Navigation extends Component {
                 {
                     storeList.map(item => {
                         return (
-                            <li key={item.producerId} className={storeIndex == item.producerId ? 'on' : '' }>
+                            <li key={item.producerId} className={parseInt(storeIndex) === item.producerId ? 'on' : '' }>
                                 <i></i>
                                 <Link to={'/storeIndex?id=' + item.producerId} style={{'textDecoration': 'none'}}>
-                                    <h3><img src={item.logo} /><span>{item.NAME}</span></h3>
+                                    <h3><img src={item.logo} alt="" /><span>{item.NAME}</span></h3>
                                     <div className="progressBarDiv">
                                         {/* <div className="progress_container">
                                             {

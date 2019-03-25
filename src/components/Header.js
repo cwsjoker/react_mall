@@ -17,7 +17,7 @@ const Header = class Header extends Component {
             btn = (
                 <div>
                     <span>您好{this.props.loginStore.name}</span>
-                    <a href="#" onClick={this.logout} style={{marginLeft: '10px'}}>退出</a>
+                    <a href="volid(0);" onClick={this.logout} style={{marginLeft: '10px'}}>退出</a>
                     <i></i>
                     <Link to="./myOrder" >我的订单</Link>
                 </div>

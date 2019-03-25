@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Route, Switch }  from 'react-router-dom';
+import { Route, Switch }  from 'react-router-dom';
 
 
-import history from '../utils/history';
+// import history from '../utils/history';
 import requireAuthentication from '../components/RequireAuthentication.js'
 
 import Home from '../pages/Home.js'; // 首页

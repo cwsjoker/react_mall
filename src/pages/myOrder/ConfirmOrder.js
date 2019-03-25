@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link }  from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { Modal, Form, Input, Button, Cascader, message } from 'antd';
 import $user_api from '../../fetch/api/user';
@@ -273,7 +274,7 @@ const ConfirmOrder = class ConfirmOrder extends Component {
                             <div>支付方式</div>
                             <div className="payLeft">
                                 <span>货币支付</span>
-                                <p>注意：当前余额{available + ' ' + symbol}，请前去<a href={window.BT_URL + 'market?symbol=' + 'MIT' + '_BT'}>交易</a></p>
+                                <p>{`注意：当前余额${available}${symbol}，请前去`}<a href={window.BT_URL + 'market?symbol=' + symbol + '_BT'}>交易</a></p>
                             </div>
                         </div>
                         <div className="order-detail">
@@ -284,10 +285,15 @@ const ConfirmOrder = class ConfirmOrder extends Component {
                                     this.state.order_list.map((item, index) => {
                                         return (
                                             <div key={index} className="deliverInfor cleafix">
-                                                <div className="deliveImg fl"><a href="javascript:;"><img src={window.BACK_URL + item.goodsImgUrl} /></a></div>
+                                                <div className="deliveImg fl">
+                                                    <div>
+                                                        <img src={window.BACK_URL + item.goodsImgUrl} alt="" />
+                                                    </div>
+                                                </div>
                                                 <div className="deliveText fr">
                                                     <p>
-                                                        <a href="javascript:;">{item.goodsIntroduce}</a>
+                                                        {/* <a href="javascript:;">{item.goodsIntroduce}</a> */}
+                                                        <Link to={'/goodsDetail?goodsId=' + item.goodsId}>{item.goodsIntroduce}</Link>
                                                         <span>有货</span>
                                                         <span>x{item.goodsNum}</span>
                                                         <span title="price">{item.goodsPrice}{item.symbol}</span>
@@ -316,7 +322,7 @@ const ConfirmOrder = class ConfirmOrder extends Component {
                         }
                     </div>
                     {/* 提交订单 */}
-                    <div className="submit-order-btn"><a href="javascript:;" onClick={this.submitOrder.bind(this)}>提交订单</a></div>
+                    <div className="submit-order-btn"><span onClick={this.submitOrder.bind(this)}>提交订单</span></div>
                 </div>
                 {/* 收货地址表单弹窗 */}
                 <Modal

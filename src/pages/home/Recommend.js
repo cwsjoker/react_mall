@@ -74,8 +74,8 @@ class Recommend extends Component {
                                 daily_list.map((item, index) => {
                                     return (
                                         <li key={item.id} style={(index + 1) % 3 === 0 ? {marginRight: '0px'} : {marginTop: '10px'}} onClick={this.goto.bind(this, item.goodsId)}>
-                                            <a href="javascript:;">
-                                                <img src={window.BACK_URL + item.imageUrl} />
+                                            <div>
+                                                <img src={window.BACK_URL + item.imageUrl} alt="" />
                                                 <h2>{item.goodsName}  {index}</h2>
                                                 <p>{item.inventoryIntroduce}</p>
                                                 <h3>
@@ -84,7 +84,7 @@ class Recommend extends Component {
                                                         Number(item.change_price_usdt) !== 0 ? <span>≈{item.change_price_usdt}USDT</span> : null
                                                     }
                                                 </h3>
-                                            </a>
+                                            </div>
                                         </li>
                                     )
                                 })
@@ -108,8 +108,8 @@ class Recommend extends Component {
                                         <li key={item.id} onClick={this.goto.bind(this, item.goodsId)}>
                                             <div className="hotDiv">
                                                 {/* <span v-if="hot.ifShow" class="hotIco">自营</span> */}
-                                                <div href="javascript:;">
-                                                    <img src={window.BACK_URL + item.imageUrl} />
+                                                <div>
+                                                    <img src={window.BACK_URL + item.imageUrl} alt="" />
                                                     <h2>{item.goodsName}</h2>
                                                     <p>{item.inventoryIntroduce}</p>
                                                     <h3>
@@ -120,7 +120,7 @@ class Recommend extends Component {
                                                     </h3>
                                                 </div>
                                                 <div className="btnDiv">
-                                                    <div href="javascript:;">立即购买</div>
+                                                    <div>立即购买</div>
                                                 </div>
                                             </div>
                                         </li>

@@ -8,7 +8,7 @@ export default function StoreItem(props) {
             <Link to={'/goodsDetail?goodsId=' + id}>
                 <div className="hot-list-item-con">
                     <div>
-                        <img  src={window.BACK_URL + imageUrl}/>
+                        <img  src={window.BACK_URL + imageUrl} alt="" />
                         <h2>{name}</h2>
                         <p>{inventoryIntroduce}</p>
                         <h3>
@@ -19,7 +19,7 @@ export default function StoreItem(props) {
                         </h3>
                     </div>
                     <div className="hot-list-item-btn">
-                        <div href="javascript:;">立即购买</div>
+                        <div>立即购买</div>
                     </div>
                 </div>
             </Link>

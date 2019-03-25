@@ -59,7 +59,11 @@ export default class OrderItem extends Component {
                         return (
                             <div key={i} className="orderMain">
                                 <div className="orderInfor">
-                                    <div className="orderImg"><a href="javascript:;"><img src={window.BACK_URL + goodsItem.goodsImgUrl} /></a></div>
+                                    <div className="orderImg">
+                                        <div>
+                                            <img src={window.BACK_URL + goodsItem.goodsImgUrl} alt="" />
+                                        </div>
+                                    </div>
                                     <div className="orderTxt">
                                         <p>
                                             <Link to={'/goodsDetail?goodsId=' + goodsItem.goodsId}>{goodsItem.introduce}</Link>
