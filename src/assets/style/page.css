@@ -123,7 +123,8 @@ body {
 .recommend-main .recommend-hot ul li img{ display: block; width: 110px; height: 110px; margin: 0 auto;}
 .recommend-main .recommend-hot ul li h2{ margin: 20px auto 0; height: 18px; width: 160px; padding: 0 25px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; line-height: 18px; font-size: 12px;}
 .recommend-main .recommend-hot ul li p{ margin: 0 auto; width: 160px; padding: 0 25px; height: 36px; overflow: hidden; line-height: 18px; font-size: 12px; color: #a3a3a3;}
-.recommend-main .recommend-hot ul li h3{ margin: 0 auto; width: 160px; padding: 0 25px; height: 22px; line-height: 22px; font-size: 18px; color: #ae4e54;}
+.recommend-main .recommend-hot ul li h3{ margin: 0 auto;  height: 22px; line-height: 22px; font-size: 16px; color: #ae4e54;}
+.recommend-main .recommend-hot ul li h3 span {font-size: 12px; color: #999999;}
 .recommend-main .recommend-hot ul li .btnDiv{ width: 146px; height: auto; overflow: hidden; margin: 0 auto; padding: 20px 0 0;}
 .recommend-main .recommend-hot ul li .btnDiv div{width: 66px; height: 22px;  margin: 0 auto; font-size: 12px; color: #333; text-align: center; line-height: 22px;}
 /* .recommend-main .recommend-hot ul li .btnDiv div:hover{ border: 1px solid #AE4E54; background: #AE4E54; color: #fff !important;} */
