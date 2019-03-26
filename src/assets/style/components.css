@@ -151,7 +151,7 @@
 }
 
 /* 尾部 */
-.footerDiv{ width: 100%; height: auto; background: #181B2A;}
+.footerDiv{ min-width: 1200px; width: 100%; height: auto; background: #181B2A;}
 .footer{ padding: 75px 0; height: auto; overflow: hidden;}
 .footer .fooL{ width: 156px; height: auto;}
 .footer .fooL>div {width: 100%; height: 62px; background: url('../images/logo.png') no-repeat; background-size: cover;}

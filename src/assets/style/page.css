@@ -251,6 +251,7 @@ body {
 
 /* 商品详情页面 */
 .goodsDetail-page {
+    min-width: 1200px;
     padding-bottom: 20px;
     background: #fff;
 }
@@ -355,7 +356,7 @@ body {
 
 
 /* 购物车 */
-.shopCart-page {min-height: 600px; padding: 20px 0; background: #fff;}
+.shopCart-page {min-width: 1200px; min-height: 600px; padding: 20px 0; background: #fff;}
 .shopCart-page-warp {width: 1200px; margin: 0 auto;}
 .shopCart-page .shopCart-page-nologin { padding-bottom: 16px; width: 100%; height: auto; overflow: hidden;}
 .shopCart-page .shopCart-page-nologin p{ float: left; padding-left: 30px; background: url(../images/ico4.png) 0 center no-repeat; height: 24px; line-height: 24px; font-size: 12px; color: #999;}
@@ -428,7 +429,7 @@ body {
 
 
 /* 确认订单页面 */
-.confirmOrder-page {padding: 20px 0; background: #fff;}
+.confirmOrder-page {min-width: 1200px; padding: 20px 0; background: #fff;}
 .confirmOrder-page-warp {width: 1200px; margin: 0 auto;}
 .confirmOrder-main {border: 1px solid #EFEFEF;}
 .confirmOrder-main>div {padding: 20px 30px;}
