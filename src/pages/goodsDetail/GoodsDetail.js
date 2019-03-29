@@ -224,8 +224,9 @@ class GoodsDetail extends Component {
                 <div className="bubble-box">
                     <em onClick={this.change_niming.bind(this)}></em>
                     <span className="bot"></span>
-                    <p>1.买卖商户均为实地考察认证商户，并提供100万usdt保证金，您每次兑换会冻结资产</p>
-                    <p>2.买卖商户均为实名认证商</p>
+                    <p>1.购买该商品可参与购物即挖矿</p>
+                    <p>2.总挖矿量为商品总价，每日可产出1%</p>
+                    <p>2.商品如产生质量问题收货后15日内可更换</p>
                     <p className="may-niming-coin">今日剩余可挖：{nimingInfo.remaining}{nimingInfo.symbol}</p>
                 </div>
             )
