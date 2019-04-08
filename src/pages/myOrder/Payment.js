@@ -5,6 +5,7 @@ import { getQueryString } from '../../utils/operLocation.js';
 import $home_api from '../../fetch/api/home';
 import $user_api from '../../fetch/api/user';
 import grounp_img from '../../assets/images/Group 4.png';
+import md5 from 'js-md5'
 
 const Payment = class Payment extends Component {
     constructor() {
@@ -90,7 +91,7 @@ const Payment = class Payment extends Component {
             message.error('密码不符合规则，不满6位数');
             return;
         }
-        const payment_req  = await $home_api.orderPayment({orderNumber: this.state.orderId, payPassword: password});
+        const payment_req  = await $home_api.orderPayment({orderNumber: this.state.orderId, payPassword: md5(password)});
         if (payment_req) {
             message.success('支付成功');
             this.props.history.push('/myOrder');
