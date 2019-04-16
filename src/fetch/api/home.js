@@ -25,6 +25,10 @@ export default class home {
     static getStoreNimingInfo(data) {
         return Fetch.get('/mall/backend/homepage/producer/queryMiningInfo', data);
     }
+    // 获取店铺今日发售列表
+    static selectMiningProgress(data) {
+        return Fetch.get('/mall/backend/shopMiningOrder/selectMiningProgress', data)
+    }
 
     // 获取商品详情
     static getGoodsDetail(data) {

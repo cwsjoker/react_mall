@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
-import { Link }  from 'react-router-dom';
+import React, { Component } from 'react'
+import { Link }  from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Spin, Icon } from 'antd';
+import { Spin, Icon } from 'antd'
 import { getQueryString } from '../../utils/operLocation.js'
 import Navigation from '../home/Navigation.js'
 import StoreItem from '../../components/StoreItem'
+import DaySaleModal from '../../components/DaySaleModal'
 import $home_api from '../../fetch/api/home'
 import $user_api from '../../fetch/api/user'
-import changeUsdt from '../../utils/convertUsdt';
+import changeUsdt from '../../utils/convertUsdt'
+import { secondToDate } from '../../utils/operation'
 
 const StoreIndex = class StoreIndex extends Component {
     constructor() {
@@ -23,7 +25,13 @@ const StoreIndex = class StoreIndex extends Component {
             spinning_info: true,
             search_key: '', //搜索商品关键字
             flag: '', // 按类型查看
-            sort: 'asc' // 升降序
+            sort: 'asc', // 升降序
+            day_sale_list: [], // 今日发售列表
+            currentTime: '', // 服务器当前时间
+            nextReleaseTime: '', // 下一个区间段时间
+            diff_count: '', // 倒计时秒数
+            modal_show: false, // 今日发售列表show
+            
         }
     }
 
@@ -40,6 +48,8 @@ const StoreIndex = class StoreIndex extends Component {
     componentDidUpdate() {
         const id = getQueryString(this.props.location.search).id;
         if (id !== this.state.storeIndex) {
+            // 清除计时器重置state
+            clearInterval(this.timerID)
             this.setState({
                 storeIndex: id,
                 produceList: [],
@@ -50,11 +60,18 @@ const StoreIndex = class StoreIndex extends Component {
                 spinning_info: true,
                 flag: '',
                 sort: 'asc',
-                search_key: ''
+                search_key: '',
+                day_sale_list: [],
+                currentTime: '',
+                nextReleaseTime: '',
+                diff_count: '',
             }, () => {
                 this.getList();
             })
         }
+    }
+    componentWillUnmount() {
+        clearInterval(this.timerID)
     }
     // 搜索订单关键字
     changeSearchKey = (e) => {
@@ -132,9 +149,32 @@ const StoreIndex = class StoreIndex extends Component {
             }
         })
 
+        // 获取今日发售列表
+        $home_api.selectMiningProgress({
+            'producerId': parseInt(this.state.storeIndex)
+        }).then(res => {
+            if (res) {
+                const {miningPlanProgressDTOList, currentTime, nextReleaseTime} = res.data.data;
+                const d1 = new Date(currentTime);
+                const d2 = new Date(nextReleaseTime);
+                const diff_count = parseInt(d2 - d1) / 1000;
+                this.setState({
+                    day_sale_list: miningPlanProgressDTOList,
+                    nextReleaseTime: nextReleaseTime,
+                    currentTime: currentTime,
+                    diff_count: diff_count
+                }, () => {
+                    this.timerID = setInterval(() => {
+                        this.setState((prevState) => ({
+                            diff_count: prevState.diff_count - 1
+                        }))
+                    }, 1000)
+                })
+            }
+        })
     }
     render() {
-        const { spinning, spinning_info, storeNimingInfo, search_key, flag, sort } = this.state;
+        const { spinning, spinning_info, storeNimingInfo, search_key, flag, sort, modal_show, day_sale_list, currentTime, diff_count } = this.state;
         const { turnover, symbol, dailyMined, remaining, yesterdayBurnt } = storeNimingInfo;
         return (
             <div className="store-main">
@@ -143,6 +183,10 @@ const StoreIndex = class StoreIndex extends Component {
                 </div>
                 <div className="store-main-con">
                     <Spin tip="Loading..." spinning={spinning_info}>
+                        <div className="store-countdown">
+                            <span>距离下轮发售时间</span>
+                            <span>{secondToDate(diff_count)}</span>
+                        </div>
                         <div className="store-title">
                             <div className="store-title-top cleafix">
                                 <div className="store-title-top-img"><img src={window.BACK_URL + this.state.storeInfo.logoUrl} alt="" /></div>
@@ -174,6 +218,7 @@ const StoreIndex = class StoreIndex extends Component {
                                     </li>
                                 </ul>
                             </div>
+                            <span className="store-title-more" onClick={() => this.setState({modal_show: true})}>更多+</span>
                         </div>
                     </Spin>
 
@@ -221,6 +266,16 @@ const StoreIndex = class StoreIndex extends Component {
                         </Spin>
                     </div>
                 </div>
+
+
+                {/* 今日发售 */}
+                <DaySaleModal
+                    modal_show={modal_show}
+                    day_sale_list={day_sale_list}
+                    symbol={symbol}
+                    currentTime={currentTime}
+                    hiddenModal={() => this.setState({modal_show: false})}
+                />
             </div>
         )
     }

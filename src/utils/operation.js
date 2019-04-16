@@ -32,3 +32,13 @@ export function unescapeHTML(a) {
     a = "" + a;
     return a.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&apos;/g, "'");
 }
+
+
+// 过滤秒数
+export function secondToDate(result) {
+    const d = Math.floor(result / (3600 * 24)) < 10 ? '0' + Math.floor(result / (3600 * 24)) : Math.floor(result / (3600 * 24));
+    const h = Math.floor(result / 3600) < 10 ? '0' + Math.floor(result / 3600) : Math.floor(result / 3600);
+    const m = Math.floor((result / 60 % 60)) < 10 ? '0' + Math.floor((result / 60 % 60)) : Math.floor((result / 60 % 60));
+    const s = Math.floor((result % 60)) < 10 ? '0' + Math.floor((result % 60)) : Math.floor((result % 60));
+    return result = d + "天" + h + "时" + m + "分" + s + "秒";
+}

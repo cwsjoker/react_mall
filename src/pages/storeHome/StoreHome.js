@@ -5,6 +5,7 @@ import '../../assets/style/storeHome.scss';
 import StoreItem from '../../components/StoreItem'
 import $home_api from '../../fetch/api/home'
 import changeUsdt from '../../utils/convertUsdt';
+import DaySaleModal from '../../components/DaySaleModal'
 
 const StoreHome = class StoreHome extends Component {
     constructor() {
@@ -15,8 +16,10 @@ const StoreHome = class StoreHome extends Component {
             storeInfo: {},
             symbol: '',
             storeNimingInfo: {},
-            spinning: true
-
+            spinning: true,
+            modal_show: false,
+            day_sale_list: [],
+            currentTime: ''
         }
     }
     componentDidMount() {
@@ -60,9 +63,22 @@ const StoreHome = class StoreHome extends Component {
                 storeNimingInfo: mining_rep.data.data[0]
             })
         }
+
+        // 获取今日发售列表
+        $home_api.selectMiningProgress({
+            'producerId': parseInt(storeId)
+        }).then(res => {
+            if (res) {
+                const { miningPlanProgressDTOList, currentTime } = res.data.data;
+                this.setState({
+                    day_sale_list: miningPlanProgressDTOList,
+                    currentTime: currentTime,
+                })
+            }
+        })
     }
     render() {
-        const { produceList, storeInfo, symbol, storeNimingInfo, spinning } = this.state;
+        const { produceList, storeInfo, symbol, storeNimingInfo, spinning, modal_show, currentTime, day_sale_list } = this.state;
         return (
             <div className="storeHome-page">
                 <div className="home-top">
@@ -81,7 +97,8 @@ const StoreHome = class StoreHome extends Component {
                         <div>
                             <div className="flagLine"></div>
 				            <div className="flagLine"></div>
-                            <a href={window.BT_URL + "market?symbol=" + symbol + "_BT"}>去交易</a>
+                            {/* <a href={window.BT_URL + "market?symbol=" + symbol + "_BT"}>去交易</a> */}
+                            <span onClick={() => this.setState({modal_show: true})}>更多+</span>
                             <ul>
                                 <li>
                                     <h2>昨日已销毁{symbol}：</h2>
@@ -132,6 +149,15 @@ const StoreHome = class StoreHome extends Component {
                         </div>
                     </div>
                 </div>
+
+                {/* 今日发售 */}
+                <DaySaleModal
+                    modal_show={modal_show}
+                    day_sale_list={day_sale_list}
+                    symbol={symbol}
+                    currentTime={currentTime}
+                    hiddenModal={() => this.setState({modal_show: false})}
+                />
             </div>
         )
     }

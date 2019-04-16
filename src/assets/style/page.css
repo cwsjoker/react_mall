@@ -145,11 +145,13 @@ body {
 .store-main .store-main-con {
     width: 880px;
 }
-.store-title {background: #fff; width: 100%; height: auto;}
+.store-countdown {width:880px; height:42px; background:rgba(174,78,84,1); color: #fff; font-size: 14px; line-height: 42px; text-align: center;}
+.store-countdown span:nth-child(1) {margin-right: 20px;}
+.store-title {position: relative; background: #fff; width: 100%; height: auto;}
 .store-title .store-title-top { padding: 20px 30px; height: auto; display: flex; justify-content: space-between;}
 .store-title .store-title-top .store-title-top-img { width: 80px; height: 80px; }
 .store-title .store-title-top .store-title-top-img img{ display: block; width: 80px; height: auto;}
-.store-title .store-title-top .store-title-top-info { width: 710px; height: auto;}
+.store-title .store-title-top .store-title-top-info { width: 750px; height: auto;}
 .store-title .store-title-top .store-title-top-info>a { cursor: pointer; display: block; height: 20px; width: 100%; line-height: 20px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; font-size: 14px; color: #333;}
 .store-title .store-title-top .store-title-top-info a:hover{ color: #AE4E54;}
 .store-title .store-title-top .store-title-top-info h3{ padding-top: 5px; width: 100%; height: auto; overflow: auto;}
@@ -158,6 +160,28 @@ body {
 .store-title .store-title-top .store-title-top-info p span{ display: inline-block; padding-left: 10px; color: #AE4E54;}
 .store-title .store-title-top .store-title-top-info p a{ display: block; position: absolute; right: 0; top: 0; color: #4A90E2;}
 .store-title .store-title-top .store-title-top-info p a:hover{ color: #AE4E54;}
+.store-title .store-title-more {position: absolute; right: 30px; top: 145px; color: #4A90E2; font-size: 12px; cursor: pointer;}
+.store-title .store-title-more:hover {color: #AE4E54;}
+
+/* 今日发售弹框 */
+.day-sale-modal {}
+.day-sale-modal .day-sale-modal-title {text-align: center;}
+.day-sale-modal .day-sale-modal-title h3 {color: #333; font-size: 24px; line-height: 24px;}
+.day-sale-modal .day-sale-modal-title p {color: #333; font-size: 12px; line-height: 40px;}
+.day-sale-modal-main {margin-top: 20px;}
+.day-sale-modal-main .day-sale-modal-main-title {display: flex; color: #999999; height: 38px; line-height: 38px;}
+.day-sale-modal-main .day-sale-modal-main-title span:nth-child(1) {width: 140px; text-align: center;}
+.day-sale-modal-main .day-sale-modal-main-title span:nth-child(2) {width: 160px; text-align: right;}
+.day-sale-modal-main .day-sale-modal-main-title span:nth-child(3) {width: 160px; text-align: right;}
+.day-sale-modal-main .day-sale-modal-main-title span:nth-child(4) {width: 180px; text-align: right;}
+.day-sale-modal-main ul li {display: flex; height: 38px; color: #333333; font-size: 12px; line-height: 38px;}
+.day-sale-modal-main ul li.bg-gray {background: #F9F9F9;}
+.day-sale-modal-main ul li span:nth-child(1) {width: 140px; text-align: center;}
+.day-sale-modal-main ul li span:nth-child(2) {width: 160px; text-align: right;}
+.day-sale-modal-main ul li span:nth-child(3) {width: 160px; text-align: right;}
+.day-sale-modal-main ul li span:nth-child(4) {width: 180px; text-align: right;}
+.day-sale-modal-main ul li span.font-green {color: #589065;}
+.day-sale-modal-main ul li span.font-red {color: #AE4E54;}
 
 
 
