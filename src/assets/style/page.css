@@ -151,7 +151,7 @@ body {
 .store-title .store-title-top { padding: 20px 30px; height: auto; display: flex; justify-content: space-between;}
 .store-title .store-title-top .store-title-top-img { width: 80px; height: 80px; }
 .store-title .store-title-top .store-title-top-img img{ display: block; width: 80px; height: auto;}
-.store-title .store-title-top .store-title-top-info { width: 750px; height: auto;}
+.store-title .store-title-top .store-title-top-info { margin-left: 10px; width: 740px; height: auto;}
 .store-title .store-title-top .store-title-top-info>a { cursor: pointer; display: block; height: 20px; width: 100%; line-height: 20px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; font-size: 14px; color: #333;}
 .store-title .store-title-top .store-title-top-info a:hover{ color: #AE4E54;}
 .store-title .store-title-top .store-title-top-info h3{ padding-top: 5px; width: 100%; height: auto; overflow: auto;}

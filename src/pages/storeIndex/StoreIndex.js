@@ -41,6 +41,7 @@ const StoreIndex = class StoreIndex extends Component {
             this.setState({
                 storeIndex: id
             }, () => {
+                this.getDayList();
                 this.getList();
             })
         }
@@ -66,6 +67,7 @@ const StoreIndex = class StoreIndex extends Component {
                 nextReleaseTime: '',
                 diff_count: '',
             }, () => {
+                this.getDayList();
                 this.getList();
             })
         }
@@ -148,8 +150,9 @@ const StoreIndex = class StoreIndex extends Component {
                 })
             }
         })
-
-        // 获取今日发售列表
+    }
+    // 获取今日发售列表
+    getDayList() {
         $home_api.selectMiningProgress({
             'producerId': parseInt(this.state.storeIndex)
         }).then(res => {
@@ -165,6 +168,10 @@ const StoreIndex = class StoreIndex extends Component {
                     diff_count: diff_count
                 }, () => {
                     this.timerID = setInterval(() => {
+                        if (diff_count === 0) {
+                            clearInterval(this.timerID);
+                            return;
+                        }
                         this.setState((prevState) => ({
                             diff_count: prevState.diff_count - 1
                         }))
