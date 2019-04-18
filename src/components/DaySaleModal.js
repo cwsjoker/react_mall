@@ -15,7 +15,7 @@ export default class DaySaleModal extends Component {
             >
                 <div className="day-sale-modal">
                     <div className="day-sale-modal-title">
-                        <h3>今日<span>{symbol}</span>发售时间</h3>
+                        <h3>今日<span>{symbol}</span>购物挖矿时间</h3>
                         <p>({currentTime.substring(0, 10)})</p>
                     </div>
                     <div className="day-sale-modal-main">

@@ -98,7 +98,7 @@ class Recommend extends Component {
                     <div className="home-tip-title">
                         <i></i>
                         <h2>热门推荐</h2>
-                        <span>智能潮货 嗨购不停</span>
+                        <span>平台担保 假一赔十</span>
                     </div>
                     <Spin tip="Loading..." spinning={hot_list_spinning}>
                         <ul className="hotList">

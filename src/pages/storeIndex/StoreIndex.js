@@ -168,7 +168,8 @@ const StoreIndex = class StoreIndex extends Component {
                     diff_count: diff_count
                 }, () => {
                     this.timerID = setInterval(() => {
-                        if (diff_count === 0) {
+                        // console.log(this.state.diff_count);
+                        if (this.state.diff_count === 0) {
                             clearInterval(this.timerID);
                             return;
                         }
@@ -191,7 +192,7 @@ const StoreIndex = class StoreIndex extends Component {
                 <div className="store-main-con">
                     <Spin tip="Loading..." spinning={spinning_info}>
                         <div className="store-countdown">
-                            <span>距离下轮发售时间</span>
+                            <span>距离下轮交易挖矿时间</span>
                             <span>{secondToDate(diff_count)}</span>
                         </div>
                         <div className="store-title">
