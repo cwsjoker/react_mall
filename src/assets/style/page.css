@@ -25,10 +25,10 @@ body {
 .currencyType{ padding: 24px 0 32px; width: 100%; height: auto;}
 .currencyType li{ width: 100%; height: auto; position: relative;}
 .currencyType li i{ display: none; position: absolute; width: 4px; height: 100%; background: #9B9B9B;}
-.currencyType li a{ display: block; padding: 20px 30px 24px; }
+.currencyType li a{ display: block; padding: 20px 24px; }
 .currencyType li.on a{ background: #F9F9F9;}
 .currencyType li.on i{ display: block;}
-.currencyType li h3{ position: relative; padding-left: 34px; height: 24px; line-height: 24px; font-size: 14px; color: #999; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}
+.currencyType li h3{ position: relative; padding-left: 34px; height: 24px; line-height: 24px; font-size: 14px; color: #000; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}
 .currencyType li h3 img{ display: block; width: 24px; height: 24px; position: absolute; left: 0; top: 0;}
 .progressBarDiv{ display: flex; justify-content: space-between; position: relative; margin-top: 10px; padding: 0 10px 0 34px;}
 /* .progress_container{padding:0;width:140px;height:2px;overflow:hidden;background:#F3F4F8;}
@@ -37,6 +37,11 @@ body {
 .progress_container .red {background:#AE4E54;} */
 /* .progressBarDiv span{ display: block; position: absolute; right: 0; top: -8px; height: 18px; line-height: 18px; font-size: 12px; color: #999;} */
 .progressBarDiv span {line-height: 10px;}
+.currencyType li >div {display: block; padding: 20px 24px;}
+.currencyType li >div h3 {color: #999;}
+.currencyType li >div img {opacity:0.3}
+.currencyType li >div .countDown {margin-top: 10px; padding: 0 0 0 34px; color: #999;}
+.currencyType li >div .countDown span {display: inline-block; width:28px; height:18px; margin: 0 5px 0 5px; text-align: center; line-height: 18px; background:linear-gradient(180deg,rgba(232,232,232,1) 0%,rgba(233,233,233,0) 100%); border-radius:3px;}
 
 /* 新滚动条 */
 .progress {

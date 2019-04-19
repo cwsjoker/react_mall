@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link }  from 'react-router-dom';
 import $home_api from '../../fetch/api/home.js'
+import CountDown from '../../components/CountDown';
 
 const Navigation = class Navigation extends Component {
     constructor() {
@@ -17,8 +18,17 @@ const Navigation = class Navigation extends Component {
                 // res.data.data[2]['percent'] = 0.45
                 // res.data.data[3]['percent'] = 0.97
                 // res.data.data[4]['percent'] = 0.14
+                let list = res.data.data;
+                list.forEach(v => {
+                    if (!v.open) {
+                        const d1 = new Date(v.systemTime);
+                        const d2 = new Date(v.openTime);
+                        const diff_count = parseInt(d2 - d1) / 1000;
+                        v.diff_count = diff_count;
+                    }
+                })
                 this.setState({
-                    storeList: res.data.data
+                    storeList: list
                 })
             }
         })
@@ -35,26 +45,34 @@ const Navigation = class Navigation extends Component {
                         return (
                             <li key={item.producerId} className={parseInt(storeIndex) === item.producerId ? 'on' : '' }>
                                 <i></i>
-                                <Link to={'/storeIndex?id=' + item.producerId} style={{'textDecoration': 'none'}}>
-                                    <h3><img src={item.logo} alt="" /><span>{item.NAME}</span></h3>
-                                    <div className="progressBarDiv">
-                                        {/* <div className="progress_container">
-                                            {
-                                                item.percent * 100 < 80 ? (
-                                                    <div className="progress_bar tip greed" style={{width: item.percent * 100 + '%'}}></div>
-                                                ) : (
-                                                    <div className="progress_bar tip red" style={{width: item.percent * 100 + '%'}}></div>
-                                                )
-                                            }
-                                        </div> */}
-                                        {
-                                            <div className="progress">
-                                                <div className="progress-bar progress-bar-striped active" style={{width: item.percent * 100 + '%', backgroundColor: item.percent * 100 >= 80 ? '#d9534f' : '#5cb85c'}}></div>
+                                {
+                                    item.open ? (
+                                        <Link to={'/storeIndex?id=' + item.producerId} style={{'textDecoration': 'none'}}>
+                                            <h3><img src={item.logo} alt="" /><span>{item.NAME}</span></h3>
+                                            <div className="progressBarDiv">
+                                                {
+                                                    <div className="progress">
+                                                        <div className="progress-bar progress-bar-striped active" style={{width: item.percent * 100 + '%', backgroundColor: item.percent * 100 >= 80 ? '#d9534f' : '#5cb85c'}}></div>
+                                                    </div>
+                                                }
+                                                <span style={{color: item.percent * 100 >= 80 ? '#d9534f' : '#5cb85c'}}>{(item.percent * 100).toFixed(2)}%</span>
                                             </div>
-                                        }
-                                        <span style={{color: item.percent * 100 >= 80 ? '#d9534f' : '#5cb85c'}}>{(item.percent * 100).toFixed(2)}%</span>
-                                    </div>
-                                </Link>
+                                        </Link>
+                                    ) : (
+                                        // <Link to="/" onClick={(e) => e.preventDefault()}>
+                                        //     <h3><img src={item.logo} alt="" /><span>{item.NAME}</span></h3>
+                                        //     <CountDown
+                                        //         discount={item.diff_count}
+                                        //     />
+                                        // </Link>
+                                        <div>
+                                            <h3><img src={item.logo} alt="" /><span>{item.NAME}</span></h3>
+                                            <CountDown
+                                                discount={item.diff_count}
+                                            />
+                                        </div>
+                                    )
+                                }
                             </li>
                         )
                     })
