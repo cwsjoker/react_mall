@@ -355,14 +355,14 @@ body {
 .goodsMain .bubble-box em{cursor: pointer; position: absolute; right: 2px; top: 2px; width: 20px; height: 20px; background: url(../images/close.png) center center no-repeat; -moz-transition: all 0.3s ease-in; -webkit-transition: all 0.3s ease-in; -o-transition: all 0.3s ease-in; transition: all 0.3s ease-in;}
 .goodsMain .bubble-box em:hover{ transform:rotate(180deg); -ms-transform:rotate(180deg); -moz-transform:rotate(180deg); -webkit-transform:rotate(180deg); -o-transform:rotate(180deg);}
 /*数量加减*/
-.trdiv{ width: 138px; height: 34px; border: 1px solid #d1d1d1; float: left;}
+.trdiv{ height: 34px; float: left;}
 .trdiv button{ cursor: pointer; font-size: 18px; color: #333; width: 30px; height: 32px; float: left; background: #fff;}
 .trdiv button.button2{ font-size: 22px;}
 .trdiv button:hover,.trdiv button:active{ color: #AE4E54;}
-.trdiv .qty_item{ border-left: 1px solid #d1d1d1; font-size: 18px; color: #333; border-right: 1px solid #d1d1d1; width: 76px; height: 32px; line-height: 32px; text-align: center; float: left;}
+.trdiv .qty_item{ border: 1px solid #d1d1d1; font-size: 18px; color: #333; width: 76px; height: 32px; line-height: 32px; text-align: center; float: left;}
 
 .btnBox{ width: 100%; height: auto; overflow: hidden;}
-.btnBox span{ display: block; margin-right: 10px; float: left; width: 118px; height: 44px; line-height: 44px; border: 1px solid #AE4E54; background: #AE4E54; text-align: center; font-size: 18px; color: #fff;}
+.btnBox span{ display: block; margin-right: 10px; float: left; width: 118px; height: 44px; line-height: 44px; border: 1px solid #AE4E54; background: #AE4E54; text-align: center; font-size: 18px; color: #fff; cursor: pointer;}
 .btnBox span.joinCat{ width: 138px; color: #999; background: #fff; border: 1px solid #f0f0f0;}
 .btnBox span.joinCat:hover{background: #fff; border: 1px solid #AE4E54; color: #AE4E54;}
 .btnBox span:hover{ background: #ce5d64; border: 1px solid #ce5d64;}

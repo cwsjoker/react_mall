@@ -54,9 +54,9 @@ export default class ShopCartItem extends Component {
                                 <div>
                                     <div className="numberGood">
                                         <div className="trdiv">
-                                            <button className="button2" onClick={changeBuyNumber(v, 'reduce')}>-</button>
+                                            {/* <button className="button2" onClick={changeBuyNumber(v, 'reduce')}>-</button> */}
                                             <input type="text" className="qty_item" readOnly="readonly" value={v.goodsNum}/>
-                                            <button className="button1" onClick={changeBuyNumber(v, 'add')}>+</button>
+                                            {/* <button className="button1" onClick={changeBuyNumber(v, 'add')}>+</button> */}
                                         </div>
                                         <em>有货</em>
                                     </div>

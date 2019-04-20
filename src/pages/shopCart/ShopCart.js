@@ -260,11 +260,18 @@ class ShopCart extends Component {
             return;
         }
 
+        // 订单选择付款商品
         const choose_list = list.list.filter(v => {
             return v.is_choose === true;
         })
+
+        // 付款商品从购物车清除
+        choose_list.forEach(v => {
+            this.reset_local_cart(v.goodsId, v.propertyGroupGoods);
+        })
+
         localStorage.orderList = JSON.stringify(choose_list);
-        this.props.history.push('/confirmOrder')
+        this.props.history.push('/confirmOrder');
     }
     render() {
         return (

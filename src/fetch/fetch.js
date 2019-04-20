@@ -34,7 +34,7 @@ export class Fetch {
             if (res.data.code === '200') {
                 return res;
             } else {
-                if (['202', '203', '201', '204', '100234', '100235', '100236', '100237'].includes(res.data.code)) {
+                if (['202', '203', '201', '204', '100234', '100235', '100236', '100237', '10002'].includes(res.data.code)) {
                     message.error(res.data.msg);
                 }
                 // console.log(res);

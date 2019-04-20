@@ -184,7 +184,8 @@ const ConfirmOrder = class ConfirmOrder extends Component {
 
         let post_data = {
             addressId: '',
-            goods: []
+            goods: [],
+            symbol: ''
         }
 
         post_data.goods = order_list.map(v => {
@@ -205,6 +206,7 @@ const ConfirmOrder = class ConfirmOrder extends Component {
             return v.is_choose;
         })
         post_data.addressId = addr_item['id'];
+        post_data.symbol = order_list[0]['symbol'];
 
         const order_req =  await $home_api.createNewOrder(post_data);
         if (order_req) {

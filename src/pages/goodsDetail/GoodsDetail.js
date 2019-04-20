@@ -40,19 +40,23 @@ class GoodsDetail extends Component {
                 this.setState({
                     goodsInfo_goods: goods,
                     goodsInfo_goodsInventory: goodsInventory,
-                    goodsInfo_keyList: keyList,
+                    goodsInfo_keyList: keyList || [],
                     goodsParam: JSON.parse(goods.goodsParam),
                 });
 
-                // 初始化默认选择第一个配置
-                const choose_list = keyList.map(item => {
-                    return goodsInventory[item][0]['id'];
-                })
-                this.setState({
-                    choose: choose_list,
-                }, () => {
+                // 初始化默认选择第一个配置,
+                if (keyList && keyList.length !== 0) {
+                    const choose_list = keyList.map(item => {
+                        return goodsInventory[item][0]['id'];
+                    })
+                    this.setState({
+                        choose: choose_list,
+                    }, () => {
+                        this.getForByGoodsPrice(goodsId)
+                    })
+                } else {
                     this.getForByGoodsPrice(goodsId)
-                })
+                }
                 
                 // 商铺详情    挖矿详情
                 const [storeInfo_res, niming_res] = await Promise.all([
@@ -87,7 +91,18 @@ class GoodsDetail extends Component {
     // 根据型号查询商品的价格信息
     async getForByGoodsPrice(goodsId) {
         const propertyGroup = this.state.choose.join(',');
-        const priceInfo_res = await $home_api.getByGoodsQueryPrice({'goodsId': goodsId, 'propertyGroup': propertyGroup})
+        let query = {}
+        if (propertyGroup !== '') {
+            query = {
+                'goodsId': goodsId,
+                'propertyGroup': propertyGroup
+            }
+        } else {
+            query = {
+                'goodsId': goodsId,
+            }
+        }
+        const priceInfo_res = await $home_api.getByGoodsQueryPrice(query)
         if (priceInfo_res) {
             this.setState({
                 goodsInfo_price: priceInfo_res.data.data,
@@ -197,7 +212,7 @@ class GoodsDetail extends Component {
                 let is_goods = false;
                 list.forEach(v => {
                     if (v.goodsId === buyNowGoodsInforObj.goodsId && v.propertyGroupGoods.split(',').sort().join(',') === buyNowGoodsInforObj.propertyGroupGoods.split(',').sort().join(',')) {
-                        v.goodsNum += buyNowGoodsInforObj.goodsNum;
+                        // v.goodsNum += buyNowGoodsInforObj.goodsNum;
                         is_goods = true;
                     }
                 })
@@ -302,9 +317,9 @@ class GoodsDetail extends Component {
                                     <li>
                                         <label>数量</label>
                                         <div className="trdiv">
-                                            <button className="button2" onClick={this.changeBuyNumber.bind(this, 'reduce')}>-</button>
+                                            {/* <button className="button2" onClick={this.changeBuyNumber.bind(this, 'reduce')}>-</button> */}
                                             <input  type="text" className="qty_item" readOnly="readonly" value={this.state.buy_number} />
-                                            <button  className="button1" onClick={this.changeBuyNumber.bind(this, 'add')}>+</button>
+                                            {/* <button  className="button1" onClick={this.changeBuyNumber.bind(this, 'add')}>+</button> */}
                                         </div>
                                     </li>
                                     <li>
