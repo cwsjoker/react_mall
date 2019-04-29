@@ -204,6 +204,7 @@ body {
 .flagBom a:hover{ color: #AE4E54;}
 
 .store-main .store-main-con .store-list {
+    position: relative;
     background: #fff;
     padding: 0 20px;
     box-sizing: border-box;

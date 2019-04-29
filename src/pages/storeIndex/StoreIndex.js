@@ -10,6 +10,7 @@ import $home_api from '../../fetch/api/home'
 import $user_api from '../../fetch/api/user'
 import changeUsdt from '../../utils/convertUsdt'
 import { secondToDate } from '../../utils/operation'
+import MaskBox from '../../components/MaskBox.js'
 
 const StoreIndex = class StoreIndex extends Component {
     constructor() {
@@ -190,12 +191,13 @@ const StoreIndex = class StoreIndex extends Component {
                     <Navigation storeIndex={this.state.storeIndex} />
                 </div>
                 <div className="store-main-con">
-                    <Spin tip="Loading..." spinning={spinning_info}>
+                    <Spin tip="" spinning={spinning_info}>
                         <div className="store-countdown">
                             <span>距离下轮交易挖矿时间</span>
                             <span>{secondToDate(diff_count)}</span>
                         </div>
                         <div className="store-title">
+                            <MaskBox show={true} />
                             <div className="store-title-top cleafix">
                                 <div className="store-title-top-img"><img src={window.BACK_URL + this.state.storeInfo.logoUrl} alt="" /></div>
                                 <div className="store-title-top-info">
@@ -257,6 +259,7 @@ const StoreIndex = class StoreIndex extends Component {
                         </div>
                     </div>
                     <div className="store-list">
+                        <MaskBox show={true} />
                         <div className="title">
                             <i></i>
                             <h2>{this.state.storeInfo.name}</h2>

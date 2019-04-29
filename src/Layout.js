@@ -14,6 +14,7 @@ import $user_api from './fetch/api/user'
 
 const Layout = class Layout extends Component {
     componentDidMount() {
+
         let { dispatch } = this.props;
         // 每次刷新页面验证token
         if (Cookie.get('token')) {
