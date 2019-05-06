@@ -34,8 +34,12 @@ export class Fetch {
             if (res.data.code === '200') {
                 return res;
             } else {
-                if (['202', '203', '201', '204', '100234', '100235', '100236', '100237', '10002'].includes(res.data.code)) {
-                    message.error(res.data.msg);
+                if (['202', '203', '201', '204', '100234', '100235', '100236', '100237', '10002', '10001', '20001'].includes(res.data.code)) {
+                    if (res.data.code === '10001') {
+                        message.error('系统繁忙，请稍后再试');
+                    } else {
+                        message.error(res.data.msg);
+                    }
                 }
                 // console.log(res);
             }
