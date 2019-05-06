@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link }  from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux'
 import { message, Modal } from 'antd';
@@ -327,7 +328,9 @@ class ShopCart extends Component {
                             <div className="cartNoData">
                                 <p>购物车内暂时没有商品</p>
                                 <h2>
-                                    <a href="/">继续购物<em>&gt;</em></a>
+                                    <Link to="/">
+                                        继续购物<em>&gt;</em>
+                                    </Link>
                                 </h2>
                             </div>
                         )
