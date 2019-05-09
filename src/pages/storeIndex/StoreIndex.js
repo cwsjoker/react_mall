@@ -183,7 +183,7 @@ const StoreIndex = class StoreIndex extends Component {
         })
     }
     render() {
-        const { spinning, spinning_info, storeNimingInfo, search_key, flag, sort, modal_show, day_sale_list, currentTime, diff_count } = this.state;
+        const { spinning, spinning_info, storeNimingInfo, search_key, flag, sort, modal_show, day_sale_list, currentTime, diff_count, nextReleaseTime } = this.state;
         const { turnover, symbol, dailyMined, remaining, yesterdayBurnt } = storeNimingInfo;
         return (
             <div className="store-main">
@@ -193,15 +193,16 @@ const StoreIndex = class StoreIndex extends Component {
                 <div className="store-main-con">
                     <Spin tip="" spinning={spinning_info}>
                         <div className="store-countdown">
-                            <span>距离下轮交易挖矿时间</span>
+                            <span>距离下轮购物挖矿时间</span>
                             <span>{secondToDate(diff_count)}</span>
                         </div>
                         <div className="store-title">
-                            <MaskBox show={true} />
+                            <MaskBox show={false} />
                             <div className="store-title-top cleafix">
                                 <div className="store-title-top-img"><img src={window.BACK_URL + this.state.storeInfo.logoUrl} alt="" /></div>
                                 <div className="store-title-top-info">
-                                    <Link to={'/storeHome?id=' +　this.state.storeIndex }>{this.state.storeInfo.name}</Link>
+                                    {/* <Link to={'/storeHome?id=' +　this.state.storeIndex }>{this.state.storeInfo.name}</Link> */}
+                                    <p>{this.state.storeInfo.name}</p>
                                     <h3><span>官方自营</span></h3>
                                     <p>我的余额:<span>{this.state.available}</span><em>{this.state.symbol}</em><a href={window.BT_URL + "market?symbol=" + symbol + "_BT"}>去交易</a></p>
                                 </div>
@@ -219,7 +220,7 @@ const StoreIndex = class StoreIndex extends Component {
                                         <p>{dailyMined || 0}</p>
                                     </li>
                                     <li>
-                                        <h2>今日待产出：{symbol}</h2>
+                                        <h2>下轮待产出：{symbol}</h2>
                                         <p>{remaining || 0}</p>
                                     </li>
                                     <li>
@@ -259,7 +260,7 @@ const StoreIndex = class StoreIndex extends Component {
                         </div>
                     </div>
                     <div className="store-list">
-                        <MaskBox show={true} />
+                        <MaskBox show={false} />
                         <div className="title">
                             <i></i>
                             <h2>{this.state.storeInfo.name}</h2>
@@ -284,7 +285,7 @@ const StoreIndex = class StoreIndex extends Component {
                     modal_show={modal_show}
                     day_sale_list={day_sale_list}
                     symbol={symbol}
-                    currentTime={currentTime}
+                    currentTime={nextReleaseTime}
                     hiddenModal={() => this.setState({modal_show: false})}
                 />
             </div>

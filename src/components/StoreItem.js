@@ -5,7 +5,7 @@ export default function StoreItem(props) {
     const { id, imageUrl, name, price, symbol, change_price_usdt, inventoryIntroduce } = props.data;
     return (
         <li className="hot-list-item">
-            <Link to={'/goodsDetail?goodsId=' + id}>
+            {/* <Link to={'/goodsDetail?goodsId=' + id}> */}
                 <div className="hot-list-item-con">
                     <div>
                         <img  src={window.BACK_URL + imageUrl} alt="" />
@@ -19,10 +19,10 @@ export default function StoreItem(props) {
                         </h3>
                     </div>
                     <div className="hot-list-item-btn">
-                        <div>立即购买</div>
+                        <div>即将开放</div>
                     </div>
                 </div>
-            </Link>
+            {/* </Link> */}
         </li>
     )
 };

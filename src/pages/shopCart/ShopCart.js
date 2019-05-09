@@ -279,14 +279,14 @@ class ShopCart extends Component {
             <div className="shopCart-page">
                 <div className="shopCart-page-warp">
                     {/* 未登录 */}
-                    {
+                    {/* {
                         !this.props.loginStore.login ? (
                             <div className="shopCart-page-nologin">
                                 <p>您还没有登录！登录后购物车的商品将保存到您的账号中</p>
                                 <a href={window.BT_URL + 'login?redirectUrl=shop'}>立即登录</a>
                             </div>
                         ) : null
-                    }
+                    } */}
                     {/* 购物车 */}
                     {
                         this.state.shop_list.length !== 0 ? (

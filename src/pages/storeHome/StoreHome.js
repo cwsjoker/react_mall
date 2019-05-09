@@ -19,7 +19,8 @@ const StoreHome = class StoreHome extends Component {
             spinning: true,
             modal_show: false,
             day_sale_list: [],
-            currentTime: ''
+            currentTime: '',
+            nextReleaseTime: '',
         }
     }
     componentDidMount() {
@@ -69,16 +70,17 @@ const StoreHome = class StoreHome extends Component {
             'producerId': parseInt(storeId)
         }).then(res => {
             if (res) {
-                const { miningPlanProgressDTOList, currentTime } = res.data.data;
+                const { miningPlanProgressDTOList, currentTime, nextReleaseTime } = res.data.data;
                 this.setState({
                     day_sale_list: miningPlanProgressDTOList,
                     currentTime: currentTime,
+                    nextReleaseTime: nextReleaseTime
                 })
             }
         })
     }
     render() {
-        const { produceList, storeInfo, symbol, storeNimingInfo, spinning, modal_show, currentTime, day_sale_list } = this.state;
+        const { produceList, storeInfo, symbol, storeNimingInfo, spinning, modal_show, currentTime, day_sale_list, nextReleaseTime } = this.state;
         return (
             <div className="storeHome-page">
                 <div className="home-top">
@@ -155,7 +157,7 @@ const StoreHome = class StoreHome extends Component {
                     modal_show={modal_show}
                     day_sale_list={day_sale_list}
                     symbol={symbol}
-                    currentTime={currentTime}
+                    currentTime={nextReleaseTime}
                     hiddenModal={() => this.setState({modal_show: false})}
                 />
             </div>

@@ -65,7 +65,20 @@ const Mining = class Mining extends Component {
                 <div className="mining-main">
                     <div>
                         {/* 活动时间 */}
-                        <div className="mining-active-time"></div>
+                        <div className="mining-active-time">
+                            <p>挖矿说明:</p>
+                            <p>购物即挖矿是比特天猫(BTTMALL)商城特有的价值通证分配方式</p>
+                            <p>1. 所有的商品都可参与购物即挖矿活动</p>
+                            <p>2. 总挖矿量为商品总价，每日可产出1%，产出的通证可自由转出转入以及买卖。</p>
+                            <p>3. 商品如产生质量问题收货后15日内可更换</p>
+                            <p>4. 抢购时间段内每个用户单商品仅限购一件</p>
+                            <div className="mining-active-time-desc"></div>
+                            <p>例如：</p>
+                            <p>用户使用10000JT购买了一个100克的BTTMALL投资黄金</p>
+                            <p>每日挖矿量则为10000JT/100天=100JT</p>
+                            <p>100天后产出结束即挖矿结束。</p>
+                            <p>*该活动的最终解释权为BTTMALL所有*</p>
+                        </div>
                         {/* 表格 */}
                         {
                             list.map((item, index) => {

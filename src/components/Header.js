@@ -35,6 +35,11 @@ const Header = class Header extends Component {
                     <a href={window.BT_URL + 'register'}>免费注册</a>
                 </div>
             )
+            btn_mining = (
+                <Link to="./mining">
+                    <div className="mining-btn fr">挖矿<span></span> </div>
+                </Link>
+            )
         }
 
         return (

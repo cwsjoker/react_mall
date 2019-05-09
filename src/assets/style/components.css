@@ -155,20 +155,16 @@
 .footer{ padding: 75px 0; height: auto; overflow: hidden;}
 .footer .fooL{ width: 156px; height: auto;}
 .footer .fooL>div {width: 100%; height: 62px; background: url('../images/logo.png') no-repeat; background-size: cover;}
-.footer .fooL p{ margin-top: 2px; text-align: center; font-size: 12px; line-height: 18px; color: #A5A6A9;}
+.footer .fooL p{ margin-top: 2px; text-align: center; font-size: 12px; line-height: 18px; color:#60688d;}
 .footer .fooR{height: auto;}
 .footer .fooR ul{ float: left;}
 .footer .fooR ul li{ width: 264px; float: left; margin-right: 30px;}
 .footer .fooR ul li h2{ height: 32px; line-height: 32px; font-size: 14px; color: #fff;}
-.footer .fooR ul li a{ display: block; height: 30px; line-height: 30px; font-size: 12px; color: #87888e;}
+.footer .fooR ul li a{ display: block; height: 30px; line-height: 30px; font-size: 12px; color: #60688d;}
 .footer .fooR ul li a:hover,
 .siftBox a:hover,
 .siftList li a:hover,
 .hotRecom ul li a:hover,
-.optimization ul li h2 a:hover{ color: #AE4E54;}
-.footer .fooR ul li span {display: block; height: 30px; line-height: 30px; font-size: 12px; color: #C7CCE6;}
-.footerDiv .footer-tip {    width: 100%;
-    text-align: center;
-    color: #60688d;
-    height: 50px;
-    line-height: 50px;}
+.optimization ul li h2 a:hover{ color: #fff;}
+.footer .fooR ul li span {display: block; height: 30px; line-height: 30px; font-size: 12px; color: #60688d;}
+.footerDiv .footer-tip {width: 100%; text-align: center; color: #60688d; height: 50px; line-height: 50px;}
