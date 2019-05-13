@@ -3,6 +3,8 @@ import { Link }  from 'react-router-dom';
 import Footer from '../../components/Footer.js';
 import '../../assets/style/mining.scss';
 import $home_api from '../../fetch/api/home';
+import { getQueryString } from '../../utils/operLocation.js'
+import Cookie from 'js-cookie';
 
 const Mining = class Mining extends Component {
     constructor() {
@@ -12,6 +14,14 @@ const Mining = class Mining extends Component {
         }
     }
     async componentDidMount() {
+
+        // 先获取搜索参数token
+        const query_obj = getQueryString(this.props.location.search);
+        if (query_obj.token) {
+            Cookie.set('token', query_obj.token, { expires: 1 });
+        }
+
+
         const obj_req = await $home_api.selectShopMiningOrderList();
         if (obj_req) {
             // console.log(obj_req);

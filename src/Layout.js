@@ -10,7 +10,7 @@ import Footer from './components/Footer.js';
 import Routers from './router/index.js';
 
 import Cookie from 'js-cookie';
-import $user_api from './fetch/api/user'
+import $user_api from './fetch/api/user';
 
 const Layout = class Layout extends Component {
     componentDidMount() {

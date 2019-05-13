@@ -199,7 +199,13 @@ const StoreIndex = class StoreIndex extends Component {
                         <div className="store-title">
                             <MaskBox show={false} />
                             <div className="store-title-top cleafix">
-                                <div className="store-title-top-img"><img src={window.BACK_URL + this.state.storeInfo.logoUrl} alt="" /></div>
+                                <div className="store-title-top-img">
+                                    {
+                                        this.state.storeInfo.logoUrl ? (
+                                            <img src={window.BACK_URL + this.state.storeInfo.logoUrl} alt="" />
+                                        ) : null
+                                    }
+                                </div>
                                 <div className="store-title-top-info">
                                     {/* <Link to={'/storeHome?id=' +　this.state.storeIndex }>{this.state.storeInfo.name}</Link> */}
                                     <p>{this.state.storeInfo.name}</p>
