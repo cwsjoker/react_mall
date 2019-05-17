@@ -14,7 +14,7 @@ export default function StoreItem(props) {
                         <h3>
                             {price + ' ' + symbol}
                             {
-                                Number(change_price_usdt) !== 0 ? <span>≈{change_price_usdt}USDT</span> : null
+                                Number(change_price_usdt) ? <span>≈{change_price_usdt}USDT</span> : null
                             }
                         </h3>
                     </div>
