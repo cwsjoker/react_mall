@@ -80,7 +80,7 @@ export default class OrderItem extends Component {
                                             <div className="orderMoney">
                                                 <h6>总额 {price + ' ' + goodsItem.symbol}</h6>
                                                 <p>应付<br />{price + ' ' + goodsItem.symbol}</p>
-                                                <h5>货币支付</h5>
+                                                <h5>代币支付</h5>
                                             </div>
                                             {/* 订单状态 */}
                                             <div className="orderState">

@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { message, Modal } from 'antd';
 import { setShopCartNum } from '../../store/actionCreators.js';
 import ShopCartItem from '../../components/ShopCartItem.js'
+import $home_api from '../../fetch/api/home'
 
 const { confirm } = Modal;
 
@@ -18,30 +19,97 @@ class ShopCart extends Component {
     componentDidMount() {
         const list_str = localStorage.getItem('shopCartList');
         if ( list_str ) {
+            this.updateGoodsPrice();
+        }
+
+    }
+    // 更新购物车的商品价格
+    updateGoodsPrice() {
+        const list_str = localStorage.getItem('shopCartList');
+        if (list_str) {
             const list = JSON.parse(list_str);
-            const store_list = [];
-            list.forEach(v => {
-                v['is_choose'] = false;
-                const find_index = store_list.findIndex(k => {
-                    return v.storeName === k.storeName;
-                })
-                if (find_index === -1) {
-                    store_list.push({
-                        is_choose: false,
-                        storeName: v.storeName,
-                        producerId: v.producerId,
-                        goods_account: 0,
-                        goods_price: 0,
-                        symbol: v.symbol,
-                        list: [v]
+            const promises = list.map(v => {
+                return this.getForByGoodsPrice(v.goodsId, v.propertyGroupGoods);
+            })
+            Promise.all(promises).then(price_list => {
+                const list = JSON.parse(localStorage.getItem('shopCartList'));
+                price_list.forEach(v => {
+                    list.forEach(k => {
+                        if (v.goodsId === k.goodsId && v.propertyGroup && k.propertyGroupGoods) {
+                            k['goodsPrice'] = v.price
+                        }
                     })
-                } else {
-                    store_list[find_index]['list'].push(v);
-                }
+                })
+                const store_list = [];
+                list.forEach(v => {
+                    v['is_choose'] = false;
+                    const find_index = store_list.findIndex(k => {
+                        return v.storeName === k.storeName;
+                    })
+                    if (find_index === -1) {
+                        store_list.push({
+                            is_choose: false,
+                            storeName: v.storeName,
+                            producerId: v.producerId,
+                            goods_account: 0,
+                            goods_price: 0,
+                            symbol: v.symbol,
+                            list: [v]
+                        })
+                    } else {
+                        store_list[find_index]['list'].push(v);
+                    }
+                })
+                this.setState({
+                    shop_list: store_list
+                })
+                localStorage.setItem('shopCartList', JSON.stringify(list));
+            }).catch(error => {
+                console.log(error);
+                const list = JSON.parse(localStorage.getItem('shopCartList'));
+                const store_list = [];
+                list.forEach(v => {
+                    v['is_choose'] = false;
+                    const find_index = store_list.findIndex(k => {
+                        return v.storeName === k.storeName;
+                    })
+                    if (find_index === -1) {
+                        store_list.push({
+                            is_choose: false,
+                            storeName: v.storeName,
+                            producerId: v.producerId,
+                            goods_account: 0,
+                            goods_price: 0,
+                            symbol: v.symbol,
+                            list: [v]
+                        })
+                    } else {
+                        store_list[find_index]['list'].push(v);
+                    }
+                })
+                this.setState({
+                    shop_list: store_list
+                })
             })
-            this.setState({
-                shop_list: store_list
-            })
+        }
+    }
+    // 根据型号查询商品的价格信息
+    async getForByGoodsPrice(goodsId, propertyGroup) {
+        let query = {}
+        if (propertyGroup) {
+            query = {
+                'goodsId': goodsId,
+                'propertyGroup': propertyGroup
+            }
+        } else {
+            query = {
+                'goodsId': goodsId,
+            }
+        }
+        const priceInfo_res = await $home_api.getByGoodsQueryPrice(query)
+        if (priceInfo_res) {
+            priceInfo_res.data.data.price = priceInfo_res.data.data.price;
+            return priceInfo_res.data.data;
         }
     }
     // 全选

@@ -194,7 +194,7 @@ class GoodsDetail extends Component {
                 'goodsImgUrl': this.state.goodsInfo_price.smallImageUrl, //商品图片
                 'propertyGroupGoods': this.state.choose.join(','), //库存类型
                 'inventoryGoods': this.state.goodsInfo_price.stock, //库存
-                'payWay': '货币支付', //支付方式
+                'payWay': '代币支付', //支付方式
                 // 'vrepeat': goodsId+inventoryid,//校验重复
                 'symbol': this.state.goodsInfo_price.symbol
             };
@@ -311,7 +311,7 @@ class GoodsDetail extends Component {
                                     <li>
                                         <label>购买方式</label>
                                         <div className="payWay">
-                                            <span className="on">货币支付</span>
+                                            <span className="on">代币支付</span>
                                         </div>
                                     </li>
                                     <li>

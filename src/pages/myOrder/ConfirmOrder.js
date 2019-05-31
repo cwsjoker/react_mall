@@ -275,7 +275,7 @@ const ConfirmOrder = class ConfirmOrder extends Component {
                         <div className="pay-type">
                             <div>支付方式</div>
                             <div className="payLeft">
-                                <span>货币支付</span>
+                                <span>代币支付</span>
                                 <p>{`注意：当前余额${available}${symbol}，请前去`}<a href={window.BT_URL + 'market?symbol=' + symbol + '_BT'}>交易</a></p>
                             </div>
                         </div>

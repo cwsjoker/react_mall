@@ -157,7 +157,7 @@ const Mining = class Mining extends Component {
                                                         <div className="list-title">
                                                             <div>时间</div>
                                                             <div>数量</div>
-                                                            <div>操作</div>
+                                                            <div>状态</div>
                                                         </div>
                                                         <div className="list-body">
                                                             {
@@ -166,7 +166,7 @@ const Mining = class Mining extends Component {
                                                                         <div key={i} className="list-body-item">
                                                                             <div>{v.miningDate}</div>
                                                                             <div>{v.mining + v.symbol}</div>
-                                                                            <div></div>
+                                                                            <div>已解锁到可用余额</div>
                                                                         </div>
                                                                     )
                                                                 })
