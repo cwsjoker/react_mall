@@ -219,20 +219,21 @@ const StoreIndex = class StoreIndex extends Component {
                                 <ul>
                                     <li>
                                         <h2>流通总量：</h2>
-                                        <p>{turnover || 0}</p>
+                                        {/* <p>{turnover || 0}</p> */}
+                                        <p>50000000</p>
                                     </li>
                                     <li>
                                         <h2>今日已产出：{symbol}</h2>
                                         <p>{dailyMined || 0}</p>
                                     </li>
                                     <li>
-                                        <h2>下轮待产出：{symbol}</h2>
+                                        <h2>今日待产出：{symbol}</h2>
                                         <p>{remaining || 0}</p>
                                     </li>
-                                    <li>
+                                    {/* <li>
                                         <h2>昨日已销毁：{symbol}</h2>
                                         <p>{yesterdayBurnt || 0}</p>
-                                    </li>
+                                    </li> */}
                                 </ul>
                             </div>
                             <span className="store-title-more" onClick={() => this.setState({modal_show: true})}>更多+</span>

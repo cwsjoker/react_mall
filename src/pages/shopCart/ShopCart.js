@@ -108,7 +108,7 @@ class ShopCart extends Component {
         }
         const priceInfo_res = await $home_api.getByGoodsQueryPrice(query)
         if (priceInfo_res) {
-            priceInfo_res.data.data.price = priceInfo_res.data.data.price;
+            // priceInfo_res.data.data.price = priceInfo_res.data.data.price;
             return priceInfo_res.data.data;
         }
     }

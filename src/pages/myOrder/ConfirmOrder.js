@@ -25,31 +25,90 @@ const ConfirmOrder = class ConfirmOrder extends Component {
         this.getAddress();
         const list = JSON.parse(localStorage.getItem('orderList')) || [];
         if (list.length !== 0) {
-            list.forEach(item => {
-                item.note = '';
+            const promises = list.map(v => {
+                return this.getForByGoodsPrice(v.goodsId, v.propertyGroupGoods);
             })
-            const len = list.reduce((total, item) => {
-                return total + item.goodsNum;
-            }, 0)
-            const total_price = list.reduce((total, item) => {
-                return total + (item.goodsNum * item.goodsPrice);
-            }, 0)
-            this.setState({
-                order_list: list,
-                goods_count: len,
-                goods_total_price: total_price,
-                symbol: list[0]['symbol']
-            }, async () => {
-                // 获取账户余额
-                const res_blance = await $user_api.getUserFinance({coinSymbol: this.state.symbol});
-                if (res_blance) {
-                    this.setState({
-                        available: res_blance.data.data.available
+
+            // 刷新商品价格
+            Promise.all(promises).then(price_list => {
+                console.log(price_list);
+                price_list.forEach(v => {
+                    list.forEach(k => {
+                        if (v.goodsId === k.goodsId && v.propertyGroup && k.propertyGroupGoods) {
+                            k['goodsPrice'] = v.price
+                        }
                     })
-                }
+                })
+                localStorage.setItem('orderList', JSON.stringify(list));
+                list.forEach(item => {
+                    item.note = '';
+                })
+                const len = list.reduce((total, item) => {
+                    return total + item.goodsNum;
+                }, 0)
+                const total_price = list.reduce((total, item) => {
+                    return total + (item.goodsNum * item.goodsPrice);
+                }, 0)
+                this.setState({
+                    order_list: list,
+                    goods_count: len,
+                    goods_total_price: total_price,
+                    symbol: list[0]['symbol']
+                }, async () => {
+                    // 获取账户余额
+                    const res_blance = await $user_api.getUserFinance({coinSymbol: this.state.symbol});
+                    if (res_blance) {
+                        this.setState({
+                            available: res_blance.data.data.available
+                        })
+                    }
+                })
+            }).catch(error => {
+                list.forEach(item => {
+                    item.note = '';
+                })
+                const len = list.reduce((total, item) => {
+                    return total + item.goodsNum;
+                }, 0)
+                const total_price = list.reduce((total, item) => {
+                    return total + (item.goodsNum * item.goodsPrice);
+                }, 0)
+                this.setState({
+                    order_list: list,
+                    goods_count: len,
+                    goods_total_price: total_price,
+                    symbol: list[0]['symbol']
+                }, async () => {
+                    // 获取账户余额
+                    const res_blance = await $user_api.getUserFinance({coinSymbol: this.state.symbol});
+                    if (res_blance) {
+                        this.setState({
+                            available: res_blance.data.data.available
+                        })
+                    }
+                })
             })
         }
         this.getCurrentAddr();
+    }
+    // 根据型号查询商品的价格信息
+    async getForByGoodsPrice(goodsId, propertyGroup) {
+        let query = {}
+        if (propertyGroup) {
+            query = {
+                'goodsId': goodsId,
+                'propertyGroup': propertyGroup
+            }
+        } else {
+            query = {
+                'goodsId': goodsId,
+            }
+        }
+        const priceInfo_res = await $home_api.getByGoodsQueryPrice(query)
+        if (priceInfo_res) {
+            // priceInfo_res.data.data.price = priceInfo_res.data.data.price + 111;
+            return priceInfo_res.data.data;
+        }
     }
     // 获取当前用户的收货地址
     async getCurrentAddr() {
