@@ -43,6 +43,78 @@
             margin: 0  auto;
             padding-top: 700px;
             padding-bottom: 100px;
+            .mining-active-invitation {
+                position: absolute;
+                width: 480px;
+                height: 160px;
+                padding: 10px;
+                box-sizing: border-box;
+                background: #834416;
+                right: 0px;
+                top: 230px;
+                border-radius: 10px;
+                >div {
+                    display: flex;
+                    width: 100%;
+                    height: 100%;
+                    background: #341915;
+                    >div {
+                        &:nth-child(1) {
+                            width: 250px;
+                            height: 100%;
+                            padding: 15px 0 0 20px;
+                            box-sizing: border-box;
+                            >p {
+                                &:nth-child(1) {
+                                    color: #fff;
+                                    font-size: 14px;
+                                    >span {
+                                        margin-left: 10px;
+                                        color: #9E4C1E;
+                                    }
+                                }
+                                &:nth-child(2) {
+                                    color: #fff;
+                                    font-size: 14px;
+                                    >span {
+                                        margin-left: 10px;
+                                        color: #387DE0;
+                                    }
+                                }
+                                &:nth-child(3) {
+                                    color: #fff;
+                                    font-size: 14px;
+                                    >span {
+                                        margin-left: 10px;
+                                        color: #46A02D;
+                                    }
+                                }
+                                &:nth-child(4) {
+                                    color: #9E4C1E;
+                                    font-size: 12px;
+                                    >span {
+                                        color: #46A02D;
+                                    }
+                                }
+                                &:nth-child(5) {
+                                    color: #9E4C1E;
+                                    font-size: 12px;
+                                }
+                            }
+                        }
+                        &:nth-child(2) {
+                            flex: 1;
+                            >div {
+                                margin: 40px auto;
+                                width: 140px;
+                                height: 44px;
+                                background: url('../images/invitation_btn.png') no-repeat;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
             .mining-active-time {
                 color: #fff;
                 position: absolute;
@@ -156,6 +228,10 @@
                                     color: #8F3E10;
                                     text-align: center;
                                 }
+                                .order-mining-btn {
+                                    color: #0084ff;
+                                    text-align: center;
+                                }
                             }
 
                         }
@@ -175,14 +251,20 @@
                                 text-align: center;
                                 line-height: 40px;
                                 &:nth-child(1) {
-                                    width: 443px;
+                                    // width: 300px;
+                                    width: 33%;
                                 }
                                 &:nth-child(2) {
-                                    width: 500px;
+                                    // width: 300px;
+                                    width: 33%;
                                 }
                                 &:nth-child(3) {
-                                    width: 257px;
+                                    // width: 300px;
+                                    width: 33%;
                                 }
+                                // &:nth-child(4) {
+                                //     width: 280px;
+                                // }
                             }
                         }
                         .list-body {
@@ -200,15 +282,29 @@
                                     text-align: center;
                                     line-height: 40px;
                                     &:nth-child(1) {
-                                        width: 443px;
+                                        // width: 300px;
+                                        width: 33%;
                                     }
                                     &:nth-child(2) {
-                                        width: 500px;
+                                        // width: 300px;
+                                        width: 33%;
                                     }
                                     &:nth-child(3) {
-                                        width: 257px;
+                                        // width: 300px;
+                                        width: 33%;
                                         color: green;
+                                        .red {
+                                            color: #ae4e54;
+                                        }
+                                        .count-down-txt {
+                                            color: #fff;
+                                        }
                                     }
+                                    // &:nth-child(4) {
+                                    //     width: 280px;
+                                    //     color: #0084ff;
+                                    //     cursor: pointer;
+                                    // }
                                 }
                             }
                             .list-body-nodata {

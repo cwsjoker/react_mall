@@ -1,6 +1,6 @@
 import React, { Component }  from 'react';
 
-const CountDown = class CountDown extends Component {
+const CountDownTxt = class CountDownTxt extends Component {
     constructor() {
         super()
         this.state = {
@@ -12,7 +12,7 @@ const CountDown = class CountDown extends Component {
             diff_count: this.props.discount
         }, () => {
             this.timerID = setInterval(() => {
-                if (this.state.diff_count === 0) {
+                if (this.state.diff_count === 3177280) {
                     clearInterval(this.timerID);
                     return;
                 }
@@ -25,14 +25,14 @@ const CountDown = class CountDown extends Component {
     render() {
         const { diff_count } = this.state;
         return (
-            <div className="countDown">
+            <span>
                 <span>{Math.floor(diff_count / (3600 * 24)) < 10 ? '0' + Math.floor(diff_count / (3600 * 24)) : Math.floor(diff_count / (3600 * 24))}</span>天
                 <span>{Math.floor(diff_count / 3600 % 24) < 10 ? '0' + Math.floor(diff_count / 3600 % 24) : Math.floor(diff_count / 3600 % 24)}</span>时
                 <span>{Math.floor((diff_count / 60 % 60)) < 10 ? '0' + Math.floor((diff_count / 60 % 60)) : Math.floor((diff_count / 60 % 60))}</span>分
                 <span>{Math.floor((diff_count % 60)) < 10 ? '0' + Math.floor((diff_count % 60)) : Math.floor((diff_count % 60))}</span>秒
-            </div>
+            </span>
         )
     }
 }
 
-export default CountDown;
+export default CountDownTxt;

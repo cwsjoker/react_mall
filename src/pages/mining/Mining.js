@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import { Link }  from 'react-router-dom';
+import { message } from 'antd';
 import Footer from '../../components/Footer.js';
 import '../../assets/style/mining.scss';
 import $home_api from '../../fetch/api/home';
 import { getQueryString } from '../../utils/operLocation.js'
 import Cookie from 'js-cookie';
+import CountDownTxt from '../../components/CountDownTxt.js'
+import { secondToDateMin } from '../../utils/operation';
 
 const Mining = class Mining extends Component {
     constructor() {
         super();
         this.state = {
-            list: []
+            list: [],
+            speed_obj: {}
         }
     }
     async componentDidMount() {
@@ -21,17 +25,35 @@ const Mining = class Mining extends Component {
             Cookie.set('token', query_obj.token, { expires: 1 });
         }
 
-
+        this.getOrder();
+        this.getMiningSpeed();
+    }
+    // 获取收矿订单
+    async getOrder() {
         const obj_req = await $home_api.selectShopMiningOrderList();
         if (obj_req) {
-            // console.log(obj_req);
             const { data } = obj_req.data;
+            console.log(data);
             data.forEach((v) => {
 				v.isDetail = false;
-				v.list = [];
+                v.list = [];
+                v.miningFlowDTOList.forEach(k => {
+                    if (k.mininged === 0) {
+                        v.is_mining_id = k.id;
+                    }
+                    if (k.mininged === -1) {
+                        const d1 = new Date(k.systemDate);
+                        const d2 = new Date(k.nextMiningDate);
+                        const diff_count = parseInt(d2 - d1) / 1000;
+                        v.diff_count = diff_count;
+                    }
+                })
+
 			})
             this.setState({
                 list: data
+            }, () => {
+                console.log(this.state.list);
             })
         }
     }
@@ -39,12 +61,19 @@ const Mining = class Mining extends Component {
         const query_data = {
             orderId: id,
             pageNo: 1,
-            pageSize: 10
+            pageSize: 50
         };
         const obj_req = await $home_api.shopOrderMiningFlow(query_data);
         if (obj_req) {
-            // console.log(obj_req);
             const { list } = obj_req.data.data;
+            
+            list.forEach(v => {
+                const d1 = new Date(v.systemDate);
+                const d2 = new Date(v.nextMiningDate);
+                const diff_count = parseInt(d2 - d1) / 1000;
+                v.diff_count = diff_count;
+            })
+            console.log(list);
             const state_list = this.state.list;
             state_list[index]['list'] = list;
             state_list[index]['isDetail'] = true;
@@ -61,8 +90,38 @@ const Mining = class Mining extends Component {
             list: state_list
         })
     }
+    // 收矿
+    // async collectOre(id, orderId, index) {
+    //     console.log(id)
+    //     console.log(orderId)
+    //     console.log(index)
+    //     // return;
+    //     const res = await $home_api.collectOre({miningFlowId: id});
+    //     if (res) {
+    //         message.success('收矿成功');
+    //         this.showList(orderId, index);
+    //     }
+    // }
+    async collectOre(id) {
+        console.log(id)
+        const res = await $home_api.collectOre({miningFlowId: id});
+        if (res) {
+            message.success('收矿成功');
+            this.getOrder();
+        }
+    }
+    // 查询挖矿速率
+    async getMiningSpeed() {
+        const res = await $home_api.miningSpeed();
+        if (res) {
+            console.log(res.data.data);
+            this.setState({
+                speed_obj: res.data.data
+            })
+        }
+    }
     render() {
-        const { list } = this.state;
+        const { list, speed_obj } = this.state;
         return (
             <div className="mining-page">
                 {/* 头部 */}
@@ -74,6 +133,21 @@ const Mining = class Mining extends Component {
                 </div>
                 <div className="mining-main">
                     <div>
+                        {/* 邀请好友 */}
+                        <div className="mining-active-invitation">
+                            <div>
+                                <div>
+                                    <p>初始产出速率:<span>24小时</span></p>
+                                    <p>当前产出速率:<span>{secondToDateMin(speed_obj.currentMiningRate)}</span></p>
+                                    <p>可以加速产出:<span>{secondToDateMin(speed_obj.allowSpeedDuration)}</span></p>
+                                    <p>每一邀请一个好友购买商品可加速产出<span>28.8</span>分钟</p>
+                                    <p>(一个账户仅一次加速机会)</p>
+                                </div>
+                                <div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
                         {/* 活动时间 */}
                         <div className="mining-active-time">
                             <p>挖矿说明:</p>
@@ -102,8 +176,8 @@ const Mining = class Mining extends Component {
                                                     <span>订单编号:{item.orderNumber}</span>
                                                 </div>
                                                 <div><span>总产出</span></div>
+                                                <div><span>待产出</span></div>
                                                 <div><span>已产出</span></div>
-                                                <div><span>昨日产出</span></div>
                                                 <div><span>今日产出</span></div>
                                             </div>
                                             {/* 订单详情 */}
@@ -133,13 +207,13 @@ const Mining = class Mining extends Component {
                                                 </div>
                                                 <div className="product-number">
                                                     <div>
-                                                        <p>{item.alreadyProduced || 0}</p>
+                                                        <p>{item.totalProduced || 0}</p>
                                                         <p>{item.symbol}</p>
                                                     </div>
                                                 </div>
                                                 <div className="product-number">
                                                     <div>
-                                                        <p>{item.yesterdayProduced || 0}</p>
+                                                        <p>{item.alreadyProduced || 0}</p>
                                                         <p>{item.symbol}</p>
                                                     </div>
                                                 </div>
@@ -147,6 +221,12 @@ const Mining = class Mining extends Component {
                                                     <div>
                                                         <p>{item.todayProduced || 0}</p>
                                                         <p>{item.symbol}</p>
+                                                        {
+                                                            item.is_mining_id ? (
+                                                                <div className="order-mining-btn" onClick={this.collectOre.bind(this, item.is_mining_id)}>点击收矿</div>
+                                                            ) : null
+                                                        }
+                                                        <div>距离下次产出:<CountDownTxt discount={item.diff_count} /></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -155,18 +235,31 @@ const Mining = class Mining extends Component {
                                                 item.isDetail ? (
                                                     <div className="table-list">
                                                         <div className="list-title">
-                                                            <div>时间</div>
+                                                            <div>出矿时间</div>
                                                             <div>数量</div>
                                                             <div>状态</div>
+                                                            {/* <div>操作</div> */}
                                                         </div>
                                                         <div className="list-body">
                                                             {
                                                                 item.list.map((v, i) => {
                                                                     return (
                                                                         <div key={i} className="list-body-item">
-                                                                            <div>{v.miningDate}</div>
+                                                                            <div>{v.mininged === -1 ? v.nextMiningDate : v.miningDate}</div>
                                                                             <div>{v.mining + v.symbol}</div>
-                                                                            <div>已解锁到可用余额</div>
+                                                                            <div>
+                                                                                {
+                                                                                    v.mininged === 0 ? <span className="red">未收矿</span> :
+                                                                                    v.mininged === 1 || v.mininged === 2 ? <span>已收矿</span> :
+                                                                                    v.mininged === 3 ? <span className="red">过期</span> : 
+                                                                                    v.mininged === -1 ? <div className="count-down-txt">距离下次产出:<CountDownTxt discount={v.diff_count} /></div> : null
+                                                                                }
+                                                                            </div>
+                                                                            {/* <div>
+                                                                                {
+                                                                                    v.mininged === 0 ? <span onClick={this.collectOre.bind(this, v.id, item.orderId, index)}>点击收矿</span> : null
+                                                                                }
+                                                                            </div> */}
                                                                         </div>
                                                                     )
                                                                 })

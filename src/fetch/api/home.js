@@ -97,7 +97,17 @@ export default class home {
 
     // 获取订单挖矿流水
     static shopOrderMiningFlow(data) {
-        return Fetch.get('/mall/backend/shopMiningOrder/shopOrderMiningFlow', data)
+        return Fetch.get('/mall/backend/shopMiningOrder/shopOrderMiningFlow', data);
+    }
+
+    // 收矿
+    static collectOre(data) {
+        return Fetch.get('/mall/backend/shopMiningOrder/collectMiningById', data);
+    }
+
+    // 查询挖矿速率
+    static miningSpeed() {
+        return Fetch.get('/mall/backend/shopMiningOrder/miningSpeed');
     }
 
     // 获取省级三级联动的地址
