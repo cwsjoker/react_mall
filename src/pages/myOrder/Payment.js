@@ -22,7 +22,8 @@ const Payment = class Payment extends Component {
             show_info: false,
             available: '',
             total: '',
-            password_list: ['','','','','','']
+            password_list: ['','','','','',''],
+            pay_btn_status: true
         }
     }
     async componentDidMount() {
@@ -85,24 +86,34 @@ const Payment = class Payment extends Component {
         }
 
     }
-    async payment() {
+    payment() {
+        const { pay_btn_status } = this.state;
+        // if (!pay_btn_status) {
+        //     message.warning('支付中，请勿重复操作');
+        //     return;
+        // }
         const password = this.state.password_list.join('');
         if (password.length !== 6) {
             message.error('密码不符合规则，不满6位数');
             return;
         }
-        const payment_req  = await $home_api.orderPayment({orderNumber: this.state.orderId, payPassword: mMd5.hbmd5(password)});
-        if (payment_req) {
-            message.success('支付成功');
-            this.props.history.push('/myOrder');
-        } else {
-            this.setState({
-                password_list: ['','','','','','']
-            })
-        }
+        this.setState({
+            pay_btn_status : false
+        }, async () => {
+            const payment_req  = await $home_api.orderPayment({orderNumber: this.state.orderId, payPassword: mMd5.hbmd5(password)});
+            if (payment_req) {
+                message.success('支付成功');
+                this.props.history.push('/myOrder');
+            } else {
+                this.setState({
+                    password_list: ['','','','','',''],
+                    pay_btn_status: true
+                })
+            }
+        })
     }
     render() {
-        const { orderId, orderInfo, show_info, symbol, available, total, password_list } = this.state;
+        const { orderId, orderInfo, show_info, symbol, available, total, password_list, pay_btn_status } = this.state;
         return (
             <div className="payment-page">
                 <div className="payment-main">
@@ -166,7 +177,9 @@ const Payment = class Payment extends Component {
                                 </div>
                                 <div className="payBtn">
                                     <span></span>
-                                    <input className="paymentBut" type="button" value="立即支付" onClick={this.payment.bind(this)} />
+                                    {
+                                        pay_btn_status ? <input className="paymentBut" type="button" value="立即支付" onClick={this.payment.bind(this)} /> : <input className="paymentBut-cover" type="button" value="立即支付" />
+                                    }
                                 </div>
                             </div>
                         </div>
