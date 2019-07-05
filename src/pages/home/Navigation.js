@@ -49,14 +49,14 @@ const Navigation = class Navigation extends Component {
                                     item.open ? (
                                         <Link to={'/storeIndex?id=' + item.producerId} style={{'textDecoration': 'none'}}>
                                             <h3><img src={item.logo} alt="" /><span>{item.NAME}</span></h3>
-                                            <div className="progressBarDiv">
+                                            {/* <div className="progressBarDiv">
                                                 {
                                                     <div className="progress">
                                                         <div className="progress-bar progress-bar-striped active" style={{width: item.percent * 100 + '%', backgroundColor: item.percent * 100 >= 80 ? '#d9534f' : '#5cb85c'}}></div>
                                                     </div>
                                                 }
                                                 <span style={{color: item.percent * 100 >= 80 ? '#d9534f' : '#5cb85c'}}>{(item.percent * 100).toFixed(2)}%</span>
-                                            </div>
+                                            </div> */}
                                         </Link>
                                     ) : (
                                         // <Link to="/" onClick={(e) => e.preventDefault()}>

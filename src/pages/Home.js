@@ -28,7 +28,7 @@ const Home = class Home extends Component {
         //         dispatch(setLoginState(data, true));
         //     }
         // });
-        this.props.history.push('storeIndex?id=3')
+        // this.props.history.push('storeIndex?id=2')
     }
     render() {
         return (

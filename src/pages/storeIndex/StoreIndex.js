@@ -42,7 +42,7 @@ const StoreIndex = class StoreIndex extends Component {
             this.setState({
                 storeIndex: id
             }, () => {
-                this.getDayList();
+                // this.getDayList();
                 this.getList();
             })
         }
@@ -68,7 +68,7 @@ const StoreIndex = class StoreIndex extends Component {
                 nextReleaseTime: '',
                 diff_count: '',
             }, () => {
-                this.getDayList();
+                // this.getDayList();
                 this.getList();
             })
         }
@@ -142,15 +142,15 @@ const StoreIndex = class StoreIndex extends Component {
 
 
         // 获取店铺的挖矿详情
-        $home_api.getStoreNimingInfo({
-            'producerId': parseInt(this.state.storeIndex)
-        }).then(res => {
-            if (res) {
-                this.setState({
-                    storeNimingInfo: res.data.data[0]
-                })
-            }
-        })
+        // $home_api.getStoreNimingInfo({
+        //     'producerId': parseInt(this.state.storeIndex)
+        // }).then(res => {
+        //     if (res) {
+        //         this.setState({
+        //             storeNimingInfo: res.data.data[0]
+        //         })
+        //     }
+        // })
     }
     // 获取今日发售列表
     getDayList() {
@@ -192,10 +192,10 @@ const StoreIndex = class StoreIndex extends Component {
                 </div>
                 <div className="store-main-con">
                     <Spin tip="" spinning={spinning_info}>
-                        <div className="store-countdown">
+                        {/* <div className="store-countdown">
                             <span>距离下轮购物挖矿时间</span>
                             <span>{secondToDate(diff_count)}</span>
-                        </div>
+                        </div> */}
                         <div className="store-title">
                             <MaskBox show={false} />
                             <div className="store-title-top cleafix">
@@ -213,14 +213,13 @@ const StoreIndex = class StoreIndex extends Component {
                                     <p>我的余额:<span>{this.state.available}</span><em>{this.state.symbol}</em><a href={window.BT_URL + "market?symbol=" + symbol + "_BT"}>去交易</a></p>
                                 </div>
                             </div>
-                            <div className="flagBom cleafix">
+                            {/* <div className="flagBom cleafix">
                                 <div className="flagLine"></div>
                                 <div className="flagLine1"></div>
                                 <ul>
                                     <li>
                                         <h2>流通总量：</h2>
                                         <p>{turnover || 0}</p>
-                                        {/* <p>50000000</p> */}
                                     </li>
                                     <li>
                                         <h2>本轮已产出：{symbol}</h2>
@@ -235,8 +234,8 @@ const StoreIndex = class StoreIndex extends Component {
                                         <p>{surplusAccount || 0}</p>
                                     </li>
                                 </ul>
-                            </div>
-                            <span className="store-title-more" onClick={() => this.setState({modal_show: true})}>更多+</span>
+                            </div> */}
+                            {/* <span className="store-title-more" onClick={() => this.setState({modal_show: true})}>更多+</span> */}
                         </div>
                     </Spin>
 
@@ -288,13 +287,13 @@ const StoreIndex = class StoreIndex extends Component {
 
 
                 {/* 今日发售 */}
-                <DaySaleModal
+                {/* <DaySaleModal
                     modal_show={modal_show}
                     day_sale_list={day_sale_list}
                     symbol={symbol}
                     currentTime={nextReleaseTime}
                     hiddenModal={() => this.setState({modal_show: false})}
-                />
+                /> */}
             </div>
         )
     }

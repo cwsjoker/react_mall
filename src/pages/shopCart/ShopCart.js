@@ -265,10 +265,11 @@ class ShopCart extends Component {
     // 更改购买数量
     changeBuyNumber(obj, type) {
         let list = this.state.shop_list;
+        console.log(this.state.shop_list);
         list.forEach(v => {
             if (v.storeName === obj.storeName) {
                 v.list.forEach(k => {
-                    if (k.goodsId === obj.goodsId) {
+                    if (k.goodsId === obj.goodsId && k.propertyGroupGoods === obj.propertyGroupGoods) {
                         if (type === 'reduce') {
                             if (parseInt(k.goodsNum) !== 1) {
                                 k.goodsNum = parseInt(k.goodsNum) - 1;

@@ -6,6 +6,7 @@ import { Route, Switch }  from 'react-router-dom';
 import requireAuthentication from '../components/RequireAuthentication.js'
 
 import Home from '../pages/Home.js'; // 首页
+import BtHome from '../pages/btHome/BtHome.js'; // 商城首页
 import ShopCart  from '../pages/shopCart/ShopCart.js'; // 购物车页面
 import MyOrder from '../pages/myOrder/MyOrder.js'; // 我的订单页面
 import StoreIndex from '../pages/storeIndex/StoreIndex.js'; // 商店页面
@@ -20,7 +21,7 @@ export default () => {
         // <Router>
         <Switch>
             {/* <div className="home-main-wrap"> */}
-                <Route exact path="/" component={Home} />
+                <Route exact path="/" component={BtHome} />
                 <Route path="/shopcart" component={ShopCart} />
                 <Route path="/myOrder" component={requireAuthentication(MyOrder)} />
                 <Route path="/storeIndex" component={StoreIndex} />

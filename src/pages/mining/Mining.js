@@ -120,6 +120,14 @@ const Mining = class Mining extends Component {
             })
         }
     }
+    // 去好友助力
+    goAssistance() {
+        if (Cookie.get('token')) {
+            this.props.history.push('./assistance');
+        } else {
+            message.error('未登录')
+        }
+    }
     render() {
         const { list, speed_obj } = this.state;
         return (
@@ -138,13 +146,13 @@ const Mining = class Mining extends Component {
                             <div>
                                 <div>
                                     <p>初始产出速率:<span>24小时</span></p>
-                                    <p>当前产出速率:<span>{secondToDateMin(speed_obj.currentMiningRate)}</span></p>
-                                    <p>可以加速产出:<span>{secondToDateMin(speed_obj.allowSpeedDuration)}</span></p>
+                                    <p>当前产出速率:<span>{secondToDateMin(speed_obj.currentMiningRate || 0)}</span></p>
+                                    <p>可以加速产出:<span>{secondToDateMin(speed_obj.allowSpeedDuration || 0)}</span></p>
                                     <p>每一邀请一个好友购买商品可加速产出<span>28.8</span>分钟</p>
                                     <p>(一个账户仅一次加速机会)</p>
                                 </div>
                                 <div>
-                                    <div></div>
+                                    <div onClick={this.goAssistance.bind(this)}></div>
                                 </div>
                             </div>
                         </div>

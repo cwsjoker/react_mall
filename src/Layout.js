@@ -20,9 +20,10 @@ const Layout = class Layout extends Component {
         if (Cookie.get('token')) {
             $user_api.queryUserByToken().then(res => {
                 if (res) {
-                    const { data } = res.data;
-                    dispatch(setLoginState(data, true));
+                    const { name, promoterCode } = res.data.data;
+                    dispatch(setLoginState(name, true));
                     Cookie.set('token', Cookie.get('token'), { expires: 1 });
+                    Cookie.set('promoterCode', promoterCode, { expires: 1 });
                 }
             });
         }

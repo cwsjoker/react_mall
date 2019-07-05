@@ -118,4 +118,14 @@ export default class home {
     static queryTokenInfo(data) {
         return Fetch.get('/mall/backend/homepage/producer/queryTokenInfo', data);
     }
+
+    //助力邀请收益
+    static getBoostAction() {
+        return Fetch.get('/mall/backend/shopMiningOrder/inviterProfit');
+    }
+
+    // 获取当日的USTD订单总额
+    static selectsale(data) {
+        return Fetch.get('/mall/backend/user/selectSale', data);
+    }
 }

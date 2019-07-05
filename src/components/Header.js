@@ -8,6 +8,7 @@ const Header = class Header extends Component {
     logout = (e) => {
         e.preventDefault();
         Cookie.remove('token');
+        Cookie.remove('promoterCode');
         this.props.dispatch(setLoginState('', false));
         window.location.href = window.BT_URL + 'logout';
     }

@@ -45,18 +45,22 @@ export function secondToDate(result) {
 
 // 过滤分钟
 export function secondToDateMin(result) {
-    const d = Math.floor(result / (60 * 24)) < 10 ? '0' + Math.floor(result / (60 * 24)) : Math.floor(result / (60 * 24));
-    const h = Math.floor(result / 60 % 24) < 10 ? '0' + Math.floor(result / 60 % 24) : Math.floor(result / 60 % 24);
-    const m = Math.floor((result % 60)) < 10 ? '0' + Math.floor((result % 60)) : Math.floor((result % 60));
-    let s = '';
-    if (d === '00') {
-        if (h === '00') {
-            s = m + "分";
-        } else {
-            s = h + "时" + m + "分";
-        }
+    if (result === 0) {
+        return '00天00时00分00秒';
     } else {
-        s = d + "天" + h + "时" + m + "分";
+        const d = Math.floor(result / (60 * 24)) < 10 ? '0' + Math.floor(result / (60 * 24)) : Math.floor(result / (60 * 24));
+        const h = Math.floor(result / 60 % 24) < 10 ? '0' + Math.floor(result / 60 % 24) : Math.floor(result / 60 % 24);
+        const m = Math.floor((result % 60)) < 10 ? '0' + Math.floor((result % 60)) : Math.floor((result % 60));
+        let s = '';
+        if (d === '00') {
+            if (h === '00') {
+                s = m + "分";
+            } else {
+                s = h + "时" + m + "分";
+            }
+        } else {
+            s = d + "天" + h + "时" + m + "分";
+        }
+        return s;
     }
-    return s;
 }
