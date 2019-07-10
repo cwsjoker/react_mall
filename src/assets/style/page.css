@@ -189,6 +189,20 @@ body {
 .day-sale-modal-main ul li span.font-red {color: #AE4E54;}
 
 
+/* 我的BT收益弹框 */
+.bt-profit-modal .bt-profit-header {height: 50px; text-align: center; color: #333333; font-size: 28px; line-height: 50px;}
+.bt-profit-modal .bt-profit-list .bt-profit-list-header {display: flex; color: #999999; height: 38px; line-height: 38px;}
+.bt-profit-modal .bt-profit-list .bt-profit-list-header span:nth-child(1) {width: 130px; padding-left: 15px;}
+.bt-profit-modal .bt-profit-list .bt-profit-list-header span:nth-child(2) {width: 120px; text-align: right;}
+.bt-profit-modal .bt-profit-list .bt-profit-list-header span:nth-child(3) {width: 150px; text-align: right;}
+.bt-profit-modal .bt-profit-list .bt-profit-list-header span:nth-child(4) {width: 250px; text-align: right;}
+.bt-profit-modal .bt-profit-list ul li {display: flex; height: 38px; color: #333333; font-size: 12px; line-height: 38px;}
+.bt-profit-modal .bt-profit-list ul li span:nth-child(1) {width: 130px; text-align: center;}
+.bt-profit-modal .bt-profit-list ul li span:nth-child(2) {width: 120px; text-align: right;}
+.bt-profit-modal .bt-profit-list ul li span:nth-child(3) {width: 150px; text-align: right;}
+.bt-profit-modal .bt-profit-list ul li span:nth-child(4) {width: 250px; text-align: right;}
+.bt-profit-modal .bt-profit-list ul li.bg-gray {background: #F9F9F9;}
+
 
 /* .flagBom{ position: relative; padding: 12px 0; width: 880px; background: url("../images/ico1.png") repeat;} */
 .flagBom{ position: relative; padding: 12px 0; width: 880px; border-bottom: 1px solid #F4F4F4;}

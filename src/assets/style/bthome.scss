@@ -121,6 +121,11 @@
                                 color: #333333;
                                 font-size: 24px;
                             }
+                            &:nth-child(3) {
+                                color: #387DE0;
+                                font-size: 14px;
+                                cursor: pointer;
+                            }
                         }
                     }
                 }

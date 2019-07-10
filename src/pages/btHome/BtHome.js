@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { Modal } from 'antd';
 import $home_api from '../../fetch/api/home';
 import $user_api from '../../fetch/api/user';
 import Cookie from 'js-cookie';
@@ -15,10 +17,14 @@ const BtHome = class BtHome extends Component {
             turnover: 0,
             estimateEachProfit: 0,
             my_bt_blance: 0,
-            my_bt_earnings: 0
+            my_bt_earnings: 0,
+            modal_show: false,
+            profit_list: []
         }
     }
     async componentDidMount() {
+
+        console.log(this.props)
         const query_obj = getQueryString(this.props.location.search);
         if (query_obj.token) {
             Cookie.set('token', query_obj.token, { expires: 1 });
@@ -34,17 +40,27 @@ const BtHome = class BtHome extends Component {
 
         // 有token为登录状态
         if (Cookie.get('token')) {
-            const finance_res = await $user_api.getUserFinance({coinSymbol: 'BT'})
+            const [finance_res, profit_res] = await Promise.all([
+                $user_api.getUserFinance({coinSymbol: 'BT'}),
+                $user_api.getUserBtProfit()
+            ])
+            // const finance_res = await $user_api.getUserFinance({coinSymbol: 'BT'})
             if (finance_res) {
                 this.setState({
                     my_bt_blance: finance_res.data.data.available,
                     my_bt_earnings: finance_res.data.data.profit
                 })
             }
+            if (profit_res) {
+                console.log(profit_res);
+                this.setState({
+                    profit_list: profit_res.data.data
+                })
+            }
         }
     }
     render() {
-        const { businessToday, distributableProfit, turnover, estimateEachProfit, my_bt_blance, my_bt_earnings } = this.state;
+        const { businessToday, distributableProfit, turnover, estimateEachProfit, my_bt_blance, my_bt_earnings, modal_show, profit_list } = this.state;
         return (
             <div className="bthome-page">
                 <div className="bthome-banner">
@@ -95,15 +111,58 @@ const BtHome = class BtHome extends Component {
                                 <div>
                                     <p>已收益</p>
                                     <p>{my_bt_earnings || 0}USDT</p>
+                                    {
+                                        this.props.loginStore.login ? <p onClick={() => this.setState({modal_show: true})}>查看收益</p> : null    
+                                    }
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                {/* 收益弹窗 */}
+                <Modal
+                    title={null}
+                    visible={modal_show}
+                    footer={null}
+                    width={722}
+                    style={{'top': 200}}
+                    onCancel={() => this.setState({modal_show: false})}
+                >
+                    <div className="bt-profit-modal">
+                        <div className="bt-profit-header">我的BT收益明细</div>
+                        <div className="bt-profit-list">
+                            <div className="bt-profit-list-header">
+                                <span>时间</span>
+                                <span>类型</span>
+                                <span>数量</span>
+                                <span>说明</span>
+                            </div>
+                            <ul className="bt-profit-list-body">
+                                {
+                                    profit_list.map((item, index) => {
+                                        return (
+                                            <li key={item.id} className={index % 2 === 0 ? 'bg-gray' : ''}>
+                                                <span>{item.miningDate}</span>
+                                                <span>{item.type === -2 ? '空投收益' : '邀请收益'}</span>
+                                                <span>{item.mining}</span>
+                                                <span>{item.remarks}</span>
+                                            </li>
+                                        )
+                                    })
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </Modal>
             </div>
         )
     }
 }
 
+function mapStateToProps(state) {
+    return { loginStore: state.login }
+}
 
-export default BtHome;
+
+export default connect(mapStateToProps)(BtHome);

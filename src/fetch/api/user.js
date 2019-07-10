@@ -13,6 +13,11 @@ export default class user {
         return Fetch.post('/mall/backend/user/queryUserFinanceData', data)
     }
 
+    // 获取我的BT收益
+    static getUserBtProfit() {
+        return Fetch.get('/mall/backend/user/profitDetail')
+    }
+
     // 获取用户收货地址
     static queryCustomerAllAddress() {
         return Fetch.post('/mall/backend/customer/address/queryCustomerAllAddress')

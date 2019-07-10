@@ -128,7 +128,7 @@ const Assistance = class Assistance extends Component {
                             </div>
                             <div>
                                 <div>推广收益</div>
-                                <div>{cumulativeCommission}BT</div>
+                                <div>{cumulativeCommission} USDT</div>
                             </div>
                         </div>
                         <div className="assistance-list-title">推广收益</div>
@@ -145,8 +145,8 @@ const Assistance = class Assistance extends Component {
                                                 return (
                                                     <li key={item.mining}>
                                                         <span>{item.miningDate}</span>
-                                                        <span>{item.inviterProfit}</span>
-                                                        <span>{item.mining}</span>
+                                                        <span>{item.inviter}</span>
+                                                        <span>{item.mining} USDT</span>
                                                     </li>
                                                 )
                                             })
