@@ -6,6 +6,7 @@ import $home_api from '../../fetch/api/home.js';
 import Cookie from 'js-cookie';
 import QRCode from 'qrcodejs2';
 import html2canvas from 'html2canvas';
+import { secondToDateMin } from '../../utils/operation';
 
 import '../../assets/style/assistance.scss';
 
@@ -31,13 +32,14 @@ const Assistance = class Assistance extends Component {
                 //     mining: '22323'
                 // }
             ],
-            modal_show: false
+            modal_show: false,
+            speed_obj: {}
         }
     }
     async componentDidMount() {
         const  link_code = Cookie.get('promoterCode') !== 'null' ? Cookie.get('promoterCode') : '';
         this.setState({
-            share_link: window.BT_URL + link_code
+            share_link: window.BT_URL + 'register?promoterCode=' + link_code
         }, () => {
             new QRCode(document.getElementById("qrcode"), {
                 text: this.state.share_link,
@@ -53,6 +55,18 @@ const Assistance = class Assistance extends Component {
                 cumulativeCommission: res.data.data.cumulativeCommission,
                 inviterNumber: res.data.data.inviterNumber,
                 list: res.data.data.inviterProfitMiningFlowList
+            })
+        }
+
+        this.getMiningSpeed();
+
+    }
+    // 查询挖矿速率
+    async getMiningSpeed() {
+        const res = await $home_api.miningSpeed();
+        if (res) {
+            this.setState({
+                speed_obj: res.data.data
             })
         }
     }
@@ -85,7 +99,7 @@ const Assistance = class Assistance extends Component {
         })
     }
     render() {
-        const { share_link, list, cumulativeCommission, inviterNumber, modal_show } = this.state;
+        const { share_link, list, cumulativeCommission, inviterNumber, modal_show, speed_obj } = this.state;
         return (
             <div className="assistance-page">
                 <div className="header-assistance">
@@ -100,13 +114,12 @@ const Assistance = class Assistance extends Component {
                         <button className="share-link-btn" onClick={this.openModal.bind(this)}>点击分享</button>
                         <div className="tip-txt-box">
                             <h5>温馨提示:</h5>
-                            <p>1.好友通过邀请注册并在xx日内购买该平台项目，则认为邀请好友成功；</p>
-                            <p>2.以上奖励以优惠券形式在您的好友出借后实时发送到您的账户中，可在【推广】中查看；</p>
-                            <p> 3.奖励均为平台币，有效期xx天，可叠加使用；</p>
+                            <p>1.邀请人和被邀请人都不必进行KYC认证</p>
+                            <p>2.好友助力加速：每邀请一个好友购买商品可加速28.8分钟(每个人总共可以获得十次助力加速,总加速288分钟),可以缩短投资周期</p>
+                            <p>3.好友购物分利：邀请好友购物可以获得购物分利,直接推荐人：订单金额*平台利润率*10%,间接推荐人：订单金额*平台利润率*5%</p>
                             <p>4.如有任何恶意刷币行为，一经查实所得奖励将不予兑现，BTTMALL对邀请活动保留最终解释权。</p>
-                            <p> 如有任何疑问</p>
-                            <p> 如有任何疑问 敬请咨询BTTMALL客服热线400-222-88888，</p>
-                            <p> 或咨询BTTMALL官方群（群号：789789789766）。</p>
+                            <p> 4.好友购物分利永久有效不限次数</p>
+                            <p>*该活动的最终解释权为BTTMALL所有*</p>
                         </div>
                     </div>
                 </div>
@@ -174,11 +187,11 @@ const Assistance = class Assistance extends Component {
                                     <div className="modal-img" id="qrcode_modal"></div>
                                     <div className="modal-txt">扫一扫邀请好友助力</div>
                                     <div className="modal-intro">
-                                        <div>初始产出速率：<span>24小时<em>（1440分钟）</em></span></div>
-                                        <div>当前产出速率：<span>4.8小时<em>（288分钟）</em></span></div>
-                                        <div>可以加速产出：<span>4.8小时<em>（288分钟）</em></span></div>
-                                        <div>每邀请一个好友购买商品可加速产出<span>28.8分钟</span></div>
-                                        <div>（一个账号仅一个加速机会）</div>
+                                        <div>初始产出速率：<span>24小时<em></em></span></div>
+                                        <div>当前产出速率：<span>{speed_obj.currentMiningRate ?　secondToDateMin(speed_obj.currentMiningRate) : '24小时'}<em></em></span></div>
+                                        <div>可以加速产出：<span>{speed_obj.allowSpeedDuration ? secondToDateMin(speed_obj.allowSpeedDuration) : '4.8小时'}<em></em></span></div>
+                                        <div>每邀请一个好友购买商品可加速<span>28.8分钟</span></div>
+                                        <div>（每个人总共可以获得十次助力加速，总加速288分钟）</div>
                                     </div>
                                 </div>
                             </div>

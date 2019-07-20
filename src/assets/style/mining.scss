@@ -51,7 +51,7 @@
                 box-sizing: border-box;
                 background: #834416;
                 right: 0px;
-                top: 230px;
+                top: 20px;
                 border-radius: 10px;
                 >div {
                     display: flex;
@@ -118,10 +118,10 @@
             .mining-active-time {
                 color: #fff;
                 position: absolute;
-                top: 390px;
+                top: 185px;
                 right: 0px;
                 width: 480px;
-                height: 294px;
+                height: 510px;
                 background:rgba(52,25,21,1);
                 border-radius:10px;
                 padding: 19px 27px 0 20px;
@@ -137,13 +137,13 @@
                         font-size: 16px;
                         font-weight: 700;
                     }
-                    &:nth-child(6) {
+                    &:nth-child(7) {
                         margin-bottom: 10px;
                     }
                     &:nth-child(8) {
                         margin-top: 10px;
                     }
-                    &:nth-child(12) {
+                    &:nth-child(14) {
                         color: #D97F00;
                         margin-top: 20px;
                     }
@@ -193,6 +193,7 @@
                         .product-list {
                             width: 443px;
                             .product-item {
+                                display: flex;
                                 padding: 20px 30px;
                                 box-sizing: border-box;
                                 >div:nth-child(1) {

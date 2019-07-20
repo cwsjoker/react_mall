@@ -193,14 +193,14 @@ body {
 .bt-profit-modal .bt-profit-header {height: 50px; text-align: center; color: #333333; font-size: 28px; line-height: 50px;}
 .bt-profit-modal .bt-profit-list .bt-profit-list-header {display: flex; color: #999999; height: 38px; line-height: 38px;}
 .bt-profit-modal .bt-profit-list .bt-profit-list-header span:nth-child(1) {width: 130px; padding-left: 15px;}
-.bt-profit-modal .bt-profit-list .bt-profit-list-header span:nth-child(2) {width: 120px; text-align: right;}
-.bt-profit-modal .bt-profit-list .bt-profit-list-header span:nth-child(3) {width: 150px; text-align: right;}
-.bt-profit-modal .bt-profit-list .bt-profit-list-header span:nth-child(4) {width: 250px; text-align: right;}
+.bt-profit-modal .bt-profit-list .bt-profit-list-header span:nth-child(2) {width: 100px; text-align: right;}
+.bt-profit-modal .bt-profit-list .bt-profit-list-header span:nth-child(3) {width: 120px; text-align: right;}
+.bt-profit-modal .bt-profit-list .bt-profit-list-header span:nth-child(4) {width: 300px; text-align: right;}
 .bt-profit-modal .bt-profit-list ul li {display: flex; height: 38px; color: #333333; font-size: 12px; line-height: 38px;}
 .bt-profit-modal .bt-profit-list ul li span:nth-child(1) {width: 130px; text-align: center;}
-.bt-profit-modal .bt-profit-list ul li span:nth-child(2) {width: 120px; text-align: right;}
-.bt-profit-modal .bt-profit-list ul li span:nth-child(3) {width: 150px; text-align: right;}
-.bt-profit-modal .bt-profit-list ul li span:nth-child(4) {width: 250px; text-align: right;}
+.bt-profit-modal .bt-profit-list ul li span:nth-child(2) {width: 100px; text-align: right;}
+.bt-profit-modal .bt-profit-list ul li span:nth-child(3) {width: 120px; text-align: right;}
+.bt-profit-modal .bt-profit-list ul li span:nth-child(4) {padding-left: 10px; width: 300px; text-align: right;  text-overflow: ellipsis;overflow: hidden; white-space: nowrap;}
 .bt-profit-modal .bt-profit-list ul li.bg-gray {background: #F9F9F9;}
 
 
@@ -550,10 +550,27 @@ body {
 .checkOrderData .checkOrderDataTxt p{ font-size: 12px; color: #585858; line-height: 18px;}
 
 .payment-info-main { padding-top: 30px; border-top: 3px solid #589065; background: #fff;box-shadow: 0 0 20px 0 rgba(213,213,213,0.42);}
-.payment-info-main h1{ line-height: 36px; font-weight: bold; font-size: 30px; color: #333; text-align: center;}
-.payment-info-main h2{ margin-bottom: 42px; line-height: 44px; font-size: 30px; color: #151515; text-align: center;}
-.paymentOne { margin: 0 30px; padding: 30px 30px 5px; border-top: 1px solid #f0f0f0;}
-.paymentOne .payOneLeft{ width: 220px; height: auto;}
+.payment-info-main h1{ line-height: 36px; font-size: 28px; color: #333333; text-align: center;}
+.payment-type-box { margin: 0 60px; padding: 10px 0px 5px; }
+.payment-info-main h2{ line-height: 44px; font-size: 28px; color: #333333; text-align: center;}
+.payment-type-box .payment-type-title { color: #999999; font-size: 14px; }
+.payment-type-box .payment-type-txt {color: #AE4E54; font-size: 12px; line-height: 24px;}
+.payment-type-box .payment-type-main { display: flex; padding: 20px 0; }
+.payment-type-box .payment-type-main >div:nth-child(2) {margin-left: 70px;}
+.payment-type-main .type-item { display: flex; cursor: pointer; }
+.payment-type-main .type-item .type-choose {width: 40px; height: 40px;}
+.payment-type-main .type-item .type-choose >em {display: inline-block; width: 20px; height: 20px; background: url('../images/pay_no_choose.png') no-repeat; background-size: 100% 100%; margin-top: 10px;}
+.payment-type-main .type-item .type-choose >em.on {background: url('../images/pay_choose.png') no-repeat; background-size: 100% 100%; margin-top: 10px;}
+.payment-type-main .type-item .type-info {display: flex; height: 40px;}
+.type-item .type-info >img {width: 40px; height: 40px;}
+.type-item .type-info >div {margin-left: 10px;}
+.type-item .type-info >div >p:nth-child(1) {color: #333333; font-size: 14px;}
+.type-item .type-info >div >p:nth-child(2) {color: #3E9E54; font-size: 14px;}
+.type-item .type-info >div >div:nth-child(1) {color: #333333; font-size: 14px;}
+.type-item .type-info >div >div:nth-child(2) {color: #999999; font-size: 14px;}
+
+.paymentOne { margin: 0 60px; padding: 10px 0px 10px; border-top: 1px solid #f0f0f0;}
+.paymentOne .payOneLeft{ width: 265px; height: auto;}
 .paymentOne .payOneLeft img{ display: block; width: 100%; height: 80px;}
 .paymentOne .payOneLeft h2{ padding-top: 14px; width: 100%; height: auto; overflow: hidden;}
 .paymentOne .payOneLeft h2 span{ display: block; float: left; height: 18px; line-height: 18px; font-size: 12px; color: #999;}
@@ -561,7 +578,7 @@ body {
 .paymentOne .payOneLeft h2 span em{ display: inline-block; padding: 0 5px; color: #151515;}
 .paymentOne .payOneLeft h2 strong a{ display: inline-block; color: #4A90E2;}
 .paymentOne .payOneLeft h2 strong a:hover{ color: #AE4E54;}
-.paymentOne .payOneRight{ padding-top: 24px;}
+/* .paymentOne .payOneRight{ padding-top: 24px;} */
 .paymentOne .payOneRight h2{ font-size: 12px; color: #333;}
 .paymentOne .payOneRight h2 span{ display: inline-block; padding: 0 5px; height: 28px; line-height: 28px; font-size: 24px; color: #AE4E54;}
 .paymentTwo p{ line-height: 18px; font-size: 12px; color: #999;}

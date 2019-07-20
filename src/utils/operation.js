@@ -45,7 +45,7 @@ export function secondToDate(result) {
 
 // 过滤分钟
 export function secondToDateMin(result) {
-    if (result === 0) {
+    if (result <= 0) {
         return '00天00时00分00秒';
     } else {
         const d = Math.floor(result / (60 * 24)) < 10 ? '0' + Math.floor(result / (60 * 24)) : Math.floor(result / (60 * 24));

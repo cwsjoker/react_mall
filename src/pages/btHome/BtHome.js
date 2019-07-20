@@ -5,8 +5,9 @@ import { Modal } from 'antd';
 import $home_api from '../../fetch/api/home';
 import $user_api from '../../fetch/api/user';
 import Cookie from 'js-cookie';
-import { getQueryString } from '../../utils/operLocation.js'
+import { getQueryString } from '../../utils/operLocation.js';
 import '../../assets/style/bthome.scss';
+import { decimal } from '../../utils/dealFloat.js';
 
 const BtHome = class BtHome extends Component {
     constructor() {
@@ -24,10 +25,18 @@ const BtHome = class BtHome extends Component {
     }
     async componentDidMount() {
 
-        console.log(this.props)
         const query_obj = getQueryString(this.props.location.search);
         if (query_obj.token) {
             Cookie.set('token', query_obj.token, { expires: 1 });
+        }
+
+        // 跳转h5
+        if ((/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent))) {
+            if (Cookie.get('token')) {
+                window.location.href = 'https://app.bttmall.com/shop/#/?token=' + Cookie.get('token');
+            } else {
+                window.location.href = 'https://app.bttmall.com/shop/#/';
+            }
         }
 
 
@@ -89,14 +98,14 @@ const BtHome = class BtHome extends Component {
                             <div>
                                 <div>
                                     <p>总流通BT</p>
-                                    <p>{turnover || 0}BT</p>
+                                    <p>{decimal(turnover, 4) || 0}BT</p>
                                     {/* <p>(已销毁3244.12BT)</p> */}
                                 </div>
                             </div>
                             <div>
                                 <div>
                                     <p>每个BT预计收益</p>
-                                    <p>{estimateEachProfit || 0}USDT</p>
+                                    <p>{decimal(estimateEachProfit, 4) || 0}USDT</p>
                                 </div>
                             </div>
                         </div>
@@ -104,13 +113,13 @@ const BtHome = class BtHome extends Component {
                             <div>
                                 <div>
                                     <p>我的BT</p>
-                                    <p>{my_bt_blance || 0}BT</p>
+                                    <p>{decimal(my_bt_blance, 4) || 0}BT</p>
                                 </div>
                             </div>
                             <div>
                                 <div>
                                     <p>已收益</p>
-                                    <p>{my_bt_earnings || 0}USDT</p>
+                                    <p>{decimal(my_bt_earnings, 4) || 0}USDT</p>
                                     {
                                         this.props.loginStore.login ? <p onClick={() => this.setState({modal_show: true})}>查看收益</p> : null    
                                     }
@@ -145,8 +154,8 @@ const BtHome = class BtHome extends Component {
                                             <li key={item.id} className={index % 2 === 0 ? 'bg-gray' : ''}>
                                                 <span>{item.miningDate}</span>
                                                 <span>{item.type === -2 ? '空投收益' : '邀请收益'}</span>
-                                                <span>{item.mining}</span>
-                                                <span>{item.remarks}</span>
+                                                <span>{decimal(item.mining, 4)}</span>
+                                                <span title={item.remarks}>{item.remarks}</span>
                                             </li>
                                         )
                                     })

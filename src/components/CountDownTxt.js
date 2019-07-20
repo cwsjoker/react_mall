@@ -12,7 +12,7 @@ const CountDownTxt = class CountDownTxt extends Component {
             diff_count: this.props.discount
         }, () => {
             this.timerID = setInterval(() => {
-                if (this.state.diff_count === 3177280) {
+                if (this.state.diff_count === 0) {
                     clearInterval(this.timerID);
                     return;
                 }
