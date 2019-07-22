@@ -6,6 +6,7 @@ import Breadcrumbs from '../../components/Breadcrumb.js';
 import { getQueryString } from '../../utils/operLocation.js'
 import { operateScript, unescapeHTML } from '../../utils/operation.js';
 import { setShopCartNum } from '../../store/actionCreators.js';
+import { round } from '../../utils/dealFloat.js';
 
 
 import $home_api from '../../fetch/api/home'
@@ -22,11 +23,14 @@ class GoodsDetail extends Component {
             storeInfo: {}, // 店铺信息
             nimingInfo: {}, // 店铺挖矿信息
             change_price_usdt: 0, //当前价格换算为usdt的估值
+            change_price_cny: 0, //当前价格换算为人命币估值
             niming_show: true, // 挖矿信息弹窗显示
             choose: [], //已选择配置
             buy_number: 1, //购买数量
             Breadcrumb_list: [], //面包屑数据
-            spinning: true
+            spinning: true, // loading
+            mining_profit: 0, // 挖矿利润产出
+            
         }
     }
     async componentDidMount() {
@@ -59,9 +63,9 @@ class GoodsDetail extends Component {
                 }
                 
                 // 商铺详情    挖矿详情
-                const [storeInfo_res, niming_res] = await Promise.all([
+                const [storeInfo_res] = await Promise.all([
                     $home_api.getStoreInfo({'producerId': producerId}),
-                    $home_api.getDayNiming({'producerId': producerId})
+                    // $home_api.getDayNiming({'producerId': producerId})
                 ]);
 
                 if (storeInfo_res) {
@@ -77,11 +81,11 @@ class GoodsDetail extends Component {
                     })
                 }
                 
-                if (niming_res) {
-                    this.setState({
-                        nimingInfo: niming_res.data.data[0]
-                    })
-                }
+                // if (niming_res) {
+                //     this.setState({
+                //         nimingInfo: niming_res.data.data[0]
+                //     })
+                // }
 
                 // 插入客服脚本
                 operateScript(producerId);
@@ -109,16 +113,37 @@ class GoodsDetail extends Component {
                 spinning: false
             })
             const { price, symbol } = priceInfo_res.data.data;
-            this.trnasformUSDT(price, symbol);
+            // this.trnasformUSDT(price, symbol);
+            this.trnasformCNY(price, symbol);
+            this.getMiningProfit(price);
         }
     }
     // 获取币种转未usdt的换算值
     async trnasformUSDT(price, symbol) {
         const usdt_res = await $home_api.getUSDT({coinAmount: price, originalType: symbol});
         if (usdt_res) {
-            // console.log(usdt_res);
             this.setState({
                 change_price_usdt: usdt_res.data.data.targetCoinAmount
+            })
+        }
+    }
+    // 获取币种转未cny的换算值
+    async trnasformCNY(price, symbol) {
+        const res = await $home_api.getUSDT({coinAmount: price, originalType: symbol});
+        if (res) {
+            this.setState({
+                change_price_cny: res.data.data.usdtToCnyRate * price
+            })
+        }
+    }
+    // 计算挖矿利润
+    async getMiningProfit(price) {
+        const res = await $home_api.getUSDT({coinAmount: 1, originalType: "BT"});
+        if (res) {
+            const { targetCoinAmount } = res.data.data;
+            const profit = round((price*0.2/targetCoinAmount)*2, 2);
+            this.setState({
+                mining_profit: profit
             })
         }
     }
@@ -232,17 +257,20 @@ class GoodsDetail extends Component {
         window.qimoChatClick();
     }
     render() {
-        const { nimingInfo, storeInfo, Breadcrumb_list, goodsInfo_price, goodsInfo_goods, goodsInfo_keyList, goodsInfo_goodsInventory, choose, goodsParam, spinning } = this.state;
+        const { storeInfo, Breadcrumb_list, goodsInfo_price, goodsInfo_goods, goodsInfo_keyList, goodsInfo_goodsInventory, choose, goodsParam, spinning, mining_profit, change_price_cny } = this.state;
         let niming_dom = null;
         if (this.state.niming_show) {
             niming_dom = (
                 <div className="bubble-box">
                     <em onClick={this.change_niming.bind(this)}></em>
                     <span className="bot"></span>
-                    <p>1.购买该商品可参与购物即挖矿</p>
+                    {/* <p>1.购买该商品可参与购物即挖矿</p>
                     <p>2.总挖矿量为商品总价，每日可产出1%</p>
-                    <p>2.商品如产生质量问题收货后15日内可更换</p>
-                    <p className="may-niming-coin">今日剩余可挖：{nimingInfo.remaining}{nimingInfo.symbol}</p>
+                    <p>2.商品如产生质量问题收货后15日内可更换</p> */}
+                    {/* <p className="may-niming-coin">今日剩余可挖：{nimingInfo.remaining}{nimingInfo.symbol}</p> */}
+                    <p>1.购买该商品可参与购物即挖矿</p>
+                    <p>2.挖矿量为(商品总价*利润率/BT单价)*2,每日产出1%</p>
+                    <p>3.商品如产生质量问题收货后15日内可更换</p>
                 </div>
             )
         }
@@ -270,12 +298,23 @@ class GoodsDetail extends Component {
                                 <img src={window.BACK_URL + goodsInfo_price.smallImageUrl} alt="" />
                             </div>
                             <div className="goodsMain">
-                                <h2>{goodsInfo_goods.name}</h2>
+                                <h2>
+                                    <div>{goodsInfo_goods.name}</div>
+                                    {/* <div>购买此产品商城利润为: 预计可产出 <span>{`${mining_profit} BT`}</span></div> */}
+                                </h2>
                                 <ul className="cleafix">
                                     <li>
                                         <div className="price">
-                                            <label>价格</label>
-                                            <span><em>{goodsInfo_price.price} {goodsInfo_price.symbol}</em> <i onClick={this.change_niming.bind(this)}></i> ≈ {this.state.change_price_usdt} USDT </span>
+                                            <div className="price-title">
+                                                <div>
+                                                    <label>价格</label>
+                                                    <span><em>{goodsInfo_price.price} {goodsInfo_price.symbol}</em> <i onClick={this.change_niming.bind(this)}></i> ≈ {change_price_cny} CNY </span>
+                                                </div>
+                                                <div>
+                                                    <div>购买此产品商城利润为：<span>{`${goodsInfo_price.price * 0.2} ${goodsInfo_price.symbol}`}</span></div>
+                                                    <div>预计可产出：<span>{`${mining_profit} BT`}</span></div>
+                                                </div>
+                                            </div>
                                             <div className="salesDiv">
                                                 <b>累计销量</b>
                                                 <b>{goodsInfo_price.sales}</b>

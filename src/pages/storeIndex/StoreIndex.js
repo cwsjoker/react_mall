@@ -11,6 +11,7 @@ import $user_api from '../../fetch/api/user'
 import changeUsdt from '../../utils/convertUsdt'
 import { secondToDate } from '../../utils/operation'
 import MaskBox from '../../components/MaskBox.js'
+import { symbolImg } from '../../utils/operation.js';
 
 const StoreIndex = class StoreIndex extends Component {
     constructor() {
@@ -200,11 +201,13 @@ const StoreIndex = class StoreIndex extends Component {
                             <MaskBox show={false} />
                             <div className="store-title-top cleafix">
                                 <div className="store-title-top-img">
-                                    {
-                                        this.state.storeInfo.logoUrl ? (
-                                            <img src={window.BACK_URL + this.state.storeInfo.logoUrl} alt="" />
+                                    {/* {
+                                        this.state.symbol ? (
+                                            // <img src={window.BACK_URL + this.state.storeInfo.logoUrl} alt="" />
+                                            <img src={symbolImg(this.state.symbol.toLowerCase())} alt="" />
                                         ) : null
-                                    }
+                                    } */}
+                                    <img src={symbolImg(this.state.symbol.toLowerCase())} alt="" />
                                 </div>
                                 <div className="store-title-top-info">
                                     {/* <Link to={'/storeHome?id=' +　this.state.storeIndex }>{this.state.storeInfo.name}</Link> */}

@@ -3,7 +3,8 @@ import { Link }  from 'react-router-dom';
 import { getQueryString } from '../../utils/operLocation.js';
 import { message, Modal } from 'antd';
 import $home_api from '../../fetch/api/home';
-import logo_img from '../../assets/images/icon1.png';
+// import logo_img from '../../assets/images/icon1.png';
+import { symbolImg } from '../../utils/operation.js';
 
 const { confirm } = Modal;
 
@@ -145,7 +146,7 @@ const orderDetail = class orderDetail extends Component {
                                                 {
                                                     index === 0 ? (
                                                         <div className="orderDeta">
-                                                            <p><img src={logo_img} alt="" />{item.produceName}</p>
+                                                            <p><img src={symbolImg(coinSymbol.toLowerCase())} alt="" />{item.produceName}</p>
                                                         </div>
                                                     ) : null
                                                 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link }  from 'react-router-dom';
 import $home_api from '../../fetch/api/home.js'
 import CountDown from '../../components/CountDown';
+import { symbolImg } from '../../utils/operation.js';
 
 const Navigation = class Navigation extends Component {
     constructor() {
@@ -48,7 +49,7 @@ const Navigation = class Navigation extends Component {
                                 {
                                     item.open ? (
                                         <Link to={'/storeIndex?id=' + item.producerId} style={{'textDecoration': 'none'}}>
-                                            <h3><img src={item.logo} alt="" /><span>{item.NAME}</span></h3>
+                                            <h3><img src={symbolImg(item.symbol.toLowerCase())} alt="" /><span>{item.NAME}</span></h3>
                                             {/* <div className="progressBarDiv">
                                                 {
                                                     <div className="progress">

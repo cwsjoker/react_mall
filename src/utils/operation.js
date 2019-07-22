@@ -1,3 +1,42 @@
+import btc_img from '../assets/images/symbol/btc.png';
+import eth_img from '../assets/images/symbol/eth.png';
+import bt_img from '../assets/images/symbol/bt.png';
+import ht_img from '../assets/images/symbol/ht.png';
+import gt_img from '../assets/images/symbol/gt.png';
+import usdt_img from '../assets/images/symbol/usdt.png';
+import hat_img from '../assets/images/symbol/hat.png';
+import jt_img from '../assets/images/symbol/jt.png';
+import mt_img from '../assets/images/symbol/mt.png';
+import mtt_img from '../assets/images/symbol/mtt.png';
+
+// 返回币种图片
+export function symbolImg(symbol) {
+    switch(symbol) {
+        case 'btc':
+            return btc_img;
+        case 'eth':
+            return eth_img;
+        case 'bt':
+            return bt_img;
+        case 'ht':
+            return ht_img;
+        case 'gt':
+            return gt_img;
+        case 'usdt':
+            return usdt_img;
+        case 'hat':
+            return hat_img;
+        case 'jt':
+            return jt_img;
+        case 'mt':
+            return mt_img;
+        case 'mtt':
+            return mtt_img;
+        default:
+            return btc_img;
+    }
+}
+
 export function operateScript(producerId) {
     let src = '';
     switch(producerId) {

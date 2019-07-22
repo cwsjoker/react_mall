@@ -326,15 +326,22 @@ body {
 .goods-info .goodsImg { width: 190px; height: 190px; border: 1px solid #f0f0f0; box-sizing: border-box;}
 .goods-info .goodsImg img{ display: block; width: 100%; height: 100%;}
 .goodsMain { padding-top: 9px; width: 948px; position: relative;}
-.goodsMain h2{ line-height: 22px; padding: 2px 0; font-size: 18px; color: #333;}
-.goodsMain ul{ margin-top: 14px; width: 100%; height: auto;}
+.goodsMain h2{ padding: 2px 0; display: flex; justify-content: space-between;}
+.goodsMain h2 >div:nth-child(1) {font-size: 18px; color: #333; line-height: 22px;}
+.goodsMain h2 >div:nth-child(2) {color: #999; font-size: 16px; line-height: 35px;}
+.goodsMain h2 >div:nth-child(2) >span {color: #AE4E54;}
+.goodsMain ul{ width: 100%; height: auto;}
 .goodsMain ul li{ font-size: 14px; padding: 9px 38px 9px 0; width: 910px; height: auto; float: left;}
 .goodsMain ul li:nth-child(1) {padding: 9px 0px 9px 0; width: 100%;}
-.goodsMain ul li .price{ position: relative; overflow: hidden; background: #F4F5FA; padding: 9px 20px;}
-.goodsMain ul li .price label{ padding-left: 0;}
-.goodsMain ul li .price span{ float: left; display: inline-block; height: 32px; line-height: 32px; font-size: 12px;}
-.goodsMain ul li .price span em{ display: inline-block; font-size: 24px; cursor: pointer; color:  #AE4E54;}
-.goodsMain ul li .price span i {display: inline-block; width: 24px; height: 24px; background: url('../images/shovel.png') no-repeat 0 3px; cursor: pointer;}
+.goodsMain ul li .price { position: relative; overflow: hidden; background: #F4F5FA; padding: 0px 20px;}
+.goodsMain ul li .price .price-title {display: flex; justify-content: space-between; width: 800px;}
+.goodsMain ul li .price .price-title >div:nth-child(1) {line-height: 50px;}
+.goodsMain ul li .price .price-title >div:nth-child(2) >div {height: 20px; text-align: right; font-size: 12px; line-height: 25px;}
+.goodsMain ul li .price .price-title >div:nth-child(2) span {color: #AE4E54;}
+.goodsMain ul li .price .price-title label {padding-left: 0px; line-height: 50px;}
+.goodsMain ul li .price .price-title span{ display: inline-block; height: 32px; line-height: 32px; font-size: 12px;}
+.goodsMain ul li .price .price-title span em{ display: inline-block; font-size: 24px; cursor: pointer; color:  #AE4E54;}
+.goodsMain ul li .price .price-title span i {display: inline-block; width: 24px; height: 24px; background: url('../images/shovel.png') no-repeat 0 3px; cursor: pointer;}
 .goodsMain ul li label{ box-sizing: initial; width: 56px;justify-content: space-between; margin-right: 14px; padding-left: 20px; display: block; float: left; height: 32px; line-height: 32px; color: #999;text-align:justify;
   text-justify:distribute-all-lines;/*ie6-8*/
   text-align-last:justify;/* ie9*/
@@ -351,7 +358,7 @@ body {
 .versionDiv span,.payWay span{cursor: pointer; border: 1px solid #f0f0f0; display: block; float: left; height: 30px; padding: 0 14px; line-height: 30px; font-size: 12px; color: #333; margin-right: 10px;}
 .versionDiv span.on,.payWay span.on,.colorDiv span.on{ border: 1px solid #AE4E54;}
 
-.goodsMain .bubble-box {box-sizing: initial; width:280px; padding: 10px 10px 5px 10px; background:  #262A42; position:absolute; top: -35px; left: 235px; border-radius: 5px 5px 5px 0px;}
+.goodsMain .bubble-box {box-sizing: initial; width: 285px; padding: 10px 10px 8px 10px; background:  #262A42; position:absolute; top: -28px; left: 245px; border-radius: 5px 5px 5px 0px;}
 .goodsMain .bubble-box span{width:0; height:0; font-size:0; overflow:hidden; position:absolute;}
 .goodsMain .bubble-box span.bot{
     border-width: 5px; 

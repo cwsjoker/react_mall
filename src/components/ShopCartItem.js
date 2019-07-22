@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link }  from 'react-router-dom';
-import logo_img from '../assets/images/icon1.png';
+// import logo_img from '../assets/images/icon1.png';
+import { symbolImg } from '../utils/operation.js';
 
 export default class ShopCartItem extends Component {
     render()  {
@@ -27,7 +28,7 @@ export default class ShopCartItem extends Component {
                         <label className={ is_choose ? 'on' : '' }><input type="checkbox" onClick={checkAll} /></label>
                     </div>
                     <div>
-                        <p><img src={logo_img} alt="" /><Link to={'/storeIndex?id=' + producerId}>{storeName}</Link><span>自营</span></p>
+                        <p><img src={symbolImg(symbol.toLowerCase())} alt="" /><Link to={'/storeIndex?id=' + producerId}>{storeName}</Link><span>自营</span></p>
                     </div>
                 </div>
                 {

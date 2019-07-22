@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link }  from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import { message, Modal } from 'antd';
 import { setShopCartNum } from '../../store/actionCreators.js';
-import ShopCartItem from '../../components/ShopCartItem.js'
-import $home_api from '../../fetch/api/home'
+import ShopCartItem from '../../components/ShopCartItem.js';
+import $home_api from '../../fetch/api/home';
 
 const { confirm } = Modal;
 
