@@ -6,8 +6,9 @@ import $home_api from '../../fetch/api/home';
 import $user_api from '../../fetch/api/user';
 import Cookie from 'js-cookie';
 import { getQueryString } from '../../utils/operLocation.js';
-import '../../assets/style/bthome.scss';
 import { decimal } from '../../utils/dealFloat.js';
+
+import '../../assets/style/bthome.scss';
 
 const BtHome = class BtHome extends Component {
     constructor() {
@@ -20,7 +21,9 @@ const BtHome = class BtHome extends Component {
             my_bt_blance: 0,
             my_bt_earnings: 0,
             modal_show: false,
-            profit_list: []
+            profit_list: [],
+            active_down_diff_count: 0, //活动开始倒计时
+            active_show: false, // 活动开始
         }
     }
     async componentDidMount() {
@@ -39,6 +42,34 @@ const BtHome = class BtHome extends Component {
             }
         }
 
+        const time_res = await $home_api.getShopOpenTime();
+        if (time_res) {
+            const start_time = (Number(new Date(time_res.data.data.openTime)) - Number(new Date(time_res.data.data.systemDate))) / 1000;
+            // console.log(start_time);
+            if (start_time > 0) {
+                this.setState({
+                    active_down_diff_count: start_time
+                }, () => {
+                    this.active_down_timerID = setInterval(() => {
+                        if (this.state.active_down_diff_count === 0) {
+                            clearInterval(this.active_down_timerID);
+                            // 倒计时完成, 关闭弹窗刷新页面状态
+                            this.setState({
+                                active_show: true
+                            })
+                            return;
+                        }
+                        this.setState((prevState) => ({
+                            active_down_diff_count: prevState.active_down_diff_count - 1
+                        }))
+                    }, 1000)
+                })
+            } else {
+                this.setState({
+                    active_show: true
+                })
+            }
+        }
 
         const sale_res = await $home_api.selectsale({producerId: 2});
         if (sale_res) {
@@ -69,7 +100,7 @@ const BtHome = class BtHome extends Component {
         }
     }
     render() {
-        const { businessToday, distributableProfit, turnover, estimateEachProfit, my_bt_blance, my_bt_earnings, modal_show, profit_list } = this.state;
+        const { businessToday, distributableProfit, turnover, estimateEachProfit, my_bt_blance, my_bt_earnings, modal_show, profit_list, active_down_diff_count, active_show } = this.state;
         return (
             <div className="bthome-page">
                 <div className="bthome-banner">
@@ -80,11 +111,31 @@ const BtHome = class BtHome extends Component {
                             <p>{businessToday || 0}</p>
                         </div>
                         <div className="tip"></div>
-                        <div className="day-distribution">
-                            <p>今日可分配利润（USDT）</p>
-                            <p>{distributableProfit || 0}</p>
-                        </div>
-                        <Link className="goto-home-btn" to={'/storeIndex?id=2'}>进入商城</Link>
+                        {
+                            active_show ? (
+                                <div>
+                                    <div className="day-distribution">
+                                        <p>今日可分配利润（USDT）</p>
+                                        <p>{distributableProfit || 0}</p>
+                                    </div>
+                                    <Link className="goto-home-btn" to={'/storeIndex?id=2'}>进入商城</Link>
+                                </div>
+                            ) : (
+                                <div>
+                                    <div className="down-text">商城开放倒计时</div>
+                                    <div className="down-modal-box">
+                                        <div><span>{Math.floor(active_down_diff_count / 3600 / 24 % 24 ) < 10 ? '0' + Math.floor(active_down_diff_count / 3600 / 24 % 24) : Math.floor(active_down_diff_count / 3600 / 24 % 24)}</span></div>
+                                        <span style={{margin: '0 4px'}}>天</span>
+                                        <div><span>{Math.floor(active_down_diff_count / 3600 % 24) < 10 ? '0' + Math.floor(active_down_diff_count / 3600 % 24) : Math.floor(active_down_diff_count / 3600 % 24)}</span></div>
+                                        <span style={{margin: '0 4px'}}>时</span>
+                                        <div><span>{Math.floor((active_down_diff_count / 60 % 60)) < 10 ? '0' + Math.floor((active_down_diff_count / 60 % 60)) : Math.floor((active_down_diff_count / 60 % 60))}</span></div>
+                                        <span style={{margin: '0 4px'}}>分</span>
+                                        <div><span>{Math.floor((active_down_diff_count % 60)) < 10 ? '0' + Math.floor((active_down_diff_count % 60)) : Math.floor((active_down_diff_count % 60))}</span></div>
+                                        <span style={{margin: '0 4px'}}>秒</span>
+                                    </div>
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
                 <div className="bthome-main-box">

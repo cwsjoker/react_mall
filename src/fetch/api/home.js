@@ -128,4 +128,9 @@ export default class home {
     static selectsale(data) {
         return Fetch.get('/mall/backend/user/selectSale', data);
     }
+
+    // 获取商城开放倒计时
+    static getShopOpenTime() {
+        return Fetch.get('mall/backend/homepage/getShoppingMallOpenTime');
+    }
 }
