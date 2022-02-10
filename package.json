@@ -9,7 +9,7 @@
     "html2canvas": "^1.0.0-rc.3",
     "js-cookie": "^2.2.0",
     "js-md5": "^0.7.3",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "qrcodejs2": "0.0.2",
     "qs": "^6.6.0",
     "react": "^16.7.0",
